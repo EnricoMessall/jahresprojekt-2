@@ -23,9 +23,6 @@ dependencies {
 
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.16'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version:  '1.18.16'
-
     //Test Implementations
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
@@ -39,4 +36,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = "de.enrico.schule.Start"
+mainClassName = "de.hhbk.jahresprojekt.Bootstrap"
