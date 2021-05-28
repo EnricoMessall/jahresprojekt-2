@@ -2,6 +2,8 @@ package de.hhbk.jahresprojekt.model.builder;
 
 import de.hhbk.jahresprojekt.model.Document;
 import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.model.RentalObject;
+import de.hhbk.jahresprojekt.model.Tenant;
 
 import java.util.List;
 
@@ -9,6 +11,8 @@ public final class DocumentBuilder {
     private int id;
     private String fileName;
     private List<File> versionList;
+    private List<RentalObject> relatedRentalObjects;
+    private List<Tenant> relatedTenants;
 
     private DocumentBuilder() {
     }
@@ -32,7 +36,17 @@ public final class DocumentBuilder {
         return this;
     }
 
+    public DocumentBuilder withRelatedRentalObjects(List<RentalObject> relatedRentalObjects) {
+        this.relatedRentalObjects = relatedRentalObjects;
+        return this;
+    }
+
+    public DocumentBuilder withRelatedTenants(List<Tenant> relatedTenants) {
+        this.relatedTenants = relatedTenants;
+        return this;
+    }
+
     public Document build() {
-        return new Document(id, fileName, versionList);
+        return new Document(id, fileName, versionList, relatedRentalObjects, relatedTenants);
     }
 }
