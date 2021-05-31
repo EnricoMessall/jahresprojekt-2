@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 public class RentalObject {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String objectNumber;
     private String objectDescription;

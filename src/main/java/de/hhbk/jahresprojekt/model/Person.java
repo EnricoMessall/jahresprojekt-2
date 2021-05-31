@@ -1,16 +1,16 @@
 package de.hhbk.jahresprojekt.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * @author Frederik Hafemann
  * @author Enrico Messall
  */
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Person {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String title;
     private String firstName;
