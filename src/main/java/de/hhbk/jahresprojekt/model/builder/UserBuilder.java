@@ -1,18 +1,22 @@
 package de.hhbk.jahresprojekt.model.builder;
 
-import de.hhbk.jahresprojekt.model.Adress;
+import de.hhbk.jahresprojekt.model.Address;
 import de.hhbk.jahresprojekt.model.Role;
 import de.hhbk.jahresprojekt.model.User;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class UserBuilder {
-    private int id;
+    private Long id;
     private String title;
     private String firstName;
     private String lastName;
     private String phoneNumberMobile;
     private String phoneNumberLandline;
     private String email;
-    private Adress adress;
+    private Address address;
     private String username;
     private String password;
     private Role role;
@@ -24,7 +28,7 @@ public final class UserBuilder {
         return new UserBuilder();
     }
 
-    public UserBuilder withId(int id) {
+    public UserBuilder withId(Long id) {
         this.id = id;
         return this;
     }
@@ -59,8 +63,8 @@ public final class UserBuilder {
         return this;
     }
 
-    public UserBuilder withAdress(Adress adress) {
-        this.adress = adress;
+    public UserBuilder withAdress(Address address) {
+        this.address = address;
         return this;
     }
 
@@ -80,6 +84,6 @@ public final class UserBuilder {
     }
 
     public User build() {
-        return new User(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, adress, username, password, role);
+        return new User(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address, username, password, role);
     }
 }

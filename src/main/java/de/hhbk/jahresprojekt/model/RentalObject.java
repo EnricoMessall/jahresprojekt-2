@@ -1,33 +1,47 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
 public class RentalObject {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     private String objectNumber;
     private String objectDescription;
     private RentalType rentalType;
     private boolean commercial;
-    private Adress adress;
+    @OneToOne
+    private Address address;
     private int livingSpace;
     private int squareMeterPrice;
     private int additionalCosts;
     private String notes;
+    @OneToMany
     private List<RentalObject> subObjects;
+    @ManyToOne
     private Tenant tenant;
+    @ManyToMany
     private List<Tenant> contacts;
+    @OneToMany
     private List<Invoice> invoices;
+    @ManyToMany
     private List<Document> documents;
 
     public RentalObject(){}
 
-    public RentalObject(int id, String objectNumber, String objectDescription, RentalType rentalType, boolean commercial, Adress adress, int livingSpace, int squareMeterPrice, int additionalCosts, String notes, List<RentalObject> subObjects, Tenant tenant, List<Tenant> contacts, List<Invoice> invoices, List<Document> documents) {
+    public RentalObject(Long id, String objectNumber, String objectDescription, RentalType rentalType, boolean commercial, Address address, int livingSpace, int squareMeterPrice, int additionalCosts, String notes, List<RentalObject> subObjects, Tenant tenant, List<Tenant> contacts, List<Invoice> invoices, List<Document> documents) {
         this.id = id;
         this.objectNumber = objectNumber;
         this.objectDescription = objectDescription;
         this.rentalType = rentalType;
         this.commercial = commercial;
-        this.adress = adress;
+        this.address = address;
         this.livingSpace = livingSpace;
         this.squareMeterPrice = squareMeterPrice;
         this.additionalCosts = additionalCosts;
@@ -39,7 +53,7 @@ public class RentalObject {
         this.documents = documents;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -75,12 +89,12 @@ public class RentalObject {
         this.commercial = commercial;
     }
 
-    public Adress getAdress() {
-        return adress;
+    public Address getAdress() {
+        return address;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
+    public void setAdress(Address address) {
+        this.address = address;
     }
 
     public int getLivingSpace() {

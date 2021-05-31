@@ -1,15 +1,21 @@
 package de.hhbk.jahresprojekt.model.builder;
 
+import de.hhbk.jahresprojekt.model.Address;
 import de.hhbk.jahresprojekt.model.Person;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class PersonBuilder {
-    private int id;
+    private Long id;
     private String title;
     private String firstName;
     private String lastName;
     private String phoneNumberMobile;
     private String phoneNumberLandline;
     private String email;
+    private Address address;
 
     private PersonBuilder() {
     }
@@ -18,7 +24,7 @@ public final class PersonBuilder {
         return new PersonBuilder();
     }
 
-    public PersonBuilder withId(int id) {
+    public PersonBuilder withId(Long id) {
         this.id = id;
         return this;
     }
@@ -53,7 +59,12 @@ public final class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withAdress(Address address) {
+        this.address = address;
+        return this;
+    }
+
     public Person build() {
-        return new Person(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email);
+        return new Person(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address);
     }
 }

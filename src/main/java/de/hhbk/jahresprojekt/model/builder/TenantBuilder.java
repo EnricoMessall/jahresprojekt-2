@@ -5,8 +5,12 @@ import de.hhbk.jahresprojekt.model.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class TenantBuilder {
-    private int id;
+    private Long id;
     private String title;
     private String firstName;
     private String lastName;
@@ -15,11 +19,12 @@ public final class TenantBuilder {
     private String email;
     private Date tenancyStart;
     private Date getTenancyEnd;
-    private Adress oldAdress;
+    private Address oldAddress;
     private BankAccount bankAccount;
     private List<RentalObject> rentalObjects;
     private List<Document> documents;
     private boolean contactOnly;
+    private Address address;
 
     private TenantBuilder() {
     }
@@ -28,7 +33,7 @@ public final class TenantBuilder {
         return new TenantBuilder();
     }
 
-    public TenantBuilder withId(int id) {
+    public TenantBuilder withId(Long id) {
         this.id = id;
         return this;
     }
@@ -63,6 +68,11 @@ public final class TenantBuilder {
         return this;
     }
 
+    public TenantBuilder withAdress(Address address) {
+        this.address = address;
+        return this;
+    }
+
     public TenantBuilder withTenancyStart(Date tenancyStart) {
         this.tenancyStart = tenancyStart;
         return this;
@@ -73,8 +83,8 @@ public final class TenantBuilder {
         return this;
     }
 
-    public TenantBuilder withOldAdress(Adress oldAdress) {
-        this.oldAdress = oldAdress;
+    public TenantBuilder withOldAdress(Address oldAddress) {
+        this.oldAddress = oldAddress;
         return this;
     }
 
@@ -99,6 +109,6 @@ public final class TenantBuilder {
     }
 
     public Tenant build() {
-        return new Tenant(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, tenancyStart, getTenancyEnd, oldAdress, bankAccount, rentalObjects, documents, contactOnly);
+        return new Tenant(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address, tenancyStart, getTenancyEnd, oldAddress, bankAccount, rentalObjects, documents, contactOnly);
     }
 }

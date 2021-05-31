@@ -6,6 +6,10 @@ import de.hhbk.jahresprojekt.model.Tenant;
 
 import java.util.Date;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class PaymentReceivedBuilder {
     private int id;
     private Date date;

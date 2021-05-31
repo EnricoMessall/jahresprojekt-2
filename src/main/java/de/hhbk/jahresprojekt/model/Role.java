@@ -1,22 +1,31 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
 public class Role {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     private RoleType roleType;
+    @OneToMany
     private List<User> userList;
 
     public Role() {
     }
 
-    public Role(int id, RoleType roleType, List<User> userList) {
+    public Role(Long id, RoleType roleType, List<User> userList) {
         this.id = id;
         this.roleType = roleType;
         this.userList = userList;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

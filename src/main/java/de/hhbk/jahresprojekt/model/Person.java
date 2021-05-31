@@ -1,18 +1,30 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.*;
+
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Person {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     private String title;
     private String firstName;
     private String lastName;
     private String phoneNumberMobile;
     private String phoneNumberLandline;
     private String email;
+    @ManyToOne
+    private Address address;
 
     public Person() {
     }
 
-    public Person(int id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email) {
+    public Person(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Address address) {
         this.id = id;
         this.title = title;
         this.firstName = firstName;
@@ -20,9 +32,10 @@ public class Person {
         this.phoneNumberMobile = phoneNumberMobile;
         this.phoneNumberLandline = phoneNumberLandline;
         this.email = email;
+        this.address = address;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

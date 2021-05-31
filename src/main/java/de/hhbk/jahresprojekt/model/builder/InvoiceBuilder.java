@@ -7,11 +7,16 @@ import de.hhbk.jahresprojekt.model.Person;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class InvoiceBuilder {
-    private int id;
+    private Long id;
     private Person recipient;
     private Date date;
     private List<Item> itemList;
+    private boolean settled = false;
 
     private InvoiceBuilder() {
     }
@@ -20,7 +25,7 @@ public final class InvoiceBuilder {
         return new InvoiceBuilder();
     }
 
-    public InvoiceBuilder withId(int id) {
+    public InvoiceBuilder withId(Long id) {
         this.id = id;
         return this;
     }
@@ -40,7 +45,12 @@ public final class InvoiceBuilder {
         return this;
     }
 
+    public InvoiceBuilder settled(){
+        this.settled = true;
+        return this;
+    }
+
     public Invoice build() {
-        return new Invoice(id, recipient, date, itemList);
+        return new Invoice(id, recipient, date, itemList, settled);
     }
 }

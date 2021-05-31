@@ -1,7 +1,19 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
 public class BankAccount {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     private String iban;
     private String bic;
     private String accountOwner;
@@ -10,7 +22,7 @@ public class BankAccount {
     public BankAccount() {
     }
 
-    public BankAccount(int id, String iban, String bic, String accountOwner, String creditInstitution) {
+    public BankAccount(Long id, String iban, String bic, String accountOwner, String creditInstitution) {
         this.id = id;
         this.iban = iban;
         this.bic = bic;
@@ -18,7 +30,7 @@ public class BankAccount {
         this.creditInstitution = creditInstitution;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

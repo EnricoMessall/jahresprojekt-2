@@ -1,28 +1,27 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
 public class User extends Person{
-    private Adress adress;
     private String username;
     private String password;
+    @ManyToOne
     private Role role;
 
     public User() {
     }
 
-    public User(int id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Adress adress, String username, String password, Role role) {
-        super(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email);
-        this.adress = adress;
+    public User(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Address address, String username, String password, Role role) {
+        super(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address);
         this.username = username;
         this.password = password;
         this.role = role;
-    }
-
-    public Adress getAdress() {
-        return adress;
-    }
-
-    public void setAdress(Adress adress) {
-        this.adress = adress;
     }
 
     public String getUsername() {

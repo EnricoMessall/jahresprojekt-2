@@ -1,9 +1,13 @@
 package de.hhbk.jahresprojekt.model.builder;
 
-import de.hhbk.jahresprojekt.model.Adress;
+import de.hhbk.jahresprojekt.model.Address;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class AdressBuilder {
-    private int id;
+    private Long id;
     private String street;
     private String zipCode;
     private String city;
@@ -16,7 +20,7 @@ public final class AdressBuilder {
         return new AdressBuilder();
     }
 
-    public AdressBuilder withId(int id) {
+    public AdressBuilder withId(Long id) {
         this.id = id;
         return this;
     }
@@ -41,7 +45,7 @@ public final class AdressBuilder {
         return this;
     }
 
-    public Adress build() {
-        return new Adress(id, street, zipCode, city, country);
+    public Address build() {
+        return new Address(id, street, zipCode, city, country);
     }
 }

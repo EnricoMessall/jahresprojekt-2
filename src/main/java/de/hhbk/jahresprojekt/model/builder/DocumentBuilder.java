@@ -7,8 +7,12 @@ import de.hhbk.jahresprojekt.model.Tenant;
 
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class DocumentBuilder {
-    private int id;
+    private Long id;
     private String fileName;
     private List<File> versionList;
     private List<RentalObject> relatedRentalObjects;
@@ -21,7 +25,7 @@ public final class DocumentBuilder {
         return new DocumentBuilder();
     }
 
-    public DocumentBuilder withId(int id) {
+    public DocumentBuilder withId(Long id) {
         this.id = id;
         return this;
     }

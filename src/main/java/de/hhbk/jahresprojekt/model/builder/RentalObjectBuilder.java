@@ -4,13 +4,17 @@ import de.hhbk.jahresprojekt.model.*;
 
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class RentalObjectBuilder {
-    private int id;
+    private Long id;
     private String objectNumber;
     private String objectDescription;
     private RentalType rentalType;
     private boolean commercial;
-    private Adress adress;
+    private Address address;
     private int livingSpace;
     private int squareMeterPrice;
     private int additionalCosts;
@@ -28,7 +32,7 @@ public final class RentalObjectBuilder {
         return new RentalObjectBuilder();
     }
 
-    public RentalObjectBuilder withId(int id) {
+    public RentalObjectBuilder withId(Long id) {
         this.id = id;
         return this;
     }
@@ -53,8 +57,8 @@ public final class RentalObjectBuilder {
         return this;
     }
 
-    public RentalObjectBuilder withAdress(Adress adress) {
-        this.adress = adress;
+    public RentalObjectBuilder withAdress(Address address) {
+        this.address = address;
         return this;
     }
 
@@ -104,6 +108,6 @@ public final class RentalObjectBuilder {
     }
 
     public RentalObject build() {
-        return new RentalObject(id, objectNumber, objectDescription, rentalType, commercial, adress, livingSpace, squareMeterPrice, additionalCosts, notes, subObjects, tenant, contacts, invoices, documents);
+        return new RentalObject(id, objectNumber, objectDescription, rentalType, commercial, address, livingSpace, squareMeterPrice, additionalCosts, notes, subObjects, tenant, contacts, invoices, documents);
     }
 }

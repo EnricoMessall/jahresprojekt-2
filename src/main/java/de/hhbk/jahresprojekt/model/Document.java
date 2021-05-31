@@ -1,18 +1,29 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
 public class Document {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     private String fileName;
+    @OneToMany
     private List<File> versionList;
+    @ManyToMany
     private List<RentalObject> relatedRentalObjects;
+    @ManyToMany
     private List<Tenant> relatedTenants;
 
     public Document() {
     }
 
-    public Document(int id, String fileName, List<File> versionList, List<RentalObject> relatedRentalObjects, List<Tenant> relatedTenants) {
+    public Document(Long id, String fileName, List<File> versionList, List<RentalObject> relatedRentalObjects, List<Tenant> relatedTenants) {
         this.id = id;
         this.fileName = fileName;
         this.versionList = versionList;
@@ -20,7 +31,7 @@ public class Document {
         this.relatedTenants = relatedTenants;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

@@ -1,20 +1,32 @@
 package de.hhbk.jahresprojekt.model;
-//Betrag, Kategorie
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
 public class Item {
-    private int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     private int value;
     private String comment;
 
     public Item() {
     }
 
-    public Item(int id, int value, String comment) {
+    public Item(Long id, int value, String comment) {
         this.id = id;
         this.value = value;
         this.comment = comment;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

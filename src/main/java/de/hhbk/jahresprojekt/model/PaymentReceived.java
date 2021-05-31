@@ -1,15 +1,22 @@
 package de.hhbk.jahresprojekt.model;
 
-import de.hhbk.jahresprojekt.model.RentalObject;
-import de.hhbk.jahresprojekt.model.Tenant;
-
+import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
+@Entity
 public class PaymentReceived {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private Date date;
+    @ManyToOne
     private RentalObject rentalObject;
     private int amount;
+    @ManyToOne
     private Tenant tenant;
 
 
