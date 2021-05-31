@@ -7,7 +7,7 @@ import de.hhbk.jahresprojekt.model.RentalType;
 import java.util.List;
 
 public final class RentalObjectBuilder {
-    private int id;
+    private Long id;
     private String objectNumber;
     private String objectDescription;
     private RentalType rentalType;
@@ -26,7 +26,7 @@ public final class RentalObjectBuilder {
         return new RentalObjectBuilder();
     }
 
-    public RentalObjectBuilder withId(int id) {
+    public RentalObjectBuilder withId(Long id) {
         this.id = id;
         return this;
     }

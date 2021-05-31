@@ -1,20 +1,20 @@
 package de.hhbk.jahresprojekt.model;
 //Betrag, Kategorie
 public class Item {
-    private int id;
+    private Long id;
     private int value;
     private String comment;
 
     public Item() {
     }
 
-    public Item(int id, int value, String comment) {
+    public Item(Long id, int value, String comment) {
         this.id = id;
         this.value = value;
         this.comment = comment;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

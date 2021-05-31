@@ -3,7 +3,7 @@ package de.hhbk.jahresprojekt.model.builder;
 import de.hhbk.jahresprojekt.model.Adress;
 
 public final class AdressBuilder {
-    private int id;
+    private Long id;
     private String street;
     private String zipCode;
     private String city;
@@ -16,7 +16,7 @@ public final class AdressBuilder {
         return new AdressBuilder();
     }
 
-    public AdressBuilder withId(int id) {
+    public AdressBuilder withId(Long id) {
         this.id = id;
         return this;
     }

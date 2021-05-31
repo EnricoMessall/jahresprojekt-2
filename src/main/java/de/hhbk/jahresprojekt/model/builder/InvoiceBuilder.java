@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public final class InvoiceBuilder {
-    private int id;
+    private Long id;
     private Person recipient;
     private Date date;
     private List<Item> itemList;
@@ -20,7 +20,7 @@ public final class InvoiceBuilder {
         return new InvoiceBuilder();
     }
 
-    public InvoiceBuilder withId(int id) {
+    public InvoiceBuilder withId(Long id) {
         this.id = id;
         return this;
     }

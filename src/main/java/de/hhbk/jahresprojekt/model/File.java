@@ -3,20 +3,20 @@ package de.hhbk.jahresprojekt.model;
 import java.util.Date;
 
 public class File {
-    private int id;
+    private Long id;
     private String path;
     private Date date;
 
     public File() {
     }
 
-    public File(int id, String path, Date date) {
+    public File(Long id, String path, Date date) {
         this.id = id;
         this.path = path;
         this.date = date;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

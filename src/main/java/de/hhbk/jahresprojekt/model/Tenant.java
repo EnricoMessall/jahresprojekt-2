@@ -13,7 +13,7 @@ public class Tenant extends Person{
     public Tenant() {
     }
 
-    public Tenant(int id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Date tenancyStart, Date getTenancyEnd, Adress oldAdress, BankAccount bankAccount, List<RentalObject> rentalObjects) {
+    public Tenant(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Date tenancyStart, Date getTenancyEnd, Adress oldAdress, BankAccount bankAccount, List<RentalObject> rentalObjects) {
         super(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email);
         this.tenancyStart = tenancyStart;
         this.getTenancyEnd = getTenancyEnd;

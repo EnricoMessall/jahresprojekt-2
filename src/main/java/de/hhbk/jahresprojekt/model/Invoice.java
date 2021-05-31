@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Invoice {
-    private int id;
+    private Long id;
     private Person recipient;
     private Date date;
     private List<Item> itemList;
@@ -12,14 +12,14 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(int id, Person recipient, Date date, List<Item> itemList) {
+    public Invoice(Long id, Person recipient, Date date, List<Item> itemList) {
         this.id = id;
         this.recipient = recipient;
         this.date = date;
         this.itemList = itemList;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

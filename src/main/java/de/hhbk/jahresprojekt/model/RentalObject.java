@@ -3,7 +3,7 @@ package de.hhbk.jahresprojekt.model;
 import java.util.List;
 
 public class RentalObject {
-    private int id;
+    private Long id;
     private String objectNumber;
     private String objectDescription;
     private RentalType rentalType;
@@ -17,7 +17,7 @@ public class RentalObject {
 
     public RentalObject(){}
 
-    public RentalObject(int id, String objectNumber, String objectDescription, RentalType rentalType, boolean commercial, Adress adress, int livingSpace, int squareMeterPrice, int additionalCosts, String notes, List<RentalObject> subObjects) {
+    public RentalObject(Long id, String objectNumber, String objectDescription, RentalType rentalType, boolean commercial, Adress adress, int livingSpace, int squareMeterPrice, int additionalCosts, String notes, List<RentalObject> subObjects) {
         this.id = id;
         this.objectNumber = objectNumber;
         this.objectDescription = objectDescription;
@@ -31,7 +31,7 @@ public class RentalObject {
         this.subObjects = subObjects;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

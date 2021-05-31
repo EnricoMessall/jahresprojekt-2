@@ -7,7 +7,7 @@ import de.hhbk.jahresprojekt.model.User;
 import java.util.List;
 
 public final class RoleBuilder {
-    private int id;
+    private Long id;
     private RoleType roleType;
     private List<User> userList;
 
@@ -18,7 +18,7 @@ public final class RoleBuilder {
         return new RoleBuilder();
     }
 
-    public RoleBuilder withId(int id) {
+    public RoleBuilder withId(Long id) {
         this.id = id;
         return this;
     }

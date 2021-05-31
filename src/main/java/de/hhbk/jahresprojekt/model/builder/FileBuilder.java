@@ -5,7 +5,7 @@ import de.hhbk.jahresprojekt.model.File;
 import java.util.Date;
 
 public final class FileBuilder {
-    private int id;
+    private Long id;
     private String path;
     private Date date;
 
@@ -16,7 +16,7 @@ public final class FileBuilder {
         return new FileBuilder();
     }
 
-    public FileBuilder withId(int id) {
+    public FileBuilder withId(Long id) {
         this.id = id;
         return this;
     }

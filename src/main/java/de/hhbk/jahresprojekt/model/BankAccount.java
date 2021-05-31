@@ -1,7 +1,7 @@
 package de.hhbk.jahresprojekt.model;
 
 public class BankAccount {
-    private int id;
+    private Long id;
     private String iban;
     private String bic;
     private String accountOwner;
@@ -10,7 +10,7 @@ public class BankAccount {
     public BankAccount() {
     }
 
-    public BankAccount(int id, String iban, String bic, String accountOwner, String creditInstitution) {
+    public BankAccount(Long id, String iban, String bic, String accountOwner, String creditInstitution) {
         this.id = id;
         this.iban = iban;
         this.bic = bic;
@@ -18,7 +18,7 @@ public class BankAccount {
         this.creditInstitution = creditInstitution;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

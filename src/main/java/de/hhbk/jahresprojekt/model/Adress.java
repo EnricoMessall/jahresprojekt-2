@@ -1,7 +1,12 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Adress {
-    private int id;
+    @Id
+    private Long id;
     private String street;
     private String zipCode;
     private String city;
@@ -10,7 +15,7 @@ public class Adress {
     public Adress() {
     }
 
-    public Adress(int id, String street, String zipCode, String city, String country) {
+    public Adress(Long id, String street, String zipCode, String city, String country) {
         this.id = id;
         this.street = street;
         this.zipCode = zipCode;
@@ -18,7 +23,7 @@ public class Adress {
         this.country = country;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

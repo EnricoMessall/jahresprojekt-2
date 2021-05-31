@@ -1,7 +1,7 @@
 package de.hhbk.jahresprojekt.model;
 
 public class Person {
-    private int id;
+    private Long id;
     private String title;
     private String firstName;
     private String lastName;
@@ -12,7 +12,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(int id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email) {
+    public Person(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email) {
         this.id = id;
         this.title = title;
         this.firstName = firstName;
@@ -22,7 +22,7 @@ public class Person {
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

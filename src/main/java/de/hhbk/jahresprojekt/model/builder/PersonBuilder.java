@@ -3,7 +3,7 @@ package de.hhbk.jahresprojekt.model.builder;
 import de.hhbk.jahresprojekt.model.Person;
 
 public final class PersonBuilder {
-    private int id;
+    private Long id;
     private String title;
     private String firstName;
     private String lastName;
@@ -18,7 +18,7 @@ public final class PersonBuilder {
         return new PersonBuilder();
     }
 
-    public PersonBuilder withId(int id) {
+    public PersonBuilder withId(Long id) {
         this.id = id;
         return this;
     }

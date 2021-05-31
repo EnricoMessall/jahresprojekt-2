@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public final class TenantBuilder {
-    private int id;
+    private Long id;
     private String title;
     private String firstName;
     private String lastName;
@@ -29,7 +29,7 @@ public final class TenantBuilder {
         return new TenantBuilder();
     }
 
-    public TenantBuilder withId(int id) {
+    public TenantBuilder withId(Long id) {
         this.id = id;
         return this;
     }

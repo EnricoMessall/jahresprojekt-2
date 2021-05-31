@@ -3,7 +3,7 @@ package de.hhbk.jahresprojekt.model.builder;
 import de.hhbk.jahresprojekt.model.Item;
 
 public final class ItemBuilder {
-    private int id;
+    private Long id;
     private int value;
     private String comment;
 
@@ -14,7 +14,7 @@ public final class ItemBuilder {
         return new ItemBuilder();
     }
 
-    public ItemBuilder withId(int id) {
+    public ItemBuilder withId(Long id) {
         this.id = id;
         return this;
     }
