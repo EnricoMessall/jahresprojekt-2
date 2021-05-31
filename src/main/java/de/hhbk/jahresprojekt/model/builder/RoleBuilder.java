@@ -6,6 +6,10 @@ import de.hhbk.jahresprojekt.model.User;
 
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class RoleBuilder {
     private Long id;
     private RoleType roleType;

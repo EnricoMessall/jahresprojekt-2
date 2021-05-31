@@ -2,6 +2,10 @@ package de.hhbk.jahresprojekt.model.builder;
 
 import de.hhbk.jahresprojekt.model.BankAccount;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class BankAccountBuilder {
     private Long id;
     private String iban;

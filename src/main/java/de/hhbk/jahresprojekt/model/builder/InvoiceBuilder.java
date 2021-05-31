@@ -7,6 +7,10 @@ import de.hhbk.jahresprojekt.model.Person;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class InvoiceBuilder {
     private Long id;
     private Person recipient;

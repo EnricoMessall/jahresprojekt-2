@@ -3,6 +3,10 @@ package de.hhbk.jahresprojekt.model.builder;
 import de.hhbk.jahresprojekt.model.Address;
 import de.hhbk.jahresprojekt.model.Person;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class PersonBuilder {
     private Long id;
     private String title;

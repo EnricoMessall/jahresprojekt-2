@@ -1,13 +1,14 @@
 package de.hhbk.jahresprojekt.model;
 
-import de.hhbk.jahresprojekt.model.RentalObject;
-import de.hhbk.jahresprojekt.model.Tenant;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 @Entity
 public class PaymentReceived {
     @Id

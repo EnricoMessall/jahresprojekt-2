@@ -2,6 +2,10 @@ package de.hhbk.jahresprojekt.model.builder;
 
 import de.hhbk.jahresprojekt.model.Item;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class ItemBuilder {
     private Long id;
     private int value;

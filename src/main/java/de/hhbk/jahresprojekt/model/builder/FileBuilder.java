@@ -4,6 +4,10 @@ import de.hhbk.jahresprojekt.model.File;
 
 import java.util.Date;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class FileBuilder {
     private Long id;
     private String path;

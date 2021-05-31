@@ -5,6 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 @Entity
 public class Role {
     @Id

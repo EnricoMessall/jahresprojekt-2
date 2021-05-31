@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 @Entity
 public class File {
     @Id

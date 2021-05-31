@@ -3,6 +3,10 @@ package de.hhbk.jahresprojekt.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 @Entity
 public class BankAccount {
     @Id

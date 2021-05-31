@@ -2,6 +2,10 @@ package de.hhbk.jahresprojekt.model.builder;
 
 import de.hhbk.jahresprojekt.model.Address;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class AdressBuilder {
     private Long id;
     private String street;

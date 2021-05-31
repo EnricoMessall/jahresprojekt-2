@@ -4,6 +4,10 @@ import de.hhbk.jahresprojekt.model.Address;
 import de.hhbk.jahresprojekt.model.Role;
 import de.hhbk.jahresprojekt.model.User;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class UserBuilder {
     private Long id;
     private String title;

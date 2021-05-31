@@ -6,6 +6,9 @@ import de.hhbk.jahresprojekt.model.RentalObject;
 
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ */
 public interface InvoiceHandler {
     Invoice createInvoice(RentalObject rentalObject, List<Item> itemList);
     void settleInvoice(Invoice invoice);

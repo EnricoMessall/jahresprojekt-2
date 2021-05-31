@@ -4,6 +4,10 @@ import de.hhbk.jahresprojekt.model.*;
 
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class RentalObjectBuilder {
     private Long id;
     private String objectNumber;

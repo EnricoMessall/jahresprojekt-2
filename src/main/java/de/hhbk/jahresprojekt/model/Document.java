@@ -3,6 +3,10 @@ package de.hhbk.jahresprojekt.model;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 @Entity
 public class Document {
     @Id

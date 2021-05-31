@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * @author Enrico Messall
+ */
 public class Bootstrap extends Application {
 
     @Override

@@ -5,6 +5,10 @@ import de.hhbk.jahresprojekt.model.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class TenantBuilder {
     private Long id;
     private String title;

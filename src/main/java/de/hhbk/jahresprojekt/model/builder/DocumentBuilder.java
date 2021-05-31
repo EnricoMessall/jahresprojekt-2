@@ -7,6 +7,10 @@ import de.hhbk.jahresprojekt.model.Tenant;
 
 import java.util.List;
 
+/**
+ * @author Frederik Hafemann
+ * @author Enrico Messall
+ */
 public final class DocumentBuilder {
     private Long id;
     private String fileName;
