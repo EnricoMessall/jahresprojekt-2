@@ -39,7 +39,7 @@ public class RentalObject {
         this.documents = documents;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
