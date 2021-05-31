@@ -8,16 +8,16 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
-public class Repository<T, ID>  implements CrudRepository<T, ID> {
+public class Repository<T>  implements CrudRepository<T> {
 
     private Class<T> tClass;
 
-    protected Repository(Class<T> tClass){
+    public Repository(Class<T> tClass){
         this.tClass = tClass;
     }
 
     @Override
-    public T findById(ID id) {
+    public T findById(int id) {
         T object;
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
