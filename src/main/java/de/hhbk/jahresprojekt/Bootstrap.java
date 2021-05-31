@@ -16,7 +16,7 @@ public class Bootstrap extends Application {
         primaryStage.setTitle("Jahresprojekt");
         primaryStage.show();
 
-        Pane dashboard = FXMLLoader.load(Bootstrap.class.getResource("dashboard.fxml"));
+        Pane dashboard = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
         primaryStage.setScene(new Scene(dashboard));
         primaryStage.show();
     }

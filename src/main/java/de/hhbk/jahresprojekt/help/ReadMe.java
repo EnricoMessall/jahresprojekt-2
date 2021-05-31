@@ -1,3 +1,5 @@
+package de.hhbk.jahresprojekt.help;
+
 import de.hhbk.jahresprojekt.database.Repository;
 import de.hhbk.jahresprojekt.model.User;
 
