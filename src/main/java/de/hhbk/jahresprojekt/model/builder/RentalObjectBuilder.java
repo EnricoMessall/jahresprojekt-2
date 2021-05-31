@@ -1,8 +1,6 @@
 package de.hhbk.jahresprojekt.model.builder;
 
-import de.hhbk.jahresprojekt.model.Adress;
-import de.hhbk.jahresprojekt.model.RentalObject;
-import de.hhbk.jahresprojekt.model.RentalType;
+import de.hhbk.jahresprojekt.model.*;
 
 import java.util.List;
 
@@ -18,6 +16,10 @@ public final class RentalObjectBuilder {
     private int additionalCosts;
     private String notes;
     private List<RentalObject> subObjects;
+    private Tenant tenant;
+    private List<Tenant> contacts;
+    private List<Invoice> invoices;
+    private List<Document> documents;
 
     private RentalObjectBuilder() {
     }
@@ -81,7 +83,27 @@ public final class RentalObjectBuilder {
         return this;
     }
 
+    public RentalObjectBuilder withTenant(Tenant tenant) {
+        this.tenant = tenant;
+        return this;
+    }
+
+    public RentalObjectBuilder withContacts(List<Tenant> contacts) {
+        this.contacts = contacts;
+        return this;
+    }
+
+    public RentalObjectBuilder withInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+        return this;
+    }
+
+    public RentalObjectBuilder withDocuments(List<Document> documents) {
+        this.documents = documents;
+        return this;
+    }
+
     public RentalObject build() {
-        return new RentalObject(id, objectNumber, objectDescription, rentalType, commercial, adress, livingSpace, squareMeterPrice, additionalCosts, notes, subObjects);
+        return new RentalObject(id, objectNumber, objectDescription, rentalType, commercial, adress, livingSpace, squareMeterPrice, additionalCosts, notes, subObjects, tenant, contacts, invoices, documents);
     }
 }

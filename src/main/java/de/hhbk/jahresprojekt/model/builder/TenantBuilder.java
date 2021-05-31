@@ -1,9 +1,6 @@
 package de.hhbk.jahresprojekt.model.builder;
 
-import de.hhbk.jahresprojekt.model.Adress;
-import de.hhbk.jahresprojekt.model.BankAccount;
-import de.hhbk.jahresprojekt.model.RentalObject;
-import de.hhbk.jahresprojekt.model.Tenant;
+import de.hhbk.jahresprojekt.model.*;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +18,8 @@ public final class TenantBuilder {
     private Adress oldAdress;
     private BankAccount bankAccount;
     private List<RentalObject> rentalObjects;
+    private List<Document> documents;
+    private boolean contactOnly;
 
     private TenantBuilder() {
     }
@@ -89,7 +88,17 @@ public final class TenantBuilder {
         return this;
     }
 
+    public TenantBuilder withDocuments(List<Document> documents) {
+        this.documents = documents;
+        return this;
+    }
+
+    public TenantBuilder withContactOnly(boolean contactOnly) {
+        this.contactOnly = contactOnly;
+        return this;
+    }
+
     public Tenant build() {
-        return new Tenant(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, tenancyStart, getTenancyEnd, oldAdress, bankAccount, rentalObjects);
+        return new Tenant(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, tenancyStart, getTenancyEnd, oldAdress, bankAccount, rentalObjects, documents, contactOnly);
     }
 }

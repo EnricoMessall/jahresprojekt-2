@@ -8,15 +8,25 @@ public class Invoice {
     private Person recipient;
     private Date date;
     private List<Item> itemList;
+    private boolean settled;
 
     public Invoice() {
     }
 
-    public Invoice(Long id, Person recipient, Date date, List<Item> itemList) {
+    public Invoice(Long id, Person recipient, Date date, List<Item> itemList, boolean settled) {
         this.id = id;
         this.recipient = recipient;
         this.date = date;
         this.itemList = itemList;
+        this.settled = settled;
+    }
+
+    public boolean isSettled() {
+        return settled;
+    }
+
+    public void setSettled(boolean settled) {
+        this.settled = settled;
     }
 
     public Long getId() {
