@@ -15,11 +15,12 @@ public final class TenantBuilder {
     private String email;
     private Date tenancyStart;
     private Date getTenancyEnd;
-    private Adress oldAdress;
+    private Address oldAddress;
     private BankAccount bankAccount;
     private List<RentalObject> rentalObjects;
     private List<Document> documents;
     private boolean contactOnly;
+    private Address address;
 
     private TenantBuilder() {
     }
@@ -63,6 +64,11 @@ public final class TenantBuilder {
         return this;
     }
 
+    public TenantBuilder withAdress(Address address) {
+        this.address = address;
+        return this;
+    }
+
     public TenantBuilder withTenancyStart(Date tenancyStart) {
         this.tenancyStart = tenancyStart;
         return this;
@@ -73,8 +79,8 @@ public final class TenantBuilder {
         return this;
     }
 
-    public TenantBuilder withOldAdress(Adress oldAdress) {
-        this.oldAdress = oldAdress;
+    public TenantBuilder withOldAdress(Address oldAddress) {
+        this.oldAddress = oldAddress;
         return this;
     }
 
@@ -99,6 +105,6 @@ public final class TenantBuilder {
     }
 
     public Tenant build() {
-        return new Tenant(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, tenancyStart, getTenancyEnd, oldAdress, bankAccount, rentalObjects, documents, contactOnly);
+        return new Tenant(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address, tenancyStart, getTenancyEnd, oldAddress, bankAccount, rentalObjects, documents, contactOnly);
     }
 }

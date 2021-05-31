@@ -10,7 +10,7 @@ public final class RentalObjectBuilder {
     private String objectDescription;
     private RentalType rentalType;
     private boolean commercial;
-    private Adress adress;
+    private Address address;
     private int livingSpace;
     private int squareMeterPrice;
     private int additionalCosts;
@@ -53,8 +53,8 @@ public final class RentalObjectBuilder {
         return this;
     }
 
-    public RentalObjectBuilder withAdress(Adress adress) {
-        this.adress = adress;
+    public RentalObjectBuilder withAdress(Address address) {
+        this.address = address;
         return this;
     }
 
@@ -104,6 +104,6 @@ public final class RentalObjectBuilder {
     }
 
     public RentalObject build() {
-        return new RentalObject(id, objectNumber, objectDescription, rentalType, commercial, adress, livingSpace, squareMeterPrice, additionalCosts, notes, subObjects, tenant, contacts, invoices, documents);
+        return new RentalObject(id, objectNumber, objectDescription, rentalType, commercial, address, livingSpace, squareMeterPrice, additionalCosts, notes, subObjects, tenant, contacts, invoices, documents);
     }
 }

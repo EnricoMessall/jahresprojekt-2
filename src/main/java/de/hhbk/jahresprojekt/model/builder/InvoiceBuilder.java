@@ -12,6 +12,7 @@ public final class InvoiceBuilder {
     private Person recipient;
     private Date date;
     private List<Item> itemList;
+    private boolean settled = false;
 
     private InvoiceBuilder() {
     }
@@ -40,7 +41,12 @@ public final class InvoiceBuilder {
         return this;
     }
 
+    public InvoiceBuilder settled(){
+        this.settled = true;
+        return this;
+    }
+
     public Invoice build() {
-        return new Invoice(id, recipient, date, itemList);
+        return new Invoice(id, recipient, date, itemList, settled);
     }
 }

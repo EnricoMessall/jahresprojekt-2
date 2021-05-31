@@ -3,13 +3,20 @@ package de.hhbk.jahresprojekt.model;
 import de.hhbk.jahresprojekt.model.RentalObject;
 import de.hhbk.jahresprojekt.model.Tenant;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
+@Entity
 public class PaymentReceived {
+    @Id
     private int id;
     private Date date;
+    @ManyToOne
     private RentalObject rentalObject;
     private int amount;
+    @ManyToOne
     private Tenant tenant;
 
 

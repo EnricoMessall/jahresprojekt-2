@@ -1,6 +1,12 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Person {
+    @Id
     private Long id;
     private String title;
     private String firstName;
@@ -8,11 +14,13 @@ public class Person {
     private String phoneNumberMobile;
     private String phoneNumberLandline;
     private String email;
+    @ManyToOne
+    private Address address;
 
     public Person() {
     }
 
-    public Person(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email) {
+    public Person(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Address address) {
         this.id = id;
         this.title = title;
         this.firstName = firstName;
@@ -20,6 +28,7 @@ public class Person {
         this.phoneNumberMobile = phoneNumberMobile;
         this.phoneNumberLandline = phoneNumberLandline;
         this.email = email;
+        this.address = address;
     }
 
     public Long getId() {

@@ -1,6 +1,6 @@
 package de.hhbk.jahresprojekt.model.builder;
 
-import de.hhbk.jahresprojekt.model.Adress;
+import de.hhbk.jahresprojekt.model.Address;
 
 public final class AdressBuilder {
     private Long id;
@@ -41,7 +41,7 @@ public final class AdressBuilder {
         return this;
     }
 
-    public Adress build() {
-        return new Adress(id, street, zipCode, city, country);
+    public Address build() {
+        return new Address(id, street, zipCode, city, country);
     }
 }

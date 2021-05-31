@@ -1,12 +1,17 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Invoice {
+    @Id
     private Long id;
+    @ManyToOne
     private Person recipient;
     private Date date;
+    @OneToMany
     private List<Item> itemList;
     private boolean settled;
 

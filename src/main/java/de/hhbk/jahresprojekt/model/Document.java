@@ -1,12 +1,18 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Document {
+    @Id
     private Long id;
     private String fileName;
+    @OneToMany
     private List<File> versionList;
+    @ManyToMany
     private List<RentalObject> relatedRentalObjects;
+    @ManyToMany
     private List<Tenant> relatedTenants;
 
     public Document() {

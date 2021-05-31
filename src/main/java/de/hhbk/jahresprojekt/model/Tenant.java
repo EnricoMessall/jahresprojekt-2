@@ -1,25 +1,31 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Tenant extends Person{
     private Date tenancyStart;
     private Date getTenancyEnd;
-    private Adress oldAdress;
+    @ManyToOne
+    private Address oldAddress;
+    @OneToOne
     private BankAccount bankAccount;
+    @OneToMany
     private List<RentalObject> rentalObjects;
+    @ManyToMany
     private List<Document> documents;
     private boolean contactOnly;
 
     public Tenant() {
     }
 
-    public Tenant(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Date tenancyStart, Date getTenancyEnd, Adress oldAdress, BankAccount bankAccount, List<RentalObject> rentalObjects, List<Document> documents, boolean contactOnly) {
-        super(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email);
+    public Tenant(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Address address, Date tenancyStart, Date getTenancyEnd, Address oldAddress, BankAccount bankAccount, List<RentalObject> rentalObjects, List<Document> documents, boolean contactOnly) {
+        super(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address);
         this.tenancyStart = tenancyStart;
         this.getTenancyEnd = getTenancyEnd;
-        this.oldAdress = oldAdress;
+        this.oldAddress = oldAddress;
         this.bankAccount = bankAccount;
         this.rentalObjects = rentalObjects;
         this.documents = documents;
@@ -42,12 +48,12 @@ public class Tenant extends Person{
         this.getTenancyEnd = getTenancyEnd;
     }
 
-    public Adress getOldAdress() {
-        return oldAdress;
+    public Address getOldAdress() {
+        return oldAddress;
     }
 
-    public void setOldAdress(Adress oldAdress) {
-        this.oldAdress = oldAdress;
+    public void setOldAdress(Address oldAddress) {
+        this.oldAddress = oldAddress;
     }
 
     public BankAccount getBankAccount() {

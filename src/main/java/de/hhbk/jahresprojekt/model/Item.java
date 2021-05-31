@@ -1,6 +1,12 @@
 package de.hhbk.jahresprojekt.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 //Betrag, Kategorie
+@Entity
 public class Item {
+    @Id
     private Long id;
     private int value;
     private String comment;

@@ -1,10 +1,16 @@
 package de.hhbk.jahresprojekt.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
+@Entity
 public class Role {
+    @Id
     private Long id;
     private RoleType roleType;
+    @OneToMany
     private List<User> userList;
 
     public Role() {

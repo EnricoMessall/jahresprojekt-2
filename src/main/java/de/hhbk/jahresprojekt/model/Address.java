@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Adress {
+public class Address {
     @Id
     private Long id;
     private String street;
@@ -12,10 +12,10 @@ public class Adress {
     private String city;
     private String country;
 
-    public Adress() {
+    public Address() {
     }
 
-    public Adress(Long id, String street, String zipCode, String city, String country) {
+    public Address(Long id, String street, String zipCode, String city, String country) {
         this.id = id;
         this.street = street;
         this.zipCode = zipCode;

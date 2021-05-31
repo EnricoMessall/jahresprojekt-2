@@ -1,5 +1,6 @@
 package de.hhbk.jahresprojekt.model.builder;
 
+import de.hhbk.jahresprojekt.model.Address;
 import de.hhbk.jahresprojekt.model.Person;
 
 public final class PersonBuilder {
@@ -10,6 +11,7 @@ public final class PersonBuilder {
     private String phoneNumberMobile;
     private String phoneNumberLandline;
     private String email;
+    private Address address;
 
     private PersonBuilder() {
     }
@@ -53,7 +55,12 @@ public final class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withAdress(Address address) {
+        this.address = address;
+        return this;
+    }
+
     public Person build() {
-        return new Person(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email);
+        return new Person(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address);
     }
 }
