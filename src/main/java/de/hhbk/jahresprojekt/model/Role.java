@@ -16,7 +16,7 @@ public class Role {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private RoleType roleType;
-    @OneToMany
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<User> userList;
 

@@ -21,7 +21,7 @@ public class User extends Person{
         super(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address);
         this.username = username;
         this.password = password;
-        this.role = role;
+        setRole(role);
     }
 
     public String getUsername() {

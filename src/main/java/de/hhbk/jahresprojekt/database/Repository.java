@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Table;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.List;
 
