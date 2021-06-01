@@ -15,13 +15,13 @@ import java.util.List;
 public class Tenant extends Person{
     private Date tenancyStart;
     private Date getTenancyEnd;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @LazyCollection(LazyCollectionOption.FALSE)
     private Address oldAddress;
     @OneToOne
     @LazyCollection(LazyCollectionOption.FALSE)
     private BankAccount bankAccount;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> rentalObjects;
     @ManyToMany(cascade = CascadeType.ALL)
