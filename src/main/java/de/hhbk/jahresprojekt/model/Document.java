@@ -16,13 +16,19 @@ public class Document {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String fileName;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<File> versionList;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "document_rental_objects",
+            joinColumns = @JoinColumn(name = "id")
+    )
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> relatedRentalObjects;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "document_tenants",
+            joinColumns = @JoinColumn(name = "id")
+    )
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Tenant> relatedTenants;
 

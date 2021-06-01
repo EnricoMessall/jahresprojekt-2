@@ -22,15 +22,21 @@ public class RentalObject {
     private int squareMeterPrice;
     private int additionalCosts;
     private String notes;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<RentalObject> subObjects;
     @ManyToOne
     private Tenant tenant;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "rental_contacts",
+            joinColumns = @JoinColumn(name = "id")
+    )
     private List<Tenant> contacts;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Invoice> invoices;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "document_rental_objects",
+            joinColumns = @JoinColumn(name = "id")
+    )
     private List<Document> documents;
 
     public RentalObject(){}
