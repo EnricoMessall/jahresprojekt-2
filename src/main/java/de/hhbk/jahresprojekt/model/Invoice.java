@@ -1,5 +1,8 @@
 package de.hhbk.jahresprojekt.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ public class Invoice {
     private Person recipient;
     private Date date;
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Item> itemList;
     private boolean settled;
 

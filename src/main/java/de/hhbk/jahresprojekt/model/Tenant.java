@@ -1,5 +1,8 @@
 package de.hhbk.jahresprojekt.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -13,12 +16,16 @@ public class Tenant extends Person{
     private Date tenancyStart;
     private Date getTenancyEnd;
     @ManyToOne
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Address oldAddress;
     @OneToOne
+    @LazyCollection(LazyCollectionOption.FALSE)
     private BankAccount bankAccount;
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> rentalObjects;
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Document> documents;
     private boolean contactOnly;
 

@@ -1,5 +1,8 @@
 package de.hhbk.jahresprojekt.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,10 +17,13 @@ public class Document {
     private Long id;
     private String fileName;
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<File> versionList;
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> relatedRentalObjects;
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Tenant> relatedTenants;
 
     public Document() {
