@@ -1,5 +1,8 @@
 package de.hhbk.jahresprojekt.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +17,7 @@ public class Role {
     private Long id;
     private RoleType roleType;
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<User> userList;
 
     public Role() {

@@ -22,7 +22,7 @@ public class Repository<T>  implements CrudRepository<T> {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        object = session.get(tClass, (Serializable) id);
+        object = session.get(tClass, (long)id);
         session.getTransaction().commit();
         session.close();
         return object;
