@@ -1,5 +1,6 @@
 package de.hhbk.jahresprojekt;
 
+import de.hhbk.jahresprojekt.view_controller.ViewManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,9 +17,9 @@ public class Bootstrap extends Application {
         primaryStage.setTitle("Jahresprojekt");
         primaryStage.show();
 
-        Pane dashboard = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-        primaryStage.setScene(new Scene(dashboard));
-        primaryStage.show();
+        ViewManager viewManager = ViewManager.getInstance();
+        viewManager.setPrimaryStage(primaryStage);
+        viewManager.showView(ViewManager.view.DASHBOARD);
     }
 
 
