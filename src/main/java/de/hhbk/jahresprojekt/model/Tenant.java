@@ -21,10 +21,13 @@ public class Tenant extends Person{
     @OneToOne
     @LazyCollection(LazyCollectionOption.FALSE)
     private BankAccount bankAccount;
-    @OneToMany
+    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> rentalObjects;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "document_tenants",
+            joinColumns = @JoinColumn(name = "id")
+    )
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Document> documents;
     private boolean contactOnly;

@@ -19,7 +19,7 @@ public class Invoice {
     @ManyToOne
     private Person recipient;
     private Date date;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Item> itemList;
     private boolean settled;
