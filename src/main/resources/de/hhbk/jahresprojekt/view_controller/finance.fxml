@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.skin.TableHeaderRow?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="de.hhbk.jahresprojekt.view_controller.FinanzeverwaltungController"
+          style="-fx-background-color: #ffffff">
+
+        <ListView fx:id="mainlist" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.vgrow="always" GridPane.hgrow="always">
+
+
+
+        </ListView>
+
+        <VBox style="-fx-padding: 20px; -fx-background-color: #ffffff" fx:id="invoiceform" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="always" GridPane.hgrow="always" spacing="10">
+                <Label>Rechung</Label>
+                <Label>ID</Label>
+                <TextField fx:id="iid"></TextField>
+                <Label>recipient</Label>
+                <TextField fx:id="irecipient"></TextField>
+                <Label>date</Label>
+                <DatePicker fx:id="idate"></DatePicker>
+                <Label>settled</Label>
+                <CheckBox fx:id="isettled"></CheckBox>
+                <Label>Posten</Label>
+                <ListView fx:id="iitemlist"></ListView>
+                <HBox spacing="5">
+                        <Button text="Speichern"/>
+                        <Button text="Löschen"/>
+                </HBox>
+        </VBox>
+
+        <VBox style="-fx-padding: 20px; -fx-background-color: #ffffff" fx:id="prform" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="always" GridPane.hgrow="always" spacing="10">
+                <Label>Rechung</Label>
+                <Label>ID</Label>
+                <TextField fx:id="prid"></TextField>
+                <Label>date</Label>
+                <DatePicker fx:id="prdate"></DatePicker>
+                <Label>rentalObject</Label>
+                <TextField fx:id="prrentalobject"></TextField>
+                <Label>amount</Label>
+                <TextField fx:id="pramount"></TextField>
+                <Label>tenant</Label>
+                <TextField fx:id="prtenant"></TextField>
+                <HBox spacing="5">
+                        <Button text="Speichern"/>
+                        <Button text="Löschen"/>
+                </HBox>
+        </VBox>
+
+        <HBox style="-fx-padding: 20px;-fx-background-color: #eeeeee" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.vgrow="always" GridPane.hgrow="always" spacing="10">
+                <Label style="-fx-font-size: 20px">Finanzen</Label>
+                <Button fx:id="add_invoice" text="neue rechnung"/>
+                <Button fx:id="add_payment_received" text="neue einzahlung"/>
+                <Button fx:id="back" text="zurück zum Dashboard"/>
+        </HBox>
+
+<!--    <children>-->
+<!--        <Button fx:id="save" layoutX="500.0" layoutY="388.0" mnemonicParsing="false" onAction="#save" text="Save" />-->
+<!--        <Button fx:id="dashboard" layoutX="413.0" layoutY="388.0" mnemonicParsing="false" onAction="#loadDashboard" text="Dashboard" />-->
+<!--        <TextField fx:id="receiver" layoutX="403.0" layoutY="49.0" />-->
+<!--        <TextField fx:id="date" layoutX="403.0" layoutY="84.0" />-->
+<!--        <TextField fx:id="meta" layoutX="403.0" layoutY="127.0" />-->
+<!--        <ListView fx:id="posten" layoutX="43.0" layoutY="162.0" prefHeight="200.0" prefWidth="509.0" />-->
+<!--        <Label layoutX="140.0" layoutY="53.0" text="Receiver" />-->
+<!--        <Label layoutX="140.0" layoutY="88.0" text="Date" />-->
+<!--        <Label layoutX="140.0" layoutY="131.0" text="Meta" />-->
+<!--        <Label layoutX="235.0" layoutY="20.0" text="Finanzverwaltung" />-->
+<!--    </children>-->
+
+</GridPane>

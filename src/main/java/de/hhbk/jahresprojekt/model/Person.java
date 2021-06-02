@@ -18,7 +18,7 @@ public class Person {
     private String phoneNumberMobile;
     private String phoneNumberLandline;
     private String email;
-    @ManyToOne
+    @OneToOne
     private Address address;
 
     public Person() {
