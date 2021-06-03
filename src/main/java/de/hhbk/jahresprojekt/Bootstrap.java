@@ -4,16 +4,20 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.hhbk.jahresprojekt.database.*;
+import de.hhbk.jahresprojekt.database.AddressRepository;
+import de.hhbk.jahresprojekt.database.InvoiceRepository;
+import de.hhbk.jahresprojekt.database.RentalObjectRepository;
+import de.hhbk.jahresprojekt.database.TenantRepository;
+import de.hhbk.jahresprojekt.database.UserRepository;
+import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
+import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
 import de.hhbk.jahresprojekt.model.RentalObject;
 import de.hhbk.jahresprojekt.model.User;
 import de.hhbk.jahresprojekt.model.builder.InvoiceBuilder;
 import de.hhbk.jahresprojekt.model.builder.RentalObjectBuilder;
 import de.hhbk.jahresprojekt.model.builder.TenantBuilder;
 import de.hhbk.jahresprojekt.model.builder.UserBuilder;
-import de.hhbk.jahresprojekt.views.modules.InvoiceModule;
-import de.hhbk.jahresprojekt.views.modules.RentalObjectModule;
-import de.hhbk.jahresprojekt.views.modules.TenantModule;
-import de.hhbk.jahresprojekt.views.modules.UserModule;
+import de.hhbk.jahresprojekt.views.modules.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Application;
@@ -33,7 +37,9 @@ public class Bootstrap extends Application {
             new MenuItem("Objektverwaltung", new MaterialDesignIconView(MaterialDesignIcon.HOME)),
             new MenuItem("Mieterverwaltung", new MaterialDesignIconView(MaterialDesignIcon.HUMAN)),
             new MenuItem("Rechnungen", new MaterialDesignIconView(MaterialDesignIcon.BOOK)),
-            new MenuItem("Userverwaltung", new MaterialDesignIconView(MaterialDesignIcon.HUMAN))
+            new MenuItem("Userverwaltung", new MaterialDesignIconView(MaterialDesignIcon.HUMAN)),
+            new MenuItem("Dokumente", new MaterialDesignIconView(MaterialDesignIcon.FILE_DOCUMENT)),
+            new MenuItem("Zahlungseingänge", new MaterialDesignIconView(MaterialDesignIcon.PANDA))
     };
 
     @Override
@@ -46,8 +52,10 @@ public class Bootstrap extends Application {
         TenantModule tenantModule = new TenantModule();
         InvoiceModule invoiceModule = new InvoiceModule();
         UserModule userModule = new UserModule();
+        DocumentModule documentModule = new DocumentModule();
+        PaymentReceivedModule paymentReceivedModule = new PaymentReceivedModule();
         Workbench workbench = Workbench
-                .builder(rentalObjectModule, tenantModule, invoiceModule, userModule)
+                .builder(rentalObjectModule, tenantModule, invoiceModule, userModule, documentModule, paymentReceivedModule)
                 .toolbarRight(new ToolbarItem())
                 .navigationDrawerItems(ITEMS).build();
 
@@ -59,6 +67,8 @@ public class Bootstrap extends Application {
         ITEMS[2].setOnAction(action -> openModuleAndCloseNav(workbench, tenantModule));
         ITEMS[3].setOnAction(action -> openModuleAndCloseNav(workbench, invoiceModule));
         ITEMS[4].setOnAction(action -> openModuleAndCloseNav(workbench, userModule));
+        ITEMS[5].setOnAction(action -> openModuleAndCloseNav(workbench, documentModule));
+        ITEMS[6].setOnAction(action -> openModuleAndCloseNav(workbench, paymentReceivedModule));
 
         Scene myScene = new Scene(workbench);
         primaryStage.setScene(myScene);
@@ -73,6 +83,9 @@ public class Bootstrap extends Application {
         RepositoryContainer.registerRepository(TenantRepository.class);
         RepositoryContainer.registerRepository(RentalObjectRepository.class);
         RepositoryContainer.registerRepository(InvoiceRepository.class);
+        RepositoryContainer.registerRepository(AddressRepository.class);
+        RepositoryContainer.registerRepository(DocumentRepository.class);
+        RepositoryContainer.registerRepository(PaymentReceivedRepository.class);
     }
 
     private void openModuleAndCloseNav(Workbench workbench, WorkbenchModule workbenchModule){

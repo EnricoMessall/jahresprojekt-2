@@ -13,7 +13,7 @@ public abstract class Repository<T>  implements CrudRepository<T> {
 
     private final Class<T> tClass;
 
-    Repository(Class<T> tClass){
+    public Repository(Class<T> tClass){
         this.tClass = tClass;
     }
 

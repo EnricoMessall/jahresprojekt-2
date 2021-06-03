@@ -1,22 +1,23 @@
 package de.hhbk.jahresprojekt.views.modules;
 
-import de.hhbk.jahresprojekt.database.repositories.UserRepository;
+import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
+import de.hhbk.jahresprojekt.model.Document;
 import de.hhbk.jahresprojekt.model.User;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 
-public class UserModule extends AutoFetchWorkbenchModule<User> {
+public class DocumentModule extends AutoFetchWorkbenchModule<Document> {
 
-    private final BaseTableView<User> baseTableView;
+    private final BaseTableView<Document> baseTableView;
 
-    public UserModule() {
+    public DocumentModule() {
         super("Userverwaltung", MaterialDesignIcon.HUMAN);
-        baseTableView = new BaseTableView<>(User.class,
-                (data, query) -> data.getUsername().contains(query));
+        baseTableView = new BaseTableView<>(Document.class,
+                (data, query) -> data.getFileName().contains(query));
 
-        setRepository(new UserRepository());
+        setRepository(new DocumentRepository());
         setOnFetchedListener(baseTableView::setData);
         refresh();
     }

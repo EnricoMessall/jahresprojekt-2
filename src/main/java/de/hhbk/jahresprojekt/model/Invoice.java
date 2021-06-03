@@ -16,8 +16,10 @@ import java.util.List;
 public class Invoice {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @TableField
     private Long id;
     @ManyToOne
+    @TableField
     private Person recipient;
     @TableField(label = "Datum")
     private Date date;

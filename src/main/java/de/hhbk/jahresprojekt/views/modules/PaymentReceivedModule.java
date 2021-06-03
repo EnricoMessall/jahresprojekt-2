@@ -1,22 +1,22 @@
 package de.hhbk.jahresprojekt.views.modules;
 
-import de.hhbk.jahresprojekt.database.repositories.UserRepository;
-import de.hhbk.jahresprojekt.model.User;
+import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
+import de.hhbk.jahresprojekt.model.PaymentReceived;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 
-public class UserModule extends AutoFetchWorkbenchModule<User> {
+public class PaymentReceivedModule extends AutoFetchWorkbenchModule<PaymentReceived> {
 
-    private final BaseTableView<User> baseTableView;
+    private final BaseTableView<PaymentReceived> baseTableView;
 
-    public UserModule() {
+    public PaymentReceivedModule() {
         super("Userverwaltung", MaterialDesignIcon.HUMAN);
-        baseTableView = new BaseTableView<>(User.class,
-                (data, query) -> data.getUsername().contains(query));
+        baseTableView = new BaseTableView<>(PaymentReceived.class,
+                (data, query) -> data.getTenant().getLastName().contains(query));
 
-        setRepository(new UserRepository());
+        setRepository(new PaymentReceivedRepository());
         setOnFetchedListener(baseTableView::setData);
         refresh();
     }

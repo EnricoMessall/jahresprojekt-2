@@ -14,8 +14,9 @@ import java.util.List;
  */
 @Entity
 public class Tenant extends Person{
-    @TableField(label = "anfang")
+    @TableField
     private Date tenancyStart;
+    @TableField
     private Date getTenancyEnd;
     @ManyToOne
     @LazyCollection(LazyCollectionOption.FALSE)
