@@ -101,4 +101,8 @@ public class Tenant extends Person{
     public void setContactOnly(boolean contactOnly) {
         this.contactOnly = contactOnly;
     }
+
+    public String getType(){
+        return contactOnly?"Kontakt":"Mieter";
+    }
 }

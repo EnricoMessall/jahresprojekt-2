@@ -11,11 +11,13 @@ import java.io.IOException;
 
 public class ViewManager {
     public enum view{
-        DASHBOARD
+        DASHBOARD,
+        FINANCE,
+        TENANT
     }
     private static ViewManager viewManager;
     private Stage primaryStage;
-    private Scene dashboard;
+    private Scene dashboard, finance, tenant;
 
     private void centerWindow(){
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -26,13 +28,31 @@ public class ViewManager {
     private ViewManager() throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
         this.dashboard = new Scene(parent, 400, 200);
+
+        parent = FXMLLoader.load(getClass().getResource("finance.fxml"));
+        this.finance = new Scene(parent, 1000, 600);
+
+        parent = FXMLLoader.load(getClass().getResource("tenant.fxml"));
+        this.tenant = new Scene(parent, 1000, 600);
     }
 
     public void showView(view view){
         switch (view){
             case DASHBOARD:
-                primaryStage.setTitle("Hardwareverwaltung");
+                primaryStage.setTitle("Immo");
                 primaryStage.setScene(dashboard);
+                primaryStage.setOnCloseRequest(e -> {});
+                break;
+
+            case FINANCE:
+                primaryStage.setTitle("Finanzen");
+                primaryStage.setScene(finance);
+                primaryStage.setOnCloseRequest(e -> {});
+                break;
+
+            case TENANT:
+                primaryStage.setTitle("Mieter");
+                primaryStage.setScene(tenant);
                 primaryStage.setOnCloseRequest(e -> {});
                 break;
         }
