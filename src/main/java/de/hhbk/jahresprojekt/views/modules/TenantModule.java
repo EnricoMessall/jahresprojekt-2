@@ -13,9 +13,7 @@ public class TenantModule extends AutoFetchWorkbenchModule<Tenant> {
 
     public TenantModule() {
         super("Mieterverwaltung", MaterialDesignIcon.HUMAN);
-        baseTableView = new BaseTableView<>(Tenant.class,
-                (data, query) -> data.getLastName().contains(query));
-//        (data, query) -> true);
+        baseTableView = new BaseTableView<>(Tenant.class, (data, query) -> data.getLastName().contains(query));
 
         setRepository(new TenantRepository());
         setOnFetchedListener(baseTableView::setData);

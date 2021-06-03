@@ -1,10 +1,10 @@
 package de.hhbk.jahresprojekt.database;
 
-import de.hhbk.jahresprojekt.model.User;
+import de.hhbk.jahresprojekt.model.Invoice;
 
-public class UserRepository extends Repository<User> {
+public class InvoiceRepository extends Repository<Invoice> {
 
-    public UserRepository() {
-        super(User.class);
+    public InvoiceRepository() {
+        super(Invoice.class);
     }
 }

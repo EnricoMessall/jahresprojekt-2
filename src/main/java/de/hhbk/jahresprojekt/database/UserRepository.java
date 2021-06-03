@@ -4,7 +4,7 @@ import de.hhbk.jahresprojekt.model.User;
 
 public class UserRepository extends Repository<User> {
 
-    UserRepository() {
+    public UserRepository() {
         super(User.class);
     }
 }

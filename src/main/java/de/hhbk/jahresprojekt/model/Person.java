@@ -1,5 +1,7 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
+
 import javax.persistence.*;
 
 /**
@@ -13,6 +15,7 @@ public class Person {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String title;
+    @TableField(label = "Vorname")
     private String firstName;
     private String lastName;
     private String phoneNumberMobile;

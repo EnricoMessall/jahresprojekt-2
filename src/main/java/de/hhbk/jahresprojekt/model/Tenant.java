@@ -1,5 +1,6 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Entity
 public class Tenant extends Person{
+    @TableField(label = "anfang")
     private Date tenancyStart;
     private Date getTenancyEnd;
     @ManyToOne

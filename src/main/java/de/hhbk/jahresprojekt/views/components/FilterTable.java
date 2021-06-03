@@ -38,6 +38,9 @@ public class FilterTable<T> extends TableView<T> {
         Arrays.stream(tClass.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(TableField.class))
                 .forEach(this::addColumnFromField);
+        Arrays.stream(tClass.getSuperclass().getDeclaredFields())
+                .filter(field -> field.isAnnotationPresent(TableField.class))
+                .forEach(this::addColumnFromField);
         getColumns().sort(Comparator.comparing(this::index));
         return this;
     }

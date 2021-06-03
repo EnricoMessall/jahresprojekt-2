@@ -1,10 +1,9 @@
 package de.hhbk.jahresprojekt.database;
 
-import de.hhbk.jahresprojekt.model.User;
+import de.hhbk.jahresprojekt.model.Tenant;
 
-public class UserRepository extends Repository<User> {
-
-    public UserRepository() {
-        super(User.class);
+public class TenantRepository extends Repository<Tenant> {
+    public TenantRepository() {
+        super(Tenant.class);
     }
 }
