@@ -1,5 +1,7 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +15,15 @@ import javax.persistence.Id;
 public class Address {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @TableField
     private Long id;
+    @TableField
     private String street;
+    @TableField
     private String zipCode;
+    @TableField
     private String city;
+    @TableField
     private String country;
 
     public Address() {

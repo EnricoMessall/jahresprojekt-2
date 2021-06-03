@@ -1,5 +1,6 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -14,7 +15,9 @@ import java.util.List;
 public class Document {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @TableField
     private Long id;
+    @TableField
     private String fileName;
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)

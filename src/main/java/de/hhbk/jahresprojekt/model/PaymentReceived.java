@@ -1,5 +1,7 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,11 +14,15 @@ public class PaymentReceived {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
+    @TableField
     private Date date;
     @ManyToOne
+    @TableField
     private RentalObject rentalObject;
+    @TableField
     private int amount;
     @ManyToOne
+    @TableField
     private Tenant tenant;
 
 

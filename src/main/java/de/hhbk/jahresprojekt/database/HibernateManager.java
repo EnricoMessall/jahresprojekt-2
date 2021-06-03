@@ -9,7 +9,7 @@ import org.hibernate.service.ServiceRegistry;
 public class HibernateManager {
     private static SessionFactory sessionFactory = null;
 
-    protected static SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionFactory() {
         return sessionFactory == null?buildSessionFactory():sessionFactory;
     }
 

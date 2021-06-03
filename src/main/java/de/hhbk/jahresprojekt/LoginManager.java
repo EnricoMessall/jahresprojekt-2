@@ -1,10 +1,8 @@
 package de.hhbk.jahresprojekt;
 
-import de.hhbk.jahresprojekt.database.UserRepository;
-import de.hhbk.jahresprojekt.model.Role;
+import de.hhbk.jahresprojekt.database.repositories.UserRepository;
 import de.hhbk.jahresprojekt.model.RoleType;
 import de.hhbk.jahresprojekt.model.User;
-import de.hhbk.jahresprojekt.schnittstellen.RoleHandler;
 
 /**
  * @author Jonas Rehrmann

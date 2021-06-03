@@ -1,5 +1,6 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -15,13 +16,17 @@ import java.util.List;
 public class Invoice {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @TableField
     private Long id;
     @ManyToOne
+    @TableField
     private Person recipient;
+    @TableField(label = "Datum")
     private Date date;
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Item> itemList;
+    @TableField(label = "Bezahlt")
     private boolean settled;
 
     public Invoice() {

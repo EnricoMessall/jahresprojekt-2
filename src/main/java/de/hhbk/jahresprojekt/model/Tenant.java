@@ -1,5 +1,6 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -13,7 +14,9 @@ import java.util.List;
  */
 @Entity
 public class Tenant extends Person{
+    @TableField
     private Date tenancyStart;
+    @TableField
     private Date getTenancyEnd;
     @ManyToOne
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -100,5 +103,9 @@ public class Tenant extends Person{
 
     public void setContactOnly(boolean contactOnly) {
         this.contactOnly = contactOnly;
+    }
+
+    public String getType(){
+        return contactOnly?"Kontakt":"Mieter";
     }
 }
