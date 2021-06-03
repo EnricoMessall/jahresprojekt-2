@@ -4,9 +4,15 @@ services:
 
   database:
     image: mariadb
-    container_name: database
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: xwrqavrtyqrhgsre
       MARIADB_DATABASE: immo
     ports:
       - 3306:3306
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - 8080:8080
