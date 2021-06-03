@@ -12,7 +12,9 @@ public class RentalObjectModule extends WorkbenchModule {
 
     public RentalObjectModule() {
         super("Objektverwaltung", MaterialDesignIcon.HOME);
-        baseTableView = new BaseTableView<>(RentalObject.class, "Nummer", "Adresse", "Typ");
+        baseTableView = new BaseTableView<>(RentalObject.class,
+                (data, query) -> data.getAdress().getStreet().contains(query),
+                "Nummer", "Adresse", "Typ");
     }
 
     @Override

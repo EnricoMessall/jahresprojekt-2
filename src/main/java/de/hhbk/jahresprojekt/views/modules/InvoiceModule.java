@@ -14,7 +14,7 @@ public class InvoiceModule extends WorkbenchModule {
 
     public InvoiceModule() {
         super("Rechnungen", MaterialDesignIcon.BOOK);
-        baseTableView = new BaseTableView<>(Invoice.class, "Nummer", "Adresse", "Typ");
+        baseTableView = new BaseTableView<>(Invoice.class, (data, query) -> data.isSettled());
     }
 
     @Override

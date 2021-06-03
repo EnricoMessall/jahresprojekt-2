@@ -1,5 +1,7 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -9,7 +11,9 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class User extends Person{
+    @TableField(label = "Name")
     private String username;
+    @TableField(label = "Passwort")
     private String password;
     @ManyToOne
     private Role role;

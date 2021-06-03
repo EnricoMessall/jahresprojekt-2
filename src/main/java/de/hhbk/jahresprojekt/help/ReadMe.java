@@ -1,6 +1,7 @@
 package de.hhbk.jahresprojekt.help;
 
-import de.hhbk.jahresprojekt.database.Repository;
+import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.UserRepository;
 import de.hhbk.jahresprojekt.model.User;
 
 import java.util.List;
@@ -24,13 +25,16 @@ public class ReadMe {
          */
 
     //todo Model
-        /*
+        /**
             Um auf Daten zugreifen zu können gibt es das sog. Repository.
+            Repositories müssen zuerst über den RepositoryContainer registriert werden.
+            Danach kann das Repository jederzeit über {@link RepositoryContainer#get(Class)} geholt werden
             Der Datenaccess erfolgt so:
-         */
-        void readme(){
+         **/
+        void readme() throws Exception {
             //User Repository anlegen
-            Repository<User> userRepository = new Repository<>(User.class);
+            RepositoryContainer.registerRepository(UserRepository.class);
+            UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
 
             //User oder Userlist holen
             User user = userRepository.findById(0);

@@ -9,11 +9,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.List;
 
-public class Repository<T>  implements CrudRepository<T> {
+public abstract class Repository<T>  implements CrudRepository<T> {
 
-    private Class<T> tClass;
+    private final Class<T> tClass;
 
-    public Repository(Class<T> tClass){
+    Repository(Class<T> tClass){
         this.tClass = tClass;
     }
 
