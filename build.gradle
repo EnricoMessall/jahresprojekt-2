@@ -13,11 +13,13 @@ repositories {
 }
 
 javafx {
-    version = "14"
+    version = "11"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 dependencies {
+    compile group: 'com.dlsc.workbenchfx', name: 'workbenchfx-core', version: '11.1.0'
+
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.32.Final'
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.3'
 

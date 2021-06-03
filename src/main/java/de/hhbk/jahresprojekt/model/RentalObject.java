@@ -1,5 +1,7 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.views.annotations.TableField;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,11 +14,15 @@ public class RentalObject {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @TableField(label = "Nummer")
     private String objectNumber;
     private String objectDescription;
+    @TableField(label = "Typ")
     private RentalType rentalType;
+    @TableField(label = "Kommerziell")
     private boolean commercial;
     @OneToOne
+    @TableField(label = "Adresse")
     private Address address;
     private int livingSpace;
     private int squareMeterPrice;
