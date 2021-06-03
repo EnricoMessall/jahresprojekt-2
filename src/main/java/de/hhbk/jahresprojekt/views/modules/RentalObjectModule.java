@@ -1,8 +1,6 @@
 package de.hhbk.jahresprojekt.views.modules;
 
-import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.hhbk.jahresprojekt.database.RentalObjectRepository;
-import de.hhbk.jahresprojekt.database.UserRepository;
 import de.hhbk.jahresprojekt.model.RentalObject;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;

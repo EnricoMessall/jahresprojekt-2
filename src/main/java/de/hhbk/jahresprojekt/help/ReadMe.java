@@ -1,7 +1,6 @@
 package de.hhbk.jahresprojekt.help;
 
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
-import de.hhbk.jahresprojekt.database.UserRepository;
 import de.hhbk.jahresprojekt.model.User;
 
 import java.util.List;

@@ -8,15 +8,9 @@ import de.hhbk.jahresprojekt.database.AddressRepository;
 import de.hhbk.jahresprojekt.database.InvoiceRepository;
 import de.hhbk.jahresprojekt.database.RentalObjectRepository;
 import de.hhbk.jahresprojekt.database.TenantRepository;
-import de.hhbk.jahresprojekt.database.UserRepository;
 import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
 import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
-import de.hhbk.jahresprojekt.model.RentalObject;
-import de.hhbk.jahresprojekt.model.User;
-import de.hhbk.jahresprojekt.model.builder.InvoiceBuilder;
-import de.hhbk.jahresprojekt.model.builder.RentalObjectBuilder;
-import de.hhbk.jahresprojekt.model.builder.TenantBuilder;
-import de.hhbk.jahresprojekt.model.builder.UserBuilder;
+import de.hhbk.jahresprojekt.database.repositories.UserRepository;
 import de.hhbk.jahresprojekt.views.modules.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -24,8 +18,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
-
-import java.util.Date;
 
 /**
  * @author Enrico Messall

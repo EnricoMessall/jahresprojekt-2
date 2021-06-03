@@ -1,6 +1,5 @@
 package de.hhbk.jahresprojekt.views.modules;
 
-import de.hhbk.jahresprojekt.database.UserRepository;
 import de.hhbk.jahresprojekt.model.User;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
