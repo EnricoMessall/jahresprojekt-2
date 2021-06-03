@@ -13,7 +13,7 @@ public class DocumentModule extends AutoFetchWorkbenchModule<Document> {
     private final BaseTableView<Document> baseTableView;
 
     public DocumentModule() {
-        super("Userverwaltung", MaterialDesignIcon.HUMAN);
+        super("Dokumente", MaterialDesignIcon.FILE_DOCUMENT);
         baseTableView = new BaseTableView<>(Document.class,
                 (data, query) -> data.getFileName().contains(query));
 

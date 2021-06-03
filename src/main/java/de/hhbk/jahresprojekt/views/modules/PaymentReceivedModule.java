@@ -12,7 +12,7 @@ public class PaymentReceivedModule extends AutoFetchWorkbenchModule<PaymentRecei
     private final BaseTableView<PaymentReceived> baseTableView;
 
     public PaymentReceivedModule() {
-        super("Userverwaltung", MaterialDesignIcon.HUMAN);
+        super("Zahlungseingänge", MaterialDesignIcon.PANDA);
         baseTableView = new BaseTableView<>(PaymentReceived.class,
                 (data, query) -> data.getTenant().getLastName().contains(query));
 
