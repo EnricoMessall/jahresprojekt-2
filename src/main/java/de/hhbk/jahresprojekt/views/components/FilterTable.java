@@ -4,10 +4,8 @@ package de.hhbk.jahresprojekt.views.components;
 import de.hhbk.jahresprojekt.views.annotations.TableField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -30,8 +28,13 @@ public class FilterTable<T> extends TableView<T> {
         Arrays.stream(tClass.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(TableField.class))
                 .forEach(this::addColumnFromField);
-        getColumns().sort(Comparator.comparing(column -> labelOrder.indexOf(column.getText())));
+        getColumns().sort(Comparator.comparing(this::index));
         return this;
+    }
+
+    private int index(TableColumn<T, ?> column){
+        int index = labelOrder.indexOf(column.getText());
+        return index == -1 ? 999 : index;
     }
 
     private void addColumnFromField(Field field){

@@ -24,7 +24,9 @@ public class RentalObject {
     @OneToOne
     @TableField(label = "Adresse")
     private Address address;
+    @TableField(label = "Raum")
     private int livingSpace;
+    @TableField(label = "Quadratmeter Preis")
     private int squareMeterPrice;
     private int additionalCosts;
     private String notes;
