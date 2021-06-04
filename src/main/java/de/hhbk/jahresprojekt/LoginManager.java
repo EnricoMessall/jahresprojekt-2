@@ -44,6 +44,13 @@ public class LoginManager {
     }
 
     /**
+     * Setzt den aktuellen Benutzer wieder auf null
+     */
+    public void logout() {
+        currentUser = null;
+    }
+
+    /**
      *
      * @return aktueller Benutzer
      */
@@ -51,8 +58,11 @@ public class LoginManager {
         return currentUser;
     }
 
+    /**
+     * @return true wenn der angemeldete Benutzer ein Admin ist
+     */
     public boolean currentUserIsAdmin() {
-        return getCurrentUser().getRole().getRoleType() == RoleType.ADMIN;
+        return currentUser == null ? false : currentUser.getRole().getRoleType() == RoleType.ADMIN;
     }
 
 }
