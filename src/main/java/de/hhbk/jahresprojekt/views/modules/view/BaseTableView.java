@@ -5,10 +5,13 @@ import de.hhbk.jahresprojekt.views.modules.autofetch.AddListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -17,7 +20,7 @@ import java.util.function.BiPredicate;
 
 public class BaseTableView<T> extends BorderPane {
 
-    private GridPane pane;
+    private HBox pane;
     private final TextField search;
     private final Button clearButton;
     private final Button addButton;
@@ -26,7 +29,7 @@ public class BaseTableView<T> extends BorderPane {
     private AddListener addListener;
 
     public BaseTableView(Class<T> dataClass, BiPredicate<T, String> filterCondition, String... labelOrder){
-        pane = new GridPane();
+        pane = new HBox();
         search = new TextField();
         clearButton = new Button("Clear");
         addButton = new Button("Neu");
@@ -43,9 +46,20 @@ public class BaseTableView<T> extends BorderPane {
             addListener.add();
         });
 
-        pane.add(search, 0, 0);
-        pane.add(clearButton, 1, 0);
-        pane.add(addButton, 2, 0);
+        pane.getChildren().add(search);
+        pane.getChildren().add(clearButton);
+        pane.getChildren().add(addButton);
+
+        pane.setPadding(new Insets(5, 2, 5, 2));
+        pane.setPrefWidth(Double.MAX_VALUE);
+        pane.setSpacing(5);
+        HBox.setHgrow(search, Priority.ALWAYS);
+
+        search.setPadding(new Insets(10));
+        clearButton.setPadding(new Insets(10));
+        addButton.setPadding(new Insets(10));
+
+
 
         setTop(pane);
         setCenter(table);
