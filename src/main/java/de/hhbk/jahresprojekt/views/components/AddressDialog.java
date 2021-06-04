@@ -40,6 +40,14 @@ public class AddressDialog<T> extends Dialog<Address>{
     }
 
     @Override
+    public void copyFrom(Address object) {
+        street.setText(object.getStreet());
+        zipcode.setText(object.getZipCode());
+        city.setText(object.getCity());
+        country.setText(object.getCountry());
+    }
+
+    @Override
     Address getChangedObject() {
         Address address = AdressBuilder.anAdress().withStreet(street.getText()).withZipCode(zipcode.getText()).withCity(city.getText()).withCountry(country.getText()).build();
         RepositoryContainer.get(AddressRepository.class).save(address);

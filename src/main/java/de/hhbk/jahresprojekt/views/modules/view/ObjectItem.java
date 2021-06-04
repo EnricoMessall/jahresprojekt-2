@@ -29,6 +29,7 @@ public class ObjectItem<T> extends Button {
                         case "de.hhbk.jahresprojekt.model.Address" -> new AddressDialog();
                         default -> new SelectDialog<T>(tClass);
                     };
+                    dialog.copyFrom(object);
                     dialog.setOnObjectChangedListener(nValue -> {
                         setText(nValue==null?"Nichts ausgewählt":nValue.toString());
                         onObjectChangedListener.changed(nValue);

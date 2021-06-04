@@ -37,6 +37,12 @@ public class ItemDialog<T> extends Dialog<Item>{
     }
 
     @Override
+    public void copyFrom(Item object) {
+        comment.setText(object.getComment());
+        amount.setText(String.valueOf(object.getValue()));
+    }
+
+    @Override
     Item getChangedObject() {
         Item item = ItemBuilder.anItem().withComment(comment.getText()).withValue(Integer.parseInt(amount.getText())).build();
         RepositoryContainer.get(ItemRepository.class).save(item);

@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import org.apache.commons.lang3.NotImplementedException;
 
 public abstract class Dialog<T> {
     Class<T> tClass;
@@ -18,6 +19,8 @@ public abstract class Dialog<T> {
         this.tClass = tClass;
         view = initView();
     }
+
+    public void copyFrom(T object){ }
 
     abstract Node initView();
 
