@@ -2,10 +2,7 @@ package de.hhbk.jahresprojekt.views.modules.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
-import de.hhbk.jahresprojekt.views.components.AddressDialog;
-import de.hhbk.jahresprojekt.views.components.Dialog;
-import de.hhbk.jahresprojekt.views.components.ItemDialog;
-import de.hhbk.jahresprojekt.views.components.SelectDialog;
+import de.hhbk.jahresprojekt.views.components.*;
 import de.hhbk.jahresprojekt.views.modules.autofetch.OnObjectChangedListener;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
@@ -27,6 +24,7 @@ public class ObjectItem<T> extends Button {
                     Dialog<T> dialog = switch (tClass.getName()){
                         case "de.hhbk.jahresprojekt.model.Item" -> new ItemDialog();
                         case "de.hhbk.jahresprojekt.model.Address" -> new AddressDialog();
+                        case "de.hhbk.jahresprojekt.model.BankAccount" -> new BankAccountDialog();
                         default -> new SelectDialog<T>(tClass);
                     };
                     dialog.copyFrom(object);

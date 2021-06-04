@@ -51,6 +51,7 @@ public class Bootstrap extends Application {
         RepositoryContainer.registerRepository(FileRepository.class);
         RepositoryContainer.registerRepository(RoleRepository.class);
         RepositoryContainer.registerRepository(ItemRepository.class);
+        RepositoryContainer.registerRepository(BankAccountRepository.class);
 
         RoleRepository roleRepository = RepositoryContainer.get(RoleRepository.class);
         roleRepository.findAll().forEach(roleRepository::delete);

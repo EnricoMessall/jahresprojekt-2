@@ -2,6 +2,7 @@ package de.hhbk.jahresprojekt.views.components;
 
 
 import de.hhbk.jahresprojekt.views.annotations.TableField;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -10,7 +11,9 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 
 public class FilterTable<T> extends TableView<T> {
 
@@ -23,6 +26,13 @@ public class FilterTable<T> extends TableView<T> {
     public FilterTable(Class<T> theClass, BiPredicate<T, String> filterCondition){
         this.tClass = theClass;
         this.filterCondition = filterCondition;
+    }
+
+    public void setCellFactory(String cell, Function<T, String> result){
+        Optional<TableColumn<T, ?>> column = getColumns().stream()
+                .filter(c -> c.getText().equals(cell))
+                .findFirst();
+        column.ifPresent(c -> c.setCellValueFactory(tf -> new ReadOnlyObjectWrapper(result.apply(tf.getValue()))));
     }
 
     public BiPredicate<T, String> getFilterCondition() {

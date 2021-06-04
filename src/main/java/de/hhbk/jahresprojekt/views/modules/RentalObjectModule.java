@@ -25,6 +25,8 @@ public class RentalObjectModule extends AutoFetchWorkbenchModule<RentalObject> {
             RepositoryContainer.get(RentalObjectRepository.class).save(new RentalObject());
             refresh();
         });
+        baseTableView.getTable().setCellFactory("Adresse", a -> a.getAdress() != null?a.getAdress().toString():"");
+
         baseTableView.getTable().setOnMouseClicked(e -> {
             try {
                 DetailDialog<RentalObject> detailDialog = new DetailDialog<RentalObject>(baseTableView.getTable().getSelectionModel().getSelectedItem());

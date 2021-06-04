@@ -1,10 +1,7 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
-import de.hhbk.jahresprojekt.views.components.AddressDialog;
-import de.hhbk.jahresprojekt.views.components.Dialog;
-import de.hhbk.jahresprojekt.views.components.ItemDialog;
-import de.hhbk.jahresprojekt.views.components.SelectDialog;
+import de.hhbk.jahresprojekt.views.components.*;
 import de.hhbk.jahresprojekt.views.modules.autofetch.OnObjectChangedListener;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -46,6 +43,7 @@ public class ObjectList<T> extends VBox {
             Dialog<T> dialog = switch (tClass.getName()){
                 case "de.hhbk.jahresprojekt.model.Item" -> new ItemDialog();
                 case "de.hhbk.jahresprojekt.model.Address" -> new AddressDialog();
+                case "de.hhbk.jahresprojekt.model.BankAccount" -> new BankAccountDialog();
                 default -> new SelectDialog<T>(tClass);
             };
             dialog.setOnObjectChangedListener(nValue -> {

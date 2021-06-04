@@ -38,13 +38,14 @@ public class ItemDialog<T> extends Dialog<Item>{
 
     @Override
     public void copyFrom(Item object) {
+        if(object == null) return;
         comment.setText(object.getComment());
         amount.setText(String.valueOf(object.getValue()));
     }
 
     @Override
     Item getChangedObject() {
-        Item item = ItemBuilder.anItem().withComment(comment.getText()).withValue(Integer.parseInt(amount.getText())).build();
+        Item item = ItemBuilder.anItem().withComment(comment.getText()).withValue(Integer.parseInt(amount.getText().isEmpty()?"0":amount.getText())).build();
         RepositoryContainer.get(ItemRepository.class).save(item);
         return item;
     }

@@ -41,6 +41,7 @@ public class AddressDialog<T> extends Dialog<Address>{
 
     @Override
     public void copyFrom(Address object) {
+        if(object == null) return;
         street.setText(object.getStreet());
         zipcode.setText(object.getZipCode());
         city.setText(object.getCity());
