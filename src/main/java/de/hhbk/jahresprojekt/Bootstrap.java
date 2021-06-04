@@ -8,13 +8,13 @@ import de.hhbk.jahresprojekt.database.AddressRepository;
 import de.hhbk.jahresprojekt.database.InvoiceRepository;
 import de.hhbk.jahresprojekt.database.RentalObjectRepository;
 import de.hhbk.jahresprojekt.database.TenantRepository;
-import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
-import de.hhbk.jahresprojekt.database.repositories.FileRepository;
-import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
-import de.hhbk.jahresprojekt.database.repositories.UserRepository;
+import de.hhbk.jahresprojekt.database.repositories.*;
 import de.hhbk.jahresprojekt.model.Document;
 import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.model.Role;
+import de.hhbk.jahresprojekt.model.RoleType;
 import de.hhbk.jahresprojekt.model.builder.FileBuilder;
+import de.hhbk.jahresprojekt.model.builder.RoleBuilder;
 import de.hhbk.jahresprojekt.views.modules.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -85,6 +85,13 @@ public class Bootstrap extends Application {
         RepositoryContainer.registerRepository(DocumentRepository.class);
         RepositoryContainer.registerRepository(PaymentReceivedRepository.class);
         RepositoryContainer.registerRepository(FileRepository.class);
+        RepositoryContainer.registerRepository(RoleRepository.class);
+        RepositoryContainer.registerRepository(ItemRepository.class);
+
+        RoleRepository roleRepository = RepositoryContainer.get(RoleRepository.class);
+        roleRepository.findAll().forEach(roleRepository::delete);
+        roleRepository.save(RoleBuilder.aRole().withRoleType(RoleType.ADMIN).build());
+        roleRepository.save(RoleBuilder.aRole().withRoleType(RoleType.DEFAULT).build());
     }
 
     private void openModuleAndCloseNav(Workbench workbench, WorkbenchModule workbenchModule){

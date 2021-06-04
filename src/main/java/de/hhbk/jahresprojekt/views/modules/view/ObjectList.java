@@ -1,6 +1,9 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
+import de.hhbk.jahresprojekt.views.components.AddressDialog;
+import de.hhbk.jahresprojekt.views.components.Dialog;
+import de.hhbk.jahresprojekt.views.components.ItemDialog;
 import de.hhbk.jahresprojekt.views.components.SelectDialog;
 import de.hhbk.jahresprojekt.views.modules.autofetch.OnObjectChangedListener;
 import javafx.collections.FXCollections;
@@ -40,15 +43,19 @@ public class ObjectList<T> extends VBox {
         });
 
         add.setOnMouseClicked(mouseEvent -> {
-            SelectDialog<T> selectDialog = new SelectDialog<>(tClass);
-            selectDialog.setOnObjectChangedListener(nValue -> {
+            Dialog<T> dialog = switch (tClass.getName()){
+                case "de.hhbk.jahresprojekt.model.Item" -> new ItemDialog();
+                case "de.hhbk.jahresprojekt.model.Address" -> new AddressDialog();
+                default -> new SelectDialog<T>(tClass);
+            };
+            dialog.setOnObjectChangedListener(nValue -> {
                 if(nValue != null) {
                     objectList.add(nValue);
                     setItems();
                 }
             });
             try {
-                WorkbenchHolder.getInstance().getWorkbench().showDialog(selectDialog.getDialog());
+                WorkbenchHolder.getInstance().getWorkbench().showDialog(dialog.getDialog());
             } catch (Exception e) {
                 e.printStackTrace();
             }

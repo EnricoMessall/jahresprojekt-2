@@ -2,10 +2,14 @@ package de.hhbk.jahresprojekt.views.modules.view;
 
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
+import de.hhbk.jahresprojekt.views.components.AddressDialog;
+import de.hhbk.jahresprojekt.views.components.Dialog;
+import de.hhbk.jahresprojekt.views.components.ItemDialog;
 import de.hhbk.jahresprojekt.views.components.SelectDialog;
 import de.hhbk.jahresprojekt.views.modules.autofetch.OnObjectChangedListener;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
+
 
 public class ObjectItem<T> extends Button {
     private Class<T> tClass;
@@ -19,14 +23,17 @@ public class ObjectItem<T> extends Button {
 
         setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                System.out.println("objekt wird neues: " + tClass.getName());
-                SelectDialog<T> selectDialog = new SelectDialog<>(tClass);
-                selectDialog.setOnObjectChangedListener(nValue -> {
-                    setText(nValue==null?"Nichts ausgewählt":nValue.toString());
-                    onObjectChangedListener.changed(nValue);
-                });
                 try {
-                    WorkbenchHolder.getInstance().getWorkbench().showDialog(selectDialog.getDialog());
+                    Dialog<T> dialog = switch (tClass.getName()){
+                        case "de.hhbk.jahresprojekt.model.Item" -> new ItemDialog();
+                        case "de.hhbk.jahresprojekt.model.Address" -> new AddressDialog();
+                        default -> new SelectDialog<T>(tClass);
+                    };
+                    dialog.setOnObjectChangedListener(nValue -> {
+                        setText(nValue==null?"Nichts ausgewählt":nValue.toString());
+                        onObjectChangedListener.changed(nValue);
+                    });
+                    WorkbenchHolder.getInstance().getWorkbench().showDialog(dialog.getDialog());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

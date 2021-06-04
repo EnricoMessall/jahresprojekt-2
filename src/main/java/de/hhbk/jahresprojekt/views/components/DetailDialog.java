@@ -6,7 +6,7 @@ import de.hhbk.jahresprojekt.views.modules.view.DetailForm;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 
-public class DetailDialog<T>  {
+public class DetailDialog<T> {
     T object;
     OnObjectChangedListener<T> onObjectChangedListener;
 
