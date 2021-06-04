@@ -3,8 +3,8 @@ package de.hhbk.jahresprojekt.views.modules.autofetch;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.hhbk.jahresprojekt.database.Repository;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import javafx.scene.Node;
 
 import java.util.List;
 
@@ -27,5 +27,6 @@ public abstract class AutoFetchWorkbenchModule<T> extends WorkbenchModule {
     public void refresh(){
         List<T> list = RepositoryContainer.get(repository.getClass()).findAll();
         onFetchedListener.run(list);
+        System.out.println("refresh");
     }
 }

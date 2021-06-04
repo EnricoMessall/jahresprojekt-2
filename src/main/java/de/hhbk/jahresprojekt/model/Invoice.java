@@ -75,4 +75,9 @@ public class Invoice {
     public void setItemList(List<Item> itemList) {
         this.itemList = itemList;
     }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), recipient.toString(), date.toString());
+    }
 }

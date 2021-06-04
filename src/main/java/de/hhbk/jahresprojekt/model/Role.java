@@ -48,4 +48,9 @@ public class Role {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), getRoleType().toString());
+    }
 }

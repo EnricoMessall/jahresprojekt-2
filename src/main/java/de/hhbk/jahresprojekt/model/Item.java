@@ -53,6 +53,6 @@ public class Item {
 
     @Override
     public String toString() {
-        return value + " EUR\t" + comment;
+        return String.join(", ", String.valueOf(id), getComment(), String.valueOf(getValue()));
     }
 }
