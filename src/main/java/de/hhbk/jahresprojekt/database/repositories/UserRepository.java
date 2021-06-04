@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Jonas Rehrmann
  */
-public class UserRepository extends Repository {
+public class UserRepository extends Repository<User> {
     public UserRepository() {
         super(User.class);
     }
