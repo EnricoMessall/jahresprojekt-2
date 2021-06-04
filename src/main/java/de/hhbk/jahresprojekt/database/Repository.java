@@ -9,7 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class Repository<T>  implements CrudRepository<T> {
+public class Repository<T>  implements CrudRepository<T> {
 
     private final Class<T> tClass;
 

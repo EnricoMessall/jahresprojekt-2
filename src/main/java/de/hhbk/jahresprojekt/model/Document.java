@@ -81,4 +81,9 @@ public class Document {
     public void setRelatedTenants(List<Tenant> relatedTenants) {
         this.relatedTenants = relatedTenants;
     }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), fileName, "Verion: " + versionList.size());
+    }
 }

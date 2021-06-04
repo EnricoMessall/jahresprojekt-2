@@ -9,8 +9,12 @@ import de.hhbk.jahresprojekt.database.InvoiceRepository;
 import de.hhbk.jahresprojekt.database.RentalObjectRepository;
 import de.hhbk.jahresprojekt.database.TenantRepository;
 import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
+import de.hhbk.jahresprojekt.database.repositories.FileRepository;
 import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
 import de.hhbk.jahresprojekt.database.repositories.UserRepository;
+import de.hhbk.jahresprojekt.model.Document;
+import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.model.builder.FileBuilder;
 import de.hhbk.jahresprojekt.views.modules.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -18,6 +22,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+
+import java.util.Date;
 
 /**
  * @author Enrico Messall
@@ -78,6 +84,7 @@ public class Bootstrap extends Application {
         RepositoryContainer.registerRepository(AddressRepository.class);
         RepositoryContainer.registerRepository(DocumentRepository.class);
         RepositoryContainer.registerRepository(PaymentReceivedRepository.class);
+        RepositoryContainer.registerRepository(FileRepository.class);
     }
 
     private void openModuleAndCloseNav(Workbench workbench, WorkbenchModule workbenchModule){

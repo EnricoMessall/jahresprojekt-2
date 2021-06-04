@@ -72,4 +72,9 @@ public class Address {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), street, zipCode, city, country);
+    }
 }

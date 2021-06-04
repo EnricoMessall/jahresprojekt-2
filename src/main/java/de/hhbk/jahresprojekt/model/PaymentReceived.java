@@ -13,17 +13,17 @@ import java.util.Date;
 public class PaymentReceived {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    public int id;
     @TableField
-    private Date date;
+    public Date date;
     @ManyToOne
     @TableField
-    private RentalObject rentalObject;
+    public RentalObject rentalObject;
     @TableField
-    private int amount;
+    public int amount;
     @ManyToOne
     @TableField
-    private Tenant tenant;
+    public Tenant tenant;
 
 
     public PaymentReceived() {
@@ -71,5 +71,10 @@ public class PaymentReceived {
 
     public void setTenant(Tenant tenant) {
         this.tenant = tenant;
+    }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), getDate().toString(), getTenant().toString(), String.valueOf(getAmount()));
     }
 }

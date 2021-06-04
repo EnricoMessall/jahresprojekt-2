@@ -72,4 +72,9 @@ public class BankAccount {
     public void setCreditInstitution(String creditInstitution) {
         this.creditInstitution = creditInstitution;
     }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), iban);
+    }
 }

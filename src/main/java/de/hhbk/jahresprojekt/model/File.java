@@ -51,4 +51,9 @@ public class File {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), getDate().toString(), getPath());
+    }
 }

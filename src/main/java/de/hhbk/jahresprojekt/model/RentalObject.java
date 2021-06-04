@@ -1,6 +1,8 @@
 package de.hhbk.jahresprojekt.model;
 
 import de.hhbk.jahresprojekt.views.annotations.TableField;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,6 +33,7 @@ public class RentalObject {
     private int additionalCosts;
     private String notes;
     @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> subObjects;
     @ManyToOne
     private Tenant tenant;
@@ -38,13 +41,16 @@ public class RentalObject {
     @JoinTable(name = "rental_contacts",
             joinColumns = @JoinColumn(name = "id")
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Tenant> contacts;
     @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Invoice> invoices;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "document_rental_objects",
             joinColumns = @JoinColumn(name = "id")
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Document> documents;
 
     public RentalObject(){}
@@ -181,5 +187,10 @@ public class RentalObject {
 
     public void setDocuments(List<Document> documents) {
         this.documents = documents;
+    }
+
+    @Override
+    public String toString() {
+        return String.join(", ", String.valueOf(id), getObjectNumber());
     }
 }

@@ -12,11 +12,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class User extends Person{
     @TableField(label = "Name")
-    private String username;
+    public String username;
     @TableField(label = "Passwort")
-    private String password;
+    public String password;
     @ManyToOne
-    private Role role;
+    public Role role;
 
     public User() {
     }
@@ -50,5 +50,10 @@ public class User extends Person{
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return String.join(", ", super.toString());
     }
 }
