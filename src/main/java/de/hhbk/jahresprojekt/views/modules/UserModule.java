@@ -9,6 +9,7 @@ import de.hhbk.jahresprojekt.model.PaymentReceived;
 import de.hhbk.jahresprojekt.model.User;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
+import de.hhbk.jahresprojekt.views.modules.autofetch.FetchNotifier;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
@@ -30,7 +31,7 @@ public class UserModule extends AutoFetchWorkbenchModule<User> {
                 DetailDialog<User> detailDialog = new DetailDialog<User>(baseTableView.getTable().getSelectionModel().getSelectedItem());
                 detailDialog.setOnObjectChangedListener(nValue -> {
                     RepositoryContainer.get(UserRepository.class).save(nValue);
-                    refresh();
+                    FetchNotifier.getInstance().requestFetch();
                 });
                 getWorkbench().showDialog(detailDialog.getDialog());
             } catch (Exception illegalAccessException) {

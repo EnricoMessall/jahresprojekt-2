@@ -3,7 +3,7 @@ package de.hhbk.jahresprojekt.views.modules.autofetch;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.hhbk.jahresprojekt.database.Repository;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
-import de.hhbk.jahresprojekt.help.WorkbenchHolder;
+import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnFetchedListener;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 
 import java.util.List;
@@ -14,6 +14,7 @@ public abstract class AutoFetchWorkbenchModule<T> extends WorkbenchModule {
 
     public AutoFetchWorkbenchModule(String name, MaterialDesignIcon icon) {
         super(name, icon);
+        FetchNotifier.getInstance().addListener(this::refresh);
     }
 
     public void setRepository(Repository<T> repository){

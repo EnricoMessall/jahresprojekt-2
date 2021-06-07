@@ -1,29 +1,19 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
-import com.sun.javafx.scene.control.IntegerField;
-import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.model.*;
-import de.hhbk.jahresprojekt.views.components.DetailDialog;
-import de.hhbk.jahresprojekt.views.modules.autofetch.OnObjectChangedListener;
-import javafx.fxml.FXML;
+import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class DetailForm<T> extends VBox {
     private OnObjectChangedListener<T> onObjectChangedListener;
@@ -46,6 +36,7 @@ public class DetailForm<T> extends VBox {
                     textField.setOnKeyTyped(keyEvent -> {
                         try {
                             pd.getWriteMethod().invoke(object, Integer.parseInt(textField.getText()));
+                            save();
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {
@@ -62,6 +53,7 @@ public class DetailForm<T> extends VBox {
                     textField.setOnKeyTyped(keyEvent -> {
                         try {
                             pd.getWriteMethod().invoke(object, (long)Integer.parseInt(textField.getText()));
+                            save();
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {
@@ -79,6 +71,7 @@ public class DetailForm<T> extends VBox {
                     checkBox.setOnAction(actionEvent -> {
                         try {
                             pd.getWriteMethod().invoke(object, checkBox.isSelected());
+                            save();
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {
@@ -96,6 +89,7 @@ public class DetailForm<T> extends VBox {
                     textField.setOnKeyTyped(keyEvent -> {
                         try {
                             pd.getWriteMethod().invoke(object, textField.getText());
+                            save();
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {
@@ -114,6 +108,7 @@ public class DetailForm<T> extends VBox {
                     datePicker.setOnAction(keyEvent -> {
                         try {
                             pd.getWriteMethod().invoke(object, (Date)java.sql.Date.valueOf(datePicker.getValue()));
+                            save();
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {
@@ -129,7 +124,7 @@ public class DetailForm<T> extends VBox {
                 if (pd.getPropertyType().toString().contains("java.util.List")) {
                     Type listType = ((ParameterizedType) object.getClass().getDeclaredField(pd.getName()).getGenericType()).getActualTypeArguments()[0];
                     ObjectList<?> objectList = switch (listType.toString()) {
-                        case "class de.hhbk.jahresprojekt.model.File" -> new ObjectList<File>((List<File>) pd.getReadMethod().invoke(object), File.class);
+                        case "class de.hhbk.jahresprojekt.model.File" -> new FileList((List<File>) pd.getReadMethod().invoke(object));
                         case "class de.hhbk.jahresprojekt.model.RentalObject" -> new ObjectList<RentalObject>((List<RentalObject>) pd.getReadMethod().invoke(object), RentalObject.class);
                         case "class de.hhbk.jahresprojekt.model.Address" -> new ObjectList<Address>((List<Address>) pd.getReadMethod().invoke(object), Address.class);
                         case "class de.hhbk.jahresprojekt.model.BankAccount" -> new ObjectList<BankAccount>((List<BankAccount>) pd.getReadMethod().invoke(object), BankAccount.class);
@@ -145,6 +140,9 @@ public class DetailForm<T> extends VBox {
                         case "class de.hhbk.jahresprojekt.model.User" -> new ObjectList<User>((List<User>) pd.getReadMethod().invoke(object), User.class);
                         default -> new ObjectList<Object>((List<Object>) pd.getReadMethod().invoke(object), Object.class);
                     };
+                    objectList.setOnChangeListener(nValue -> {
+                        save();
+                    });
                     getChildren().add(objectList);
                 }else
 
@@ -169,6 +167,7 @@ public class DetailForm<T> extends VBox {
                     objectItem.setOnObjectChangedListener(nValue -> {
                         try {
                             pd.getWriteMethod().invoke(object, nValue);
+                            save();
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {

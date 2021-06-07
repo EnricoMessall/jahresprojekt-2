@@ -1,7 +1,7 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.views.components.FilterTable;
-import de.hhbk.jahresprojekt.views.modules.autofetch.AddListener;
+import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.AddListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,12 +9,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 import java.util.function.BiPredicate;
 

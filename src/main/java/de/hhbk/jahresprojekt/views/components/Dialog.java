@@ -1,14 +1,9 @@
 package de.hhbk.jahresprojekt.views.components;
 
 import com.dlsc.workbenchfx.model.WorkbenchDialog;
-import de.hhbk.jahresprojekt.database.Repository;
-import de.hhbk.jahresprojekt.views.modules.autofetch.OnObjectChangedListener;
-import de.hhbk.jahresprojekt.views.modules.view.ObjectItem;
-import javafx.collections.FXCollections;
+import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
-import org.apache.commons.lang3.NotImplementedException;
 
 public abstract class Dialog<T> {
     Class<T> tClass;

@@ -1,4 +1,4 @@
-package de.hhbk.jahresprojekt.views.modules.autofetch;
+package de.hhbk.jahresprojekt.views.modules.autofetch.Listeners;
 
 import java.util.List;
 

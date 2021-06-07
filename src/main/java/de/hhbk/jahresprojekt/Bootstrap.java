@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.Date;
 
 /**
@@ -33,7 +34,6 @@ public class Bootstrap extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         registerRepositories();
 
         ViewManager.getInstance().setPrimaryStage(primaryStage);

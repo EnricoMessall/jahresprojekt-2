@@ -8,6 +8,7 @@ import de.hhbk.jahresprojekt.model.Document;
 import de.hhbk.jahresprojekt.model.Tenant;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
+import de.hhbk.jahresprojekt.views.modules.autofetch.FetchNotifier;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
@@ -28,7 +29,7 @@ public class TenantModule extends AutoFetchWorkbenchModule<Tenant> {
                 DetailDialog<Tenant> detailDialog = new DetailDialog<Tenant>(baseTableView.getTable().getSelectionModel().getSelectedItem());
                 detailDialog.setOnObjectChangedListener(nValue -> {
                     RepositoryContainer.get(TenantRepository.class).save(nValue);
-                    refresh();
+                    FetchNotifier.getInstance().requestFetch();
                 });
                 getWorkbench().showDialog(detailDialog.getDialog());
             } catch (Exception illegalAccessException) {

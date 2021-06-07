@@ -1,9 +1,8 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
-import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.views.components.*;
-import de.hhbk.jahresprojekt.views.modules.autofetch.OnObjectChangedListener;
+import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 
