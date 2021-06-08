@@ -1,6 +1,9 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
+import de.hhbk.jahresprojekt.model.Address;
+import de.hhbk.jahresprojekt.model.BankAccount;
+import de.hhbk.jahresprojekt.model.Item;
 import de.hhbk.jahresprojekt.views.components.*;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +17,9 @@ import javafx.scene.layout.VBox;
 import javax.naming.event.ObjectChangeListener;
 import java.util.List;
 
+/**
+ * @author Frederick Hafemann
+ */
 public class ObjectList<T> extends VBox {
     protected List<T> objectList;
     protected ListView<T> items;
@@ -39,7 +45,7 @@ public class ObjectList<T> extends VBox {
         remove.setOnMouseClicked(mouseEvent -> {
             T object = items.getSelectionModel().getSelectedItem();
             if(object != null){
-                System.out.println("remove: " + object.toString());
+                System.out.println("remove: " + object);
                 objectList.remove(object);
                 setItems();
             }
@@ -47,12 +53,8 @@ public class ObjectList<T> extends VBox {
         });
 
         add.setOnMouseClicked(mouseEvent -> {
-            Dialog<T> dialog = switch (tClass.getName()){
-                case "de.hhbk.jahresprojekt.model.Item" -> new ItemDialog();
-                case "de.hhbk.jahresprojekt.model.Address" -> new AddressDialog();
-                case "de.hhbk.jahresprojekt.model.BankAccount" -> new BankAccountDialog();
-                default -> new SelectDialog<T>(tClass);
-            };
+            System.out.println(tClass);
+            Dialog<T> dialog = DialogContainer.get(tClass);
             dialog.setOnObjectChangedListener(nValue -> {
                 if(nValue != null) {
                     objectList.add(nValue);

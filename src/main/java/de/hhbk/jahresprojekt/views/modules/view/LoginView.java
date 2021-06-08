@@ -16,6 +16,9 @@ import javafx.scene.text.Text;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * @author Frederick Hafemann
+ */
 public class LoginView extends BorderPane {
 
     private GridPane pane;

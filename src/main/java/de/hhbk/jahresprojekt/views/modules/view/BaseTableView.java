@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
 
+/**
+ * @author Frederick Hafemann
+ * @author Enrico Messall
+ */
 public class BaseTableView<T> extends BorderPane {
 
     private HBox pane;

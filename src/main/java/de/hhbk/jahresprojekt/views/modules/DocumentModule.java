@@ -1,11 +1,9 @@
 package de.hhbk.jahresprojekt.views.modules;
 
-import de.hhbk.jahresprojekt.database.Repository;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.model.Document;
-import de.hhbk.jahresprojekt.model.User;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
 import de.hhbk.jahresprojekt.views.modules.autofetch.FetchNotifier;
@@ -13,8 +11,9 @@ import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 
-import javax.print.Doc;
-
+/**
+ * @author Frederick Hafemann
+ */
 public class DocumentModule extends AutoFetchWorkbenchModule<Document> {
 
     protected final BaseTableView<Document> baseTableView;

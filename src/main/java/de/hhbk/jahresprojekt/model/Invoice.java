@@ -27,7 +27,7 @@ public class Invoice {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Item> itemList;
     @TableField(label = "Bezahlt")
-    private boolean settled;
+    private Boolean settled;
 
     public Invoice() {
     }

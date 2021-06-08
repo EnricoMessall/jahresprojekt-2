@@ -18,7 +18,7 @@ public class Item {
     @TableField
     private Long id;
     @TableField
-    private int value;
+    private Integer value;
     @TableField
     private String comment;
 

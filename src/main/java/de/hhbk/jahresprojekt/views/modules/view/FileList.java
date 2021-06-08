@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
+/**
+ * @author Frederick Hafemann
+ */
 public class FileList extends ObjectList<File>{
 
     protected Button show, send;

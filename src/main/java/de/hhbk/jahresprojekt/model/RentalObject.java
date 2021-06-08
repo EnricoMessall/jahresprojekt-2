@@ -22,15 +22,15 @@ public class RentalObject {
     @TableField(label = "Typ")
     private RentalType rentalType;
     @TableField(label = "Kommerziell")
-    private boolean commercial;
+    private Boolean commercial;
     @OneToOne
     @TableField(label = "Adresse")
     private Address address;
     @TableField(label = "Raum")
-    private int livingSpace;
+    private Integer livingSpace;
     @TableField(label = "Quadratmeter Preis")
-    private int squareMeterPrice;
-    private int additionalCosts;
+    private Integer squareMeterPrice;
+    private Integer additionalCosts;
     private String notes;
     @OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)

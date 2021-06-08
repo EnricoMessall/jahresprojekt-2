@@ -15,7 +15,7 @@ public class DetailDialog<T> {
     }
 
     public WorkbenchDialog getDialog() throws Exception {
-        DetailForm<T> detailForm = new DetailForm<T>(object, onObjectChangedListener);
+        DetailForm<T> detailForm = new DetailForm<>(object, onObjectChangedListener);
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(detailForm);

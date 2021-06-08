@@ -4,18 +4,10 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import com.dlsc.workbenchfx.view.controls.ToolbarItem;
 import de.hhbk.jahresprojekt.LoginManager;
-import de.hhbk.jahresprojekt.database.*;
-import de.hhbk.jahresprojekt.database.InvoiceRepository;
-import de.hhbk.jahresprojekt.database.RentalObjectRepository;
-import de.hhbk.jahresprojekt.database.TenantRepository;
-import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
-import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
-import de.hhbk.jahresprojekt.database.repositories.UserRepository;
 import de.hhbk.jahresprojekt.views.modules.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 

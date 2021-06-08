@@ -1,10 +1,8 @@
 package de.hhbk.jahresprojekt.views.modules;
 
-import de.hhbk.jahresprojekt.database.RentalObjectRepository;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
-import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
+import de.hhbk.jahresprojekt.database.repositories.RentalObjectRepository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
-import de.hhbk.jahresprojekt.model.Document;
 import de.hhbk.jahresprojekt.model.RentalObject;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;
 import de.hhbk.jahresprojekt.views.modules.autofetch.AutoFetchWorkbenchModule;
@@ -13,6 +11,10 @@ import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 
+/**
+ * @author Frederick Hafemann
+ * @author Enrico Messall
+ */
 public class RentalObjectModule extends AutoFetchWorkbenchModule<RentalObject> {
 
     private final BaseTableView<RentalObject> baseTableView;
