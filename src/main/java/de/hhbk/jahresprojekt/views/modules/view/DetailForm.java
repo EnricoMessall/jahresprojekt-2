@@ -13,6 +13,9 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,8 +61,11 @@ public class DetailForm<T> extends VBox {
                 }else if(pd.getPropertyType() == String.class) addTextField(pd, s -> s);
                 else if(pd.getPropertyType() == Date.class){
                     DatePicker datePicker = new DatePicker();
-                    if(pd.getReadMethod().invoke(object) != null)
-                    datePicker.setValue(((Date)pd.getReadMethod().invoke(object)).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                    if(pd.getReadMethod().invoke(object) != null){
+                        Timestamp timestamp = (Timestamp) pd.getReadMethod().invoke(object);
+                        LocalDate date = timestamp.toLocalDateTime().atZone(ZoneId.systemDefault()).toLocalDate();
+                        datePicker.setValue(date);
+                    }
 
                     datePicker.setOnAction(keyEvent -> {
                         try {
