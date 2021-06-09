@@ -4,6 +4,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class Role {
     private RoleType roleType;
     @OneToMany(mappedBy = "role", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
 
     public Role() {
     }

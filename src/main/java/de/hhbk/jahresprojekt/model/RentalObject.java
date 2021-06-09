@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class RentalObject {
     private String notes;
     @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<RentalObject> subObjects;
+    private List<RentalObject> subObjects = new ArrayList<>();
     @ManyToOne
     @TableField(label = "Mieter")
     private Tenant tenant;
@@ -43,16 +44,16 @@ public class RentalObject {
             joinColumns = @JoinColumn(name = "id")
     )
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Tenant> contacts;
+    private List<Tenant> contacts = new ArrayList<>();
     @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Invoice> invoices;
+    private List<Invoice> invoices = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "document_rental_objects",
             joinColumns = @JoinColumn(name = "id")
     )
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Document> documents;
+    private List<Document> documents = new ArrayList<>();
 
     public RentalObject(){}
 

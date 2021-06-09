@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,13 +27,13 @@ public class Tenant extends Person{
     private BankAccount bankAccount;
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<RentalObject> rentalObjects;
+    private List<RentalObject> rentalObjects = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "document_tenants",
             joinColumns = @JoinColumn(name = "id")
     )
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Document> documents;
+    private List<Document> documents = new ArrayList<>();
     private boolean contactOnly;
 
     public Tenant() {

@@ -58,7 +58,7 @@ public class Repository<T>  implements CrudRepository<T> {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.saveOrUpdate(object);
+        object = (T) session.merge(object);
         session.getTransaction().commit();
         session.close();
         return object;
