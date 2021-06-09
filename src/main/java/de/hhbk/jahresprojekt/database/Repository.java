@@ -31,7 +31,8 @@ public class Repository<T>  implements CrudRepository<T> {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Optional<T> optional = Optional.of(session.get(tClass, (long)id));
+        T object = session.get(tClass, (long)id);
+        Optional<T> optional = object == null ? Optional.empty() : Optional.of(object);
         session.getTransaction().commit();
         session.close();
         return optional;
