@@ -1,6 +1,7 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.views.annotations.TableField;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.sql.Timestamp;
@@ -40,7 +42,12 @@ public class DetailForm<T> extends VBox {
         descriptors.sort((a, b) -> sort(a.getPropertyType(), b.getPropertyType()));
         for (PropertyDescriptor pd : descriptors) {
             if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
-                Label name = new Label(pd.getDisplayName());
+                Field field = object.getClass().getDeclaredField(pd.getName());
+                String value = field.isAnnotationPresent(TableField.class) ?
+                        field.getAnnotation(TableField.class).label() :
+                        pd.getDisplayName();
+                if(value.equals("")) value = pd.getDisplayName();
+                Label name = new Label(value);
                 name.setPadding(new Insets(10, 0, 5, 0));
                 getChildren().add(name);
 
