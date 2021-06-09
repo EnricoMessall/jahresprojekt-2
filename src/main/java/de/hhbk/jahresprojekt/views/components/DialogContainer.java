@@ -13,6 +13,6 @@ public class DialogContainer {
     }
 
     public static <T> void registerDialog(Class<T> theClass, Class<? extends Dialog<T>> theDialog) throws Exception {
-        dialogs.put(theClass, theClass.getDeclaredConstructor().newInstance());
+        dialogs.put(theClass, theDialog.getDeclaredConstructor().newInstance());
     }
 }

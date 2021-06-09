@@ -14,21 +14,21 @@ import java.util.List;
 @Entity
 public class Document {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @TableField
     private String fileName;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<File> versionList;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "document_rental_objects",
             joinColumns = @JoinColumn(name = "id")
     )
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> relatedRentalObjects;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "document_tenants",
             joinColumns = @JoinColumn(name = "id")
     )

@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 public class PaymentReceived {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Long id;
     @TableField
     public Date date;
@@ -20,7 +20,7 @@ public class PaymentReceived {
     @TableField
     public RentalObject rentalObject;
     @TableField
-    public Integer amount;
+    public int amount;
     @ManyToOne
     @TableField
     public Tenant tenant;

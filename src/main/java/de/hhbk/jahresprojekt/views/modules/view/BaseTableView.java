@@ -1,5 +1,9 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
+import de.hhbk.jahresprojekt.database.Repository;
+import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.TenantRepository;
+import de.hhbk.jahresprojekt.model.Tenant;
 import de.hhbk.jahresprojekt.views.components.FilterTable;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.AddListener;
 import javafx.collections.FXCollections;
@@ -12,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -22,31 +27,32 @@ import java.util.function.BiPredicate;
  */
 public class BaseTableView<T> extends BorderPane {
 
-    private HBox pane;
+    private final HBox pane;
     private final TextField search;
     private final Button clearButton;
     private final Button addButton;
     private final FilterTable<T> table;
     private List<T> data = new ArrayList<>();
-    private AddListener addListener;
+    private final Class<T> dataClass;
+    private final Repository<T> repository;
 
-    public BaseTableView(Class<T> dataClass, BiPredicate<T, String> filterCondition, String... labelOrder){
-        pane = new HBox();
-        search = new TextField();
-        clearButton = new Button("Clear");
-        addButton = new Button("Neu");
-        table = new FilterTable<>(dataClass, filterCondition)
+    public BaseTableView(Class<T> dataClass, Repository<T> repository,
+                         BiPredicate<T, String> filterCondition, String... labelOrder){
+        this.pane = new HBox();
+        this.search = new TextField();
+        this.clearButton = new Button("Clear");
+        this.addButton = new Button("New");
+        this.table = new FilterTable<>(dataClass, filterCondition)
                 .setColumnOrder(labelOrder)
                 .populateColumns();
-
+        this.dataClass = dataClass;
+        this.repository = repository;
         search.setPrefWidth(500);
 
         clearButton.setOnAction(click -> search.setText(""));
         search.setOnAction(this::filterTable);
 
-        addButton.setOnAction(click -> {
-            addListener.add();
-        });
+        addButton.setOnAction(click -> createNew());
 
         pane.getChildren().add(search);
         pane.getChildren().add(clearButton);
@@ -65,6 +71,8 @@ public class BaseTableView<T> extends BorderPane {
 
         setTop(pane);
         setCenter(table);
+        setData(this.repository.findAll());
+        table.refresh();
     }
 
     public void setData(List<T> data){
@@ -85,11 +93,16 @@ public class BaseTableView<T> extends BorderPane {
         table.refresh();
     }
 
-    public FilterTable<T> getTable() {
-        return table;
+    private void createNew(){
+        try {
+            T object = repository.save(dataClass.getDeclaredConstructor().newInstance());
+            getTable().getItems().add(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setAddListener(AddListener addListener) {
-        this.addListener = addListener;
+    public FilterTable<T> getTable() {
+        return table;
     }
 }

@@ -24,10 +24,10 @@ public class Tenant extends Person{
     @OneToOne
     @LazyCollection(LazyCollectionOption.FALSE)
     private BankAccount bankAccount;
-    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tenant", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> rentalObjects;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "document_tenants",
             joinColumns = @JoinColumn(name = "id")
     )

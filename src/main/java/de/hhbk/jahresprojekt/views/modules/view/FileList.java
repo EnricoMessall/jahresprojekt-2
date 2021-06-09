@@ -33,16 +33,13 @@ public class FileList extends ObjectList<File>{
 
 
         show = new Button("Open");
-        show.setOnAction(actionEvent -> {
-            new Thread(() -> {
-                try {
-                    Desktop.getDesktop().open(new java.io.File(items.getSelectionModel().getSelectedItem().getPath()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }).start();
-
-        });
+        show.setOnAction(actionEvent -> new Thread(() -> {
+            try {
+                Desktop.getDesktop().open(new java.io.File(items.getSelectionModel().getSelectedItem().getPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start());
         actions.getChildren().add(show);
 
         remove.setOnMouseClicked(mouseEvent -> {

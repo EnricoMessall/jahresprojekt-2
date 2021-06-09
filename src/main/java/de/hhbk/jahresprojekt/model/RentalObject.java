@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 public class RentalObject {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @TableField(label = "Nummer")
     private String objectNumber;
@@ -22,31 +22,31 @@ public class RentalObject {
     @TableField(label = "Typ")
     private RentalType rentalType;
     @TableField(label = "Kommerziell")
-    private Boolean commercial;
+    private boolean commercial;
     @OneToOne
     @TableField(label = "Adresse")
     private Address address;
     @TableField(label = "Raum")
-    private Integer livingSpace;
+    private int livingSpace;
     @TableField(label = "Quadratmeter Preis")
-    private Integer squareMeterPrice;
-    private Integer additionalCosts;
+    private int squareMeterPrice;
+    private int additionalCosts;
     private String notes;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> subObjects;
     @ManyToOne
     private Tenant tenant;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "rental_contacts",
             joinColumns = @JoinColumn(name = "id")
     )
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Tenant> contacts;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Invoice> invoices;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "document_rental_objects",
             joinColumns = @JoinColumn(name = "id")
     )

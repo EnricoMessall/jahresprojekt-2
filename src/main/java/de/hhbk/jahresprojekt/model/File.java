@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 public class File {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @TableField

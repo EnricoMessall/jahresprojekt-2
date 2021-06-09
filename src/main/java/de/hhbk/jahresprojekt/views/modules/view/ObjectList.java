@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import javax.naming.event.ObjectChangeListener;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,9 +31,9 @@ public class ObjectList<T> extends VBox {
     protected OnObjectChangedListener<T> onChangeListener;
 
 
-    public ObjectList(List<T> objectList, Class<T> tClass){
+    public ObjectList(Object list, Class<T> tClass){
         this.tClass = tClass;
-        this.objectList = objectList;
+        this.objectList = (List<T>) list;
         actions = new HBox();
         add = new Button("Add");
         remove = new Button("Remove");
@@ -53,7 +55,6 @@ public class ObjectList<T> extends VBox {
         });
 
         add.setOnMouseClicked(mouseEvent -> {
-            System.out.println(tClass);
             Dialog<T> dialog = DialogContainer.get(tClass);
             dialog.setOnObjectChangedListener(nValue -> {
                 if(nValue != null) {

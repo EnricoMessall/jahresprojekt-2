@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 public class Invoice {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @ManyToOne
@@ -23,11 +23,11 @@ public class Invoice {
     private Person recipient;
     @TableField(label = "Datum")
     private Date date;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Item> itemList;
     @TableField(label = "Bezahlt")
-    private Boolean settled;
+    private boolean settled;
 
     public Invoice() {
     }

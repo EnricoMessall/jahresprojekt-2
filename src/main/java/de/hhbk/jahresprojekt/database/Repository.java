@@ -1,13 +1,18 @@
 package de.hhbk.jahresprojekt.database;
 
 import de.hhbk.jahresprojekt.schnittstellen.CrudRepository;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public class Repository<T>  implements CrudRepository<T> {
 
@@ -18,32 +23,34 @@ public class Repository<T>  implements CrudRepository<T> {
     }
 
     @Override
-    public T findById(int id) {
-        T object;
+    public Optional<T> findById(int id) throws HibernateException {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        object = session.get(tClass, (long)id);
+        Optional<T> optional = Optional.of(session.get(tClass, (long)id));
         session.getTransaction().commit();
         session.close();
-        return object;
+        return optional;
     }
 
     @Override
-    public List<T> findAll() {
-        List<T> object;
+    public List<T> findAll() throws HibernateException {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        String tableName = tClass.getAnnotation(Table.class) == null ? tClass.getName() : tClass.getAnnotation(Table.class).name();
-        object = session.createQuery("from " + tableName).list();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(tClass);
+        Root<T> rootEntry = cq.from(tClass);
+        CriteriaQuery<T> all = cq.select(rootEntry);
+        TypedQuery<T> allQuery = session.createQuery(all);
         session.getTransaction().commit();
+        List<T> result = allQuery.getResultList();
         session.close();
-        return object;
+        return result;
     }
 
     @Override
-    public T save(T object) {
+    public T save(T object) throws HibernateException {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -54,7 +61,7 @@ public class Repository<T>  implements CrudRepository<T> {
     }
 
     @Override
-    public void delete(T object) {
+    public void delete(T object) throws HibernateException {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -63,7 +70,8 @@ public class Repository<T>  implements CrudRepository<T> {
         session.close();
     }
 
-    protected String getTableName(Class<T> aClass){
-        return aClass.getAnnotation(Table.class) == null ? aClass.getName() : aClass.getAnnotation(Table.class).name();
+    protected String getTableName(){
+        return tClass.getAnnotation(Table.class) == null ? tClass.getName() :
+                tClass.getAnnotation(Table.class).name();
     }
 }

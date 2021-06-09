@@ -14,11 +14,11 @@ import javax.persistence.Id;
 @Entity
 public class Item {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @TableField
-    private Integer value;
+    private int value;
     @TableField
     private String comment;
 
