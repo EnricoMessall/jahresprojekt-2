@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -34,7 +35,10 @@ public class DetailForm<T> extends VBox {
         this.object = object;
         this.onObjectChangedListener = onObjectChangedListener;
         setPadding(new Insets(10));
-        for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
+        List<PropertyDescriptor> descriptors = Arrays.asList(Introspector.getBeanInfo(object.getClass())
+                .getPropertyDescriptors());
+        descriptors.sort((a, b) -> sort(a.getPropertyType(), b.getPropertyType()));
+        for (PropertyDescriptor pd : descriptors) {
             if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
                 Label name = new Label(pd.getDisplayName());
                 name.setPadding(new Insets(10, 0, 5, 0));
@@ -109,6 +113,19 @@ public class DetailForm<T> extends VBox {
             } catch (Exception ignore) {}
         });
         getChildren().add(textField);
+    }
+
+    private int sort(Class<?> a, Class<?> b){
+        return Integer.compare(getValue(a), getValue(b));
+    }
+
+    private int getValue(Class<?> tClass){
+        if(tClass == List.class) return 99;
+        if(tClass == Boolean.class || tClass == boolean.class) return 3;
+        if(tClass == String.class) return 2;
+        if(tClass == Integer.class || tClass == int.class) return 1;
+        if(tClass == Long.class || tClass == long.class) return 0;
+        return 20;
     }
 
     private void addListField(PropertyDescriptor pd)
