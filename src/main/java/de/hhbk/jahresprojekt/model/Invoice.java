@@ -79,6 +79,9 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), recipient.toString(), date.toString());
+        return "Rechnung für "
+                + recipient.getFirstName() + " " + recipient.getLastName()
+                + " vom " + date + " ("
+                + (settled ? "Abgeschlossen" : "Offen" + ")");
     }
 }

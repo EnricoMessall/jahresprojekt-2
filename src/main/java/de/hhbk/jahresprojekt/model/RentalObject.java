@@ -193,6 +193,6 @@ public class RentalObject {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), getObjectNumber());
+        return "Objekt: " + objectNumber + " Ort: " + address + " mit Mieter: " + tenant;
     }
 }

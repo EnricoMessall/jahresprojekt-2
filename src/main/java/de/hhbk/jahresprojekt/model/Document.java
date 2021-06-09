@@ -85,6 +85,6 @@ public class Document {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), fileName, "Verion: " + versionList.size());
+        return fileName + " (v" + versionList.size() + ")";
     }
 }

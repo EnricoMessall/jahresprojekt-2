@@ -75,6 +75,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), street, zipCode, city, country);
+        return zipCode + " " + city + ", " + street + ", " + country;
     }
 }

@@ -54,6 +54,6 @@ public class File {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), getDate().toString(), getPath());
+        return path + " (Date: " + date + ")";
     }
 }

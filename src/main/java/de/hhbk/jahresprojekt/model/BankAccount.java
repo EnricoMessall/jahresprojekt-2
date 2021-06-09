@@ -75,6 +75,6 @@ public class BankAccount {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), iban);
+        return iban + ", " + creditInstitution + ", " + accountOwner;
     }
 }
