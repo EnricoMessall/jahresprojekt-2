@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 public class File {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @TableField
@@ -54,6 +54,6 @@ public class File {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), getDate().toString(), getPath());
+        return path + " (Date: " + date + ")";
     }
 }

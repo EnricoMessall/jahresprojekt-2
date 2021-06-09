@@ -1,10 +1,15 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
+import de.hhbk.jahresprojekt.database.repositories.RentalObjectRepository;
 import de.hhbk.jahresprojekt.views.annotations.TableField;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.print.Doc;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +19,7 @@ import java.util.List;
 @Entity
 public class RentalObject {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @TableField(label = "Nummer")
     private String objectNumber;
@@ -32,26 +37,31 @@ public class RentalObject {
     private int squareMeterPrice;
     private int additionalCosts;
     private String notes;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<RentalObject> subObjects;
+    private List<RentalObject> subObjects = new ArrayList<>();
     @ManyToOne
+    @TableField(label = "Mieter")
     private Tenant tenant;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "rental_contacts",
-            joinColumns = @JoinColumn(name = "id")
-    )
+    @ManyToMany()
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Tenant> contacts;
-    @OneToMany(cascade = CascadeType.ALL)
+    private List<Tenant> contacts = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Invoice> invoices;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "document_rental_objects",
-            joinColumns = @JoinColumn(name = "id")
-    )
+    private List<Invoice> invoices = new ArrayList<>();
+    @ManyToMany()
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Document> documents;
+    private List<Document> documents = new ArrayList<>();
+
+    public void adddocuments(Document document){
+        document.getRelatedRentalObjects().add(this);
+        RepositoryContainer.get(DocumentRepository.class).save(document);
+    }
+
+    public void removedocuments(Document document){
+        document.getRelatedRentalObjects().remove(this);
+        RepositoryContainer.get(DocumentRepository.class).save(document);
+    }
 
     public RentalObject(){}
 
@@ -191,6 +201,6 @@ public class RentalObject {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), getObjectNumber());
+        return "Objekt: " + objectNumber + " Ort: " + address + " mit Mieter: " + tenant;
     }
 }

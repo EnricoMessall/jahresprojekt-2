@@ -62,7 +62,7 @@ public class LoginManager {
      * @return true wenn der angemeldete Benutzer ein Admin ist
      */
     public boolean currentUserIsAdmin() {
-        return currentUser == null ? false : currentUser.getRole().getRoleType() == RoleType.ADMIN;
+        return currentUser != null && currentUser.getRole().getRoleType() == RoleType.ADMIN;
     }
 
 }

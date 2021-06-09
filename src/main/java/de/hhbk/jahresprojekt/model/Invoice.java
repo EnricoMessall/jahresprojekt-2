@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 public class Invoice {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @ManyToOne
@@ -23,9 +24,9 @@ public class Invoice {
     private Person recipient;
     @TableField(label = "Datum")
     private Date date;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Item> itemList;
+    private List<Item> itemList = new ArrayList<>();
     @TableField(label = "Bezahlt")
     private boolean settled;
 
@@ -78,6 +79,9 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), recipient.toString(), date.toString());
+        return "Rechnung für "
+                + recipient.getFirstName() + " " + recipient.getLastName()
+                + " vom " + date + " ("
+                + (settled ? "Abgeschlossen" : "Offen" + ")");
     }
 }

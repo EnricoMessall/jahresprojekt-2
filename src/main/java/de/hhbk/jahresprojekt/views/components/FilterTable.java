@@ -15,6 +15,10 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
+/**
+ * @author Enrico Messall
+ * @author Frederick Hafemann
+ */
 public class FilterTable<T> extends TableView<T> {
 
     private final Class<T> tClass;

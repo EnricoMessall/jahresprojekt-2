@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Enrico Messall
  */
 public final class PaymentReceivedBuilder {
-    private int id;
+    private Long id;
     private Date date;
     private RentalObject rentalObject;
     private int amount;
@@ -24,7 +24,7 @@ public final class PaymentReceivedBuilder {
         return new PaymentReceivedBuilder();
     }
 
-    public PaymentReceivedBuilder withId(int id) {
+    public PaymentReceivedBuilder withId(Long id) {
         this.id = id;
         return this;
     }

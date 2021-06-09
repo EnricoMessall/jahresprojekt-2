@@ -8,8 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import org.apache.commons.lang3.StringUtils;
 
-public class ItemDialog<T> extends Dialog<Item>{
+/**
+ * @author Frederick Hafemann
+ */
+public class ItemDialog extends Dialog<Item>{
     VBox vBox;
     TextField comment, amount;
 
@@ -39,7 +43,8 @@ public class ItemDialog<T> extends Dialog<Item>{
 
     @Override
     Item getChangedObject() {
-        Item item = ItemBuilder.anItem().withComment(comment.getText()).withValue(Integer.parseInt(amount.getText().isEmpty()?"0":amount.getText())).build();
+        int value = StringUtils.isNotBlank(amount.getText()) ? Integer.parseInt(amount.getText()) : 0;
+        Item item = ItemBuilder.anItem().withComment(comment.getText()).withValue(value).build();
         RepositoryContainer.get(ItemRepository.class).save(item);
         return item;
     }

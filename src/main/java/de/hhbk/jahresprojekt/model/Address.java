@@ -1,7 +1,5 @@
 package de.hhbk.jahresprojekt.model;
 
-import de.hhbk.jahresprojekt.database.AddressRepository;
-import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.views.annotations.TableField;
 
 import javax.persistence.Entity;
@@ -16,7 +14,7 @@ import javax.persistence.Id;
 @Entity
 public class Address {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @TableField
@@ -77,6 +75,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), street, zipCode, city, country);
+        return zipCode + " " + city + ", " + street + ", " + country;
     }
 }

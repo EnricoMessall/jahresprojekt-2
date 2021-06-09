@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @Entity
 public class BankAccount {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @TableField
     private Long id;
     @TableField
@@ -75,6 +75,6 @@ public class BankAccount {
 
     @Override
     public String toString() {
-        return String.join(", ", String.valueOf(id), iban);
+        return iban + ", " + creditInstitution + ", " + accountOwner;
     }
 }

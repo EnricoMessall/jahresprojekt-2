@@ -1,7 +1,9 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
+import de.hhbk.jahresprojekt.database.Repository;
+import de.hhbk.jahresprojekt.help.WorkbenchHolder;
+import de.hhbk.jahresprojekt.views.components.DetailDialog;
 import de.hhbk.jahresprojekt.views.components.FilterTable;
-import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.AddListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,33 +18,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
 
+/**
+ * @author Frederick Hafemann
+ * @author Enrico Messall
+ */
 public class BaseTableView<T> extends BorderPane {
 
-    private HBox pane;
+    private final HBox pane;
     private final TextField search;
     private final Button clearButton;
     private final Button addButton;
     private final FilterTable<T> table;
     private List<T> data = new ArrayList<>();
-    private AddListener addListener;
+    private final Class<T> dataClass;
+    private final Repository<T> repository;
 
-    public BaseTableView(Class<T> dataClass, BiPredicate<T, String> filterCondition, String... labelOrder){
-        pane = new HBox();
-        search = new TextField();
-        clearButton = new Button("Clear");
-        addButton = new Button("Neu");
-        table = new FilterTable<>(dataClass, filterCondition)
+    public BaseTableView(Class<T> dataClass, Repository<T> repository,
+                         BiPredicate<T, String> filterCondition, String... labelOrder){
+        this.pane = new HBox();
+        this.search = new TextField();
+        this.clearButton = new Button("Clear");
+        this.addButton = new Button("New");
+        this.table = new FilterTable<>(dataClass, filterCondition)
                 .setColumnOrder(labelOrder)
                 .populateColumns();
-
+        this.dataClass = dataClass;
+        this.repository = repository;
         search.setPrefWidth(500);
 
         clearButton.setOnAction(click -> search.setText(""));
         search.setOnAction(this::filterTable);
 
-        addButton.setOnAction(click -> {
-            addListener.add();
-        });
+        addButton.setOnAction(click -> createNew());
 
         pane.getChildren().add(search);
         pane.getChildren().add(clearButton);
@@ -61,6 +68,13 @@ public class BaseTableView<T> extends BorderPane {
 
         setTop(pane);
         setCenter(table);
+        refreshData();
+        table.refresh();
+        addMouseClick();
+    }
+
+    public void refreshData(){
+        setData(this.repository.findAll());
     }
 
     public void setData(List<T> data){
@@ -81,11 +95,34 @@ public class BaseTableView<T> extends BorderPane {
         table.refresh();
     }
 
-    public FilterTable<T> getTable() {
-        return table;
+    private void createNew(){
+        try {
+            T object = repository.save(dataClass.getDeclaredConstructor().newInstance());
+            getTable().getItems().add(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setAddListener(AddListener addListener) {
-        this.addListener = addListener;
+    private void addMouseClick(){
+        getTable().setOnMouseClicked(e -> {
+            try {
+                T model = getTable().getSelectionModel().getSelectedItem();
+                if(model == null) return;
+                DetailDialog<T> detailDialog = new DetailDialog<>(model);
+                detailDialog.setOnObjectChangedListener(nValue -> {
+                    repository.save(nValue);
+                    table.refresh();
+                });
+                getTable().getSelectionModel().clearSelection();
+                WorkbenchHolder.getInstance().getWorkbench().showDialog(detailDialog.getDialog());
+            } catch (Exception illegalAccessException) {
+                illegalAccessException.printStackTrace();
+            }
+        });
+    }
+
+    public FilterTable<T> getTable() {
+        return table;
     }
 }

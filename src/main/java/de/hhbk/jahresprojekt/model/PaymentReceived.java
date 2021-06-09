@@ -12,8 +12,8 @@ import java.util.Date;
 @Entity
 public class PaymentReceived {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    public int id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    public Long id;
     @TableField
     public Date date;
     @ManyToOne
@@ -29,7 +29,7 @@ public class PaymentReceived {
     public PaymentReceived() {
     }
 
-    public PaymentReceived(int id, Date date, RentalObject rentalObject, int amount, Tenant tenant) {
+    public PaymentReceived(Long id, Date date, RentalObject rentalObject, int amount, Tenant tenant) {
         this.id = id;
         this.date = date;
         this.rentalObject = rentalObject;
@@ -37,7 +37,7 @@ public class PaymentReceived {
         this.tenant = tenant;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

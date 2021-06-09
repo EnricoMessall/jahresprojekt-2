@@ -1,18 +1,18 @@
 package de.hhbk.jahresprojekt.views.components;
 
-import de.hhbk.jahresprojekt.database.AddressRepository;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.BankAccountRepository;
-import de.hhbk.jahresprojekt.model.Address;
 import de.hhbk.jahresprojekt.model.BankAccount;
-import de.hhbk.jahresprojekt.model.builder.AdressBuilder;
 import de.hhbk.jahresprojekt.model.builder.BankAccountBuilder;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class BankAccountDialog<T> extends Dialog<BankAccount>{
+/**
+ * @author Frederick Hafemann
+ */
+public class BankAccountDialog extends Dialog<BankAccount>{
     VBox vBox;
     TextField iban, bic, accountOwner, creditInstiture;
 

@@ -1,21 +1,20 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
-import de.hhbk.jahresprojekt.LoginManager;
 import de.hhbk.jahresprojekt.views.ViewManager;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
+/**
+ * @author Frederick Hafemann
+ * @author Enrico Messall
+ */
 public class LoginView extends BorderPane {
 
     private GridPane pane;

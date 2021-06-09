@@ -6,6 +6,9 @@ import de.hhbk.jahresprojekt.views.modules.view.DetailForm;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 
+/**
+ * @author Frederick Hafemann
+ */
 public class DetailDialog<T> {
     T object;
     OnObjectChangedListener<T> onObjectChangedListener;
@@ -15,7 +18,7 @@ public class DetailDialog<T> {
     }
 
     public WorkbenchDialog getDialog() throws Exception {
-        DetailForm<T> detailForm = new DetailForm<T>(object, onObjectChangedListener);
+        DetailForm<T> detailForm = new DetailForm<>(object, onObjectChangedListener);
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(detailForm);

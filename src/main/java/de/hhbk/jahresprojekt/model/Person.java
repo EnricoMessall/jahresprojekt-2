@@ -13,17 +13,16 @@ import javax.persistence.*;
 public class Person {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @TableField
     private Long id;
-    @TableField
+    @TableField(label = "Titel")
     private String title;
     @TableField(label = "Vorname")
     private String firstName;
-    @TableField
+    @TableField(label = "Nachname")
     private String lastName;
-    @TableField
+    @TableField(label = "Mobilnummer")
     private String phoneNumberMobile;
-    @TableField
+    @TableField(label = "Festnetznummer")
     private String phoneNumberLandline;
     @TableField
     private String email;

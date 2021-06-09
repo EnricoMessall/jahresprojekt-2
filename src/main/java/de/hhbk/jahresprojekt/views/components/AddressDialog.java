@@ -1,17 +1,18 @@
 package de.hhbk.jahresprojekt.views.components;
 
-import de.hhbk.jahresprojekt.database.AddressRepository;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.AddressRepository;
 import de.hhbk.jahresprojekt.model.Address;
-import de.hhbk.jahresprojekt.model.Item;
 import de.hhbk.jahresprojekt.model.builder.AdressBuilder;
-import de.hhbk.jahresprojekt.model.builder.ItemBuilder;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class AddressDialog<T> extends Dialog<Address>{
+/**
+ * @author Frederick Hafemann
+ */
+public class AddressDialog extends Dialog<Address>{
     VBox vBox;
     TextField street, zipcode, city, country;
 

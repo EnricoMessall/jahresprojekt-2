@@ -1,70 +1,55 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
-import de.hhbk.jahresprojekt.model.*;
+import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.model.Tenant;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
+/**
+ * @author Frederick Hafemann
+ * @author Enrico Messall
+ */
 public class DetailForm<T> extends VBox {
-    private OnObjectChangedListener<T> onObjectChangedListener;
-    private T object;
+    private final OnObjectChangedListener<T> onObjectChangedListener;
+    private final T object;
 
     public DetailForm(T object, OnObjectChangedListener<T> onObjectChangedListener) throws Exception {
         this.object = object;
         this.onObjectChangedListener = onObjectChangedListener;
         setPadding(new Insets(10));
-        for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
+        List<PropertyDescriptor> descriptors = Arrays.asList(Introspector.getBeanInfo(object.getClass())
+                .getPropertyDescriptors());
+        descriptors.sort((a, b) -> sort(a.getPropertyType(), b.getPropertyType()));
+        for (PropertyDescriptor pd : descriptors) {
             if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
-                System.out.println(pd.getName() + ": " + pd.getReadMethod().invoke(object) + ", " + pd.getPropertyType());
                 Label name = new Label(pd.getDisplayName());
                 name.setPadding(new Insets(10, 0, 5, 0));
                 getChildren().add(name);
 
-                if(pd.getPropertyType().toString().equals("int")){
-                    TextField textField = new TextField();
-                    textField.setText(String.valueOf(pd.getReadMethod().invoke(object)));
-                    textField.setOnKeyTyped(keyEvent -> {
-                        try {
-                            pd.getWriteMethod().invoke(object, Integer.parseInt(textField.getText()));
-                            save();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    getChildren().add(textField);
-                }else
-
-                if(pd.getPropertyType().toString().equals("class java.lang.Long")){
-                    TextField textField = new TextField();
-                    textField.setText(String.valueOf(pd.getReadMethod().invoke(object)));
-
-                    textField.setOnKeyTyped(keyEvent -> {
-                        try {
-                            pd.getWriteMethod().invoke(object, (long)Integer.parseInt(textField.getText()));
-                            save();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    });
-
-                    getChildren().add(textField);
-                }else
-
-                if(pd.getPropertyType().toString().equals("boolean")){
+                if(pd.getPropertyType() == int.class || pd.getPropertyType() == Integer.class)
+                    addTextField(pd, Integer::parseInt);
+                else if(pd.getPropertyType() == long.class || pd.getPropertyType() == Long.class)
+                    addTextField(pd, Long::parseLong);
+                else if(pd.getPropertyType() == boolean.class || pd.getPropertyType() == Boolean.class){
                     CheckBox checkBox = new CheckBox();
                     checkBox.setSelected((boolean) pd.getReadMethod().invoke(object));
 
@@ -72,105 +57,40 @@ public class DetailForm<T> extends VBox {
                         try {
                             pd.getWriteMethod().invoke(object, checkBox.isSelected());
                             save();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
+                        } catch (IllegalAccessException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
                     });
 
                     getChildren().add(checkBox);
-                }else
-
-                if(pd.getPropertyType().toString().equals("class java.lang.String")){
-                    TextField textField = new TextField();
-                    textField.setText(pd.getReadMethod().invoke(object)== null?"":pd.getReadMethod().invoke(object).toString());
-
-                    textField.setOnKeyTyped(keyEvent -> {
-                        try {
-                            pd.getWriteMethod().invoke(object, textField.getText());
-                            save();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    });
-
-                    getChildren().add(textField);
-                }else
-
-                if(pd.getPropertyType().toString().equals("class java.util.Date")){
+                }else if(pd.getPropertyType() == String.class) addTextField(pd, s -> s);
+                else if(pd.getPropertyType() == Date.class){
                     DatePicker datePicker = new DatePicker();
-                    if(pd.getReadMethod().invoke(object) != null)
-                    datePicker.setValue(((Date)pd.getReadMethod().invoke(object)).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                    if(pd.getReadMethod().invoke(object) != null){
+                        Timestamp timestamp = (Timestamp) pd.getReadMethod().invoke(object);
+                        LocalDate date = timestamp.toLocalDateTime().atZone(ZoneId.systemDefault()).toLocalDate();
+                        datePicker.setValue(date);
+                    }
 
                     datePicker.setOnAction(keyEvent -> {
                         try {
-                            pd.getWriteMethod().invoke(object, (Date)java.sql.Date.valueOf(datePicker.getValue()));
+                            pd.getWriteMethod().invoke(object, java.sql.Date.valueOf(datePicker.getValue()));
                             save();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
+                        } catch (IllegalAccessException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
                     });
 
                     getChildren().add(datePicker);
-                }else
-
-
-                //Listen
-                if (pd.getPropertyType().toString().contains("java.util.List")) {
-                    Type listType = ((ParameterizedType) object.getClass().getDeclaredField(pd.getName()).getGenericType()).getActualTypeArguments()[0];
-                    ObjectList<?> objectList = switch (listType.toString()) {
-                        case "class de.hhbk.jahresprojekt.model.File" -> new FileList((List<File>) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.RentalObject" -> new ObjectList<RentalObject>((List<RentalObject>) pd.getReadMethod().invoke(object), RentalObject.class);
-                        case "class de.hhbk.jahresprojekt.model.Address" -> new ObjectList<Address>((List<Address>) pd.getReadMethod().invoke(object), Address.class);
-                        case "class de.hhbk.jahresprojekt.model.BankAccount" -> new ObjectList<BankAccount>((List<BankAccount>) pd.getReadMethod().invoke(object), BankAccount.class);
-                        case "class de.hhbk.jahresprojekt.model.Document" -> new ObjectList<Document>((List<Document>) pd.getReadMethod().invoke(object), Document.class);
-                        case "class de.hhbk.jahresprojekt.model.Invoice" -> new ObjectList<Invoice>((List<Invoice>) pd.getReadMethod().invoke(object), Invoice.class);
-                        case "class de.hhbk.jahresprojekt.model.Item" -> new ObjectList<Item>((List<Item>) pd.getReadMethod().invoke(object), Item.class);
-                        case "class de.hhbk.jahresprojekt.model.PaymentReceived" -> new ObjectList<PaymentReceived>((List<PaymentReceived>) pd.getReadMethod().invoke(object), PaymentReceived.class);
-                        case "class de.hhbk.jahresprojekt.model.Person" -> new ObjectList<Person>((List<Person>) pd.getReadMethod().invoke(object), Person.class);
-                        case "class de.hhbk.jahresprojekt.model.RentalType" -> new ObjectList<RentalType>((List<RentalType>) pd.getReadMethod().invoke(object), RentalType.class);
-                        case "class de.hhbk.jahresprojekt.model.Role" -> new ObjectList<Role>((List<Role>) pd.getReadMethod().invoke(object), Role.class);
-                        case "class de.hhbk.jahresprojekt.model.RoleType" -> new ObjectList<RoleType>((List<RoleType>) pd.getReadMethod().invoke(object), RoleType.class);
-                        case "class de.hhbk.jahresprojekt.model.Tenant" -> new ObjectList<Tenant>((List<Tenant>) pd.getReadMethod().invoke(object), Tenant.class);
-                        case "class de.hhbk.jahresprojekt.model.User" -> new ObjectList<User>((List<User>) pd.getReadMethod().invoke(object), User.class);
-                        default -> new ObjectList<Object>((List<Object>) pd.getReadMethod().invoke(object), Object.class);
-                    };
-                    objectList.setOnChangeListener(nValue -> {
-                        save();
-                    });
-                    getChildren().add(objectList);
-                }else
-
-                {
-                    ObjectItem<?> objectItem = switch (pd.getPropertyType().toString()) {
-                        case "class de.hhbk.jahresprojekt.model.File" -> new ObjectItem<File>(File.class, (File) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.RentalObject" -> new ObjectItem<RentalObject>(RentalObject.class, (RentalObject) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.Tenant" -> new ObjectItem<Tenant>(Tenant.class, (Tenant) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.Address" -> new ObjectItem<Address>(Address.class, (Address) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.BankAccount" -> new ObjectItem<BankAccount>(BankAccount.class, (BankAccount) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.Document" -> new ObjectItem<Document>(Document.class, (Document) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.Invoice" -> new ObjectItem<Invoice>(Invoice.class, (Invoice) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.Item" -> new ObjectItem<Item>(Item.class, (Item) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.PaymentReceived" -> new ObjectItem<PaymentReceived>(PaymentReceived.class, (PaymentReceived) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.Person" -> new ObjectItem<Person>(Person.class, (Person) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.RentalType" -> new ObjectItem<RentalType>(RentalType.class, (RentalType) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.Role" -> new ObjectItem<Role>(Role.class, (Role) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.RoleType" -> new ObjectItem<RoleType>(RoleType.class, (RoleType) pd.getReadMethod().invoke(object));
-                        case "class de.hhbk.jahresprojekt.model.User" -> new ObjectItem<User>(User.class, (User) pd.getReadMethod().invoke(object));
-                        default -> new ObjectItem<Object>(Object.class, (Object) pd.getReadMethod().invoke(object));
-                    };
+                }else if (pd.getPropertyType() == List.class) {
+                    addListField(pd);
+                }else{
+                    ObjectItem objectItem = new ObjectItem(pd.getReadMethod().invoke(object), pd.getPropertyType());
                     objectItem.setOnObjectChangedListener(nValue -> {
                         try {
                             pd.getWriteMethod().invoke(object, nValue);
                             save();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
+                        } catch (IllegalAccessException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
                     });
@@ -180,6 +100,63 @@ public class DetailForm<T> extends VBox {
 
         }
 
+    }
+
+    private <C> void addTextField(PropertyDescriptor pd, Function<String, C> function)
+            throws InvocationTargetException, IllegalAccessException {
+        TextField textField = new TextField();
+        textField.setText(pd.getReadMethod().invoke(object)== null ? "": pd.getReadMethod().invoke(object).toString());
+        if(pd.getWriteMethod() == null) textField.setDisable(true);
+        textField.setOnKeyTyped(keyEvent -> {
+            try {
+                pd.getWriteMethod().invoke(object, function.apply(textField.getText()));
+                save();
+            } catch (Exception ignore) {}
+        });
+        getChildren().add(textField);
+    }
+
+    private int sort(Class<?> a, Class<?> b){
+        return Integer.compare(getValue(a), getValue(b));
+    }
+
+    private int getValue(Class<?> tClass){
+        if(tClass == List.class) return 99;
+        if(tClass == Boolean.class || tClass == boolean.class) return 3;
+        if(tClass == String.class) return 2;
+        if(tClass == Integer.class || tClass == int.class) return 1;
+        if(tClass == Long.class || tClass == long.class) return 0;
+        return 20;
+    }
+
+    private void addListField(PropertyDescriptor pd)
+            throws InvocationTargetException, IllegalAccessException, NoSuchFieldException {
+
+        Class<?> tClass = (Class<?>)((ParameterizedType) object.getClass().getDeclaredField(pd.getName()).getGenericType())
+                .getActualTypeArguments()[0];
+        Object data = pd.getReadMethod().invoke(object);
+        if(data == null) data = new ArrayList<>();
+
+
+
+        ObjectList<?> objectList = tClass == File.class ? new FileList((List<File>) pd.getReadMethod().invoke(object)) :
+                new ObjectList<>(data, tClass);
+        objectList.setOnChangeListener(nValue -> save());
+        objectList.setOnAdd(value -> {
+            try {
+                object.getClass().getMethod("add" + pd.getName(), tClass).invoke(object, value);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        });
+        objectList.setOnRemove(value -> {
+            try {
+                object.getClass().getMethod("remove" + pd.getName(), tClass).invoke(object, value);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        });
+        getChildren().add(objectList);
     }
 
     public void save(){

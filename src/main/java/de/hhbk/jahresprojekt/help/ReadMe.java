@@ -5,6 +5,7 @@ import de.hhbk.jahresprojekt.database.repositories.UserRepository;
 import de.hhbk.jahresprojekt.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ReadMe {
 
@@ -37,14 +38,16 @@ public class ReadMe {
             UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
 
             //User oder Userlist holen
-            User user = userRepository.findById(0);
+            Optional<User> user = userRepository.findById(0);
             List<User> userList = userRepository.findAll();
 
             //User updaten oder erstellen
-            user.setPassword("megasicher");
-            userRepository.save(user);
+            user.ifPresent(result -> {
+                result.setPassword("megasicher");
+                userRepository.save(result);
 
-            //User löschen
-            userRepository.delete(user);
+                //User löschen
+                userRepository.delete(result);
+            });
         }
 }
