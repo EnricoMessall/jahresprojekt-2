@@ -36,6 +36,7 @@ public class RentalObject {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> subObjects;
     @ManyToOne
+    @TableField(label = "Mieter")
     private Tenant tenant;
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "rental_contacts",

@@ -110,6 +110,7 @@ public class BaseTableView<T> extends BorderPane {
                     repository.save(nValue);
                     table.refresh();
                 });
+                getTable().getSelectionModel().clearSelection();
                 WorkbenchHolder.getInstance().getWorkbench().showDialog(detailDialog.getDialog());
             } catch (Exception illegalAccessException) {
                 illegalAccessException.printStackTrace();

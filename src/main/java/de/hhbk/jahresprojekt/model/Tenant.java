@@ -107,6 +107,6 @@ public class Tenant extends Person{
 
     @Override
     public String toString() {
-        return String.join(", ", super.toString());
+        return getFirstName() + " " + getLastName() + " Telefon: " + getPhoneNumberLandline();
     }
 }
