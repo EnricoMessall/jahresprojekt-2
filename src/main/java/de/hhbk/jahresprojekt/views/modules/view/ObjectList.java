@@ -25,6 +25,8 @@ public class ObjectList<T> extends VBox {
     protected Button add, remove;
     protected HBox actions;
     protected OnObjectChangedListener<T> onChangeListener;
+    protected OnObjectChangedListener<T> onRemove;
+    protected OnObjectChangedListener<T> onAdd;
 
 
     public ObjectList(Object list, Class<T> tClass){
@@ -44,7 +46,7 @@ public class ObjectList<T> extends VBox {
         remove.setOnMouseClicked(mouseEvent -> {
             T object = items.getSelectionModel().getSelectedItem();
             if(object != null){
-                System.out.println("remove: " + object);
+                if(onRemove != null) onRemove.changed(object);
                 objectList.remove(object);
                 setItems();
             }
@@ -56,6 +58,7 @@ public class ObjectList<T> extends VBox {
             dialog.setOnObjectChangedListener(nValue -> {
                 if(nValue != null) {
                     objectList.add(nValue);
+                    if(onAdd != null) onAdd.changed(nValue);
                     setItems();
                     onChangeListener.changed(null);
                 }
@@ -75,6 +78,14 @@ public class ObjectList<T> extends VBox {
 
     public void setOnChangeListener(OnObjectChangedListener<T> onChangeListener) {
         this.onChangeListener = onChangeListener;
+    }
+
+    public void setOnRemove(OnObjectChangedListener<T> onRemove) {
+        this.onRemove = onRemove;
+    }
+
+    public void setOnAdd(OnObjectChangedListener<T> onAdd) {
+        this.onAdd = onAdd;
     }
 
     protected void setItems(){

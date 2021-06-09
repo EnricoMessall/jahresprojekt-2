@@ -1,5 +1,9 @@
 package de.hhbk.jahresprojekt.model;
 
+import de.hhbk.jahresprojekt.database.Repository;
+import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
+import de.hhbk.jahresprojekt.database.repositories.RentalObjectRepository;
 import de.hhbk.jahresprojekt.views.annotations.TableField;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -28,13 +32,31 @@ public class Tenant extends Person{
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RentalObject> rentalObjects = new ArrayList<>();
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "document_tenants",
-            joinColumns = @JoinColumn(name = "id")
-    )
+    @ManyToMany()
+//    @JoinTable(name = "document_tenants",
+//            joinColumns = @JoinColumn(name = "id")
+//    )
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Document> documents = new ArrayList<>();
     private boolean contactOnly;
+
+    public void addrentalObjects(RentalObject rentalObject){
+        rentalObject.setTenant(this);
+        RepositoryContainer.get(RentalObjectRepository.class).save(rentalObject);
+    }
+    public void adddocuments(Document document){
+        document.getRelatedTenants().add(this);
+        RepositoryContainer.get(DocumentRepository.class).save(document);
+    }
+
+    public void removerentalObjects(RentalObject rentalObject){
+        rentalObject.setTenant(null);
+        RepositoryContainer.get(RentalObjectRepository.class).save(rentalObject);
+    }
+    public void removedocuments(Document document){
+        document.getRelatedTenants().remove(this);
+        RepositoryContainer.get(DocumentRepository.class).save(document);
+    }
 
     public Tenant() {
     }
