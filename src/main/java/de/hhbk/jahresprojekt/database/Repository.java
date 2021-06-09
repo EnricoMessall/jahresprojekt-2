@@ -25,7 +25,7 @@ public class Repository<T>  implements CrudRepository<T> {
     @Override
     public Optional<T> findById(int id) throws HibernateException {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         Optional<T> optional = Optional.of(session.get(tClass, (long)id));
         session.getTransaction().commit();
