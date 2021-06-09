@@ -10,6 +10,10 @@ import de.hhbk.jahresprojekt.views.modules.autofetch.FetchNotifier;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
+import javafx.scene.control.SelectionModel;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableView;
+import javafx.scene.control.skin.TableHeaderRow;
 
 /**
  * @author Frederick Hafemann
@@ -26,24 +30,12 @@ public class RentalObjectModule extends WorkbenchModule {
                 (data, query) -> data.getAdress().getStreet().contains(query),
                 "Nummer", "Adresse", "Typ");
         baseTableView.getTable().setCellFactory("Adresse", a -> a.getAdress() != null?a.getAdress().toString():"");
-
-        baseTableView.getTable().setOnMouseClicked(e -> {
-            try {
-                DetailDialog<RentalObject> detailDialog = new DetailDialog<RentalObject>(baseTableView.getTable().getSelectionModel().getSelectedItem());
-                detailDialog.setOnObjectChangedListener(nValue -> {
-                    RepositoryContainer.get(RentalObjectRepository.class).save(nValue);
-                    FetchNotifier.getInstance().requestFetch();
-                });
-                getWorkbench().showDialog(detailDialog.getDialog());
-            } catch (Exception illegalAccessException) {
-                illegalAccessException.printStackTrace();
-            }
-        });
     }
 
     @Override
     public Node activate() {
         WorkbenchHolder.getInstance().setWorkbench(getWorkbench());
+        baseTableView.getTable().refresh();
         return baseTableView;
     }
 }

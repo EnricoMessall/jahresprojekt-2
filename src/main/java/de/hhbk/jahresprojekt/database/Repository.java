@@ -69,9 +69,4 @@ public class Repository<T>  implements CrudRepository<T> {
         session.getTransaction().commit();
         session.close();
     }
-
-    protected String getTableName(){
-        return tClass.getAnnotation(Table.class) == null ? tClass.getName() :
-                tClass.getAnnotation(Table.class).name();
-    }
 }

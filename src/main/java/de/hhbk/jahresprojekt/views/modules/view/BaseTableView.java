@@ -1,11 +1,10 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
+import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import de.hhbk.jahresprojekt.database.Repository;
-import de.hhbk.jahresprojekt.database.RepositoryContainer;
-import de.hhbk.jahresprojekt.database.repositories.TenantRepository;
-import de.hhbk.jahresprojekt.model.Tenant;
+import de.hhbk.jahresprojekt.help.WorkbenchHolder;
+import de.hhbk.jahresprojekt.views.components.DetailDialog;
 import de.hhbk.jahresprojekt.views.components.FilterTable;
-import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.AddListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
@@ -73,6 +71,7 @@ public class BaseTableView<T> extends BorderPane {
         setCenter(table);
         setData(this.repository.findAll());
         table.refresh();
+        addMouseClick();
     }
 
     public void setData(List<T> data){
@@ -100,6 +99,23 @@ public class BaseTableView<T> extends BorderPane {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void addMouseClick(){
+        getTable().setOnMouseClicked(e -> {
+            try {
+                T model = getTable().getSelectionModel().getSelectedItem();
+                if(model == null) return;
+                DetailDialog<T> detailDialog = new DetailDialog<>(model);
+                detailDialog.setOnObjectChangedListener(nValue -> {
+                    repository.save(nValue);
+                    table.refresh();
+                });
+                WorkbenchHolder.getInstance().getWorkbench().showDialog(detailDialog.getDialog());
+            } catch (Exception illegalAccessException) {
+                illegalAccessException.printStackTrace();
+            }
+        });
     }
 
     public FilterTable<T> getTable() {
