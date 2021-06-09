@@ -53,11 +53,6 @@ public class Bootstrap extends Application {
         roleRepository.save(RoleBuilder.aRole().withRoleType(RoleType.DEFAULT).build());
     }
 
-    private void openModuleAndCloseNav(Workbench workbench, WorkbenchModule workbenchModule){
-        workbench.hideNavigationDrawer();
-        workbench.openModule(workbenchModule);
-    }
-
 
     public static void main(String[] args) {
         launch(args);

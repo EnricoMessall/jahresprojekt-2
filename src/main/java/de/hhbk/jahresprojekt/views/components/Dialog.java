@@ -5,6 +5,10 @@ import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedLi
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 
+/**
+ * @author Frederick Hafemann
+ * @author Enrico Messall
+ */
 public abstract class Dialog<T> {
     Class<T> tClass;
     OnObjectChangedListener<T> onObjectChangedListener;

@@ -14,6 +14,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Frederick Hafemann
+ * @author Enrico Messall
+ */
 public class Repository<T>  implements CrudRepository<T> {
 
     private final Class<T> tClass;

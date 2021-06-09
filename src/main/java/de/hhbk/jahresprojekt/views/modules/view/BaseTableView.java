@@ -1,6 +1,5 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
-import com.dlsc.workbenchfx.util.WorkbenchUtils;
 import de.hhbk.jahresprojekt.database.Repository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;

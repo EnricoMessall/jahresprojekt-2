@@ -1,16 +1,18 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
-import de.hhbk.jahresprojekt.model.*;
+import de.hhbk.jahresprojekt.model.File;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,9 +37,11 @@ public class DetailForm<T> extends VBox {
                 name.setPadding(new Insets(10, 0, 5, 0));
                 getChildren().add(name);
 
-                if(pd.getPropertyType() == int.class) addTextField(pd, Integer::parseInt);
-                else if(pd.getPropertyType() == long.class) addTextField(pd, Long::parseLong);
-                else if(pd.getPropertyType() == boolean.class){
+                if(pd.getPropertyType() == int.class || pd.getPropertyType() == Integer.class)
+                    addTextField(pd, Integer::parseInt);
+                else if(pd.getPropertyType() == long.class || pd.getPropertyType() == Long.class)
+                    addTextField(pd, Long::parseLong);
+                else if(pd.getPropertyType() == boolean.class || pd.getPropertyType() == Boolean.class){
                     CheckBox checkBox = new CheckBox();
                     checkBox.setSelected((boolean) pd.getReadMethod().invoke(object));
 
@@ -70,7 +74,7 @@ public class DetailForm<T> extends VBox {
                 }else if (pd.getPropertyType() == List.class) {
                     addListField(pd);
                 }else{
-                    ObjectItem objectItem = new ObjectItem(pd.getReadMethod().invoke(object));
+                    ObjectItem objectItem = new ObjectItem(pd.getReadMethod().invoke(object), pd.getPropertyType());
                     objectItem.setOnObjectChangedListener(nValue -> {
                         try {
                             pd.getWriteMethod().invoke(object, nValue);
@@ -91,11 +95,12 @@ public class DetailForm<T> extends VBox {
             throws InvocationTargetException, IllegalAccessException {
         TextField textField = new TextField();
         textField.setText(pd.getReadMethod().invoke(object)== null ? "": pd.getReadMethod().invoke(object).toString());
+        if(pd.getWriteMethod() == null) textField.setDisable(true);
         textField.setOnKeyTyped(keyEvent -> {
             try {
                 pd.getWriteMethod().invoke(object, function.apply(textField.getText()));
                 save();
-            } catch (IllegalAccessException | InvocationTargetException ignore) {}
+            } catch (Exception ignore) {}
         });
         getChildren().add(textField);
     }

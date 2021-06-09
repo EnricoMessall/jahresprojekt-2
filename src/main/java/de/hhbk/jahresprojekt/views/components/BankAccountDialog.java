@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+/**
+ * @author Frederick Hafemann
+ */
 public class BankAccountDialog extends Dialog<BankAccount>{
     VBox vBox;
     TextField iban, bic, accountOwner, creditInstiture;

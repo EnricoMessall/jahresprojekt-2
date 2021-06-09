@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * @author Frederick Hafemann
+ */
 public class ItemDialog extends Dialog<Item>{
     VBox vBox;
     TextField comment, amount;

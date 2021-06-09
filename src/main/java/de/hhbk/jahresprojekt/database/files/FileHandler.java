@@ -2,11 +2,8 @@ package de.hhbk.jahresprojekt.database.files;
 
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.FileRepository;
-import de.hhbk.jahresprojekt.model.Document;
 import de.hhbk.jahresprojekt.model.File;
 import de.hhbk.jahresprojekt.model.builder.FileBuilder;
-import de.hhbk.jahresprojekt.views.modules.autofetch.FetchNotifier;
-import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;

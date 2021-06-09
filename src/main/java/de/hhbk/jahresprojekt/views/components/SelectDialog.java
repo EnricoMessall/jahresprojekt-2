@@ -5,6 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 
+/**
+ * @author Frederick Hafemann
+ */
 public class SelectDialog<T>  extends Dialog<T>{
     ListView<T> listView;
 

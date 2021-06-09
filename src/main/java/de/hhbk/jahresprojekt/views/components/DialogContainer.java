@@ -3,6 +3,9 @@ package de.hhbk.jahresprojekt.views.components;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Enrico Messall
+ */
 public class DialogContainer {
 
 

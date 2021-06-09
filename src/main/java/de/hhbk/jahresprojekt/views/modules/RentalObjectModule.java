@@ -5,15 +5,9 @@ import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.RentalObjectRepository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.model.RentalObject;
-import de.hhbk.jahresprojekt.views.components.DetailDialog;
-import de.hhbk.jahresprojekt.views.modules.autofetch.FetchNotifier;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
-import javafx.scene.control.SelectionModel;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableView;
-import javafx.scene.control.skin.TableHeaderRow;
 
 /**
  * @author Frederick Hafemann

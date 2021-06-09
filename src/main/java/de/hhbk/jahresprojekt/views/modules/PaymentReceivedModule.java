@@ -5,15 +5,13 @@ import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.model.PaymentReceived;
-import de.hhbk.jahresprojekt.model.RentalObject;
-import de.hhbk.jahresprojekt.views.components.DetailDialog;
-import de.hhbk.jahresprojekt.views.modules.autofetch.FetchNotifier;
 import de.hhbk.jahresprojekt.views.modules.view.BaseTableView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import javafx.scene.Node;
 
 /**
  * @author Frederick Hafemann
+ * @author Enrico Messall
  */
 public class PaymentReceivedModule extends WorkbenchModule {
 

@@ -11,6 +11,7 @@ import javafx.scene.Node;
 
 /**
  * @author Frederick Hafemann
+ * @author Enrico Messall
  */
 public class TenantModule extends WorkbenchModule {
 

@@ -1,12 +1,9 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
-import de.hhbk.jahresprojekt.model.Address;
-import de.hhbk.jahresprojekt.model.BankAccount;
-import de.hhbk.jahresprojekt.model.Item;
-import de.hhbk.jahresprojekt.views.components.*;
+import de.hhbk.jahresprojekt.views.components.Dialog;
+import de.hhbk.jahresprojekt.views.components.DialogContainer;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -14,13 +11,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javax.naming.event.ObjectChangeListener;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Frederick Hafemann
+ * @author Enrico Messall
  */
 public class ObjectList<T> extends VBox {
     protected List<T> objectList;
