@@ -1,6 +1,7 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.model.Tenant;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
@@ -130,13 +131,31 @@ public class DetailForm<T> extends VBox {
 
     private void addListField(PropertyDescriptor pd)
             throws InvocationTargetException, IllegalAccessException, NoSuchFieldException {
+
         Class<?> tClass = (Class<?>)((ParameterizedType) object.getClass().getDeclaredField(pd.getName()).getGenericType())
                 .getActualTypeArguments()[0];
         Object data = pd.getReadMethod().invoke(object);
         if(data == null) data = new ArrayList<>();
+
+
+
         ObjectList<?> objectList = tClass == File.class ? new FileList((List<File>) pd.getReadMethod().invoke(object)) :
                 new ObjectList<>(data, tClass);
         objectList.setOnChangeListener(nValue -> save());
+        objectList.setOnAdd(value -> {
+            try {
+                object.getClass().getMethod("add" + pd.getName(), tClass).invoke(object, value);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        });
+        objectList.setOnRemove(value -> {
+            try {
+                object.getClass().getMethod("remove" + pd.getName(), tClass).invoke(object, value);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        });
         getChildren().add(objectList);
     }
 
