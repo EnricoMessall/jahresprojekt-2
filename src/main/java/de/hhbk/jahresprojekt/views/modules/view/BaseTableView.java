@@ -98,7 +98,7 @@ public class BaseTableView<T> extends BorderPane {
     private void createNew(){
         try {
             T object = repository.save(dataClass.getDeclaredConstructor().newInstance());
-            getTable().getItems().add(object);
+            refreshData();
         } catch (Exception e) {
             e.printStackTrace();
         }
