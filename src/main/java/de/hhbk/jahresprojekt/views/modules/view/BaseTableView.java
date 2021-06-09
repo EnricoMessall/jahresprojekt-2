@@ -68,9 +68,13 @@ public class BaseTableView<T> extends BorderPane {
 
         setTop(pane);
         setCenter(table);
-        setData(this.repository.findAll());
+        refreshData();
         table.refresh();
         addMouseClick();
+    }
+
+    public void refreshData(){
+        setData(this.repository.findAll());
     }
 
     public void setData(List<T> data){

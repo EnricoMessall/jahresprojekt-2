@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class ObjectList<T> extends VBox {
     public ObjectList(Object list, Class<T> tClass){
         this.tClass = tClass;
         this.objectList = (List<T>) list;
+        if(this.objectList == null) this.objectList = new ArrayList<>();
         actions = new HBox();
         add = new Button("Add");
         remove = new Button("Remove");

@@ -27,14 +27,9 @@ public class DocumentModule extends WorkbenchModule {
     }
 
     @Override
-    public void init(Workbench workbench) {
-        super.init(workbench);
-    }
-
-    @Override
     public Node activate() {
         WorkbenchHolder.getInstance().setWorkbench(getWorkbench());
-        baseTableView.getTable().refresh();
+        baseTableView.refreshData();
         return baseTableView;
     }
 }

@@ -27,7 +27,7 @@ public class UserModule extends WorkbenchModule {
     @Override
     public Node activate() {
         WorkbenchHolder.getInstance().setWorkbench(getWorkbench());
-        baseTableView.getTable().refresh();
+        baseTableView.refreshData();
         return baseTableView;
     }
 }
