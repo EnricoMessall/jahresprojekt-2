@@ -2,8 +2,10 @@ package de.hhbk.jahresprojekt;
 
 import de.hhbk.jahresprojekt.database.HibernateManager;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.BankAccountRepository;
 import de.hhbk.jahresprojekt.database.repositories.UserRepository;
 import de.hhbk.jahresprojekt.model.*;
+import de.hhbk.jahresprojekt.model.builder.BankAccountBuilder;
 import de.hhbk.jahresprojekt.model.builder.UserBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
@@ -46,20 +48,74 @@ public class DatabaseTesting extends Assertions {
         HibernateManager.setSessionFactory(configuration.buildSessionFactory(serviceRegistry));
 
 
+        RepositoryContainer.registerRepository(BankAccount.class, BankAccountRepository.class);
         RepositoryContainer.registerRepository(User.class, UserRepository.class);
 
 
     }
 
     @Test
-    public void testGetById() {
-        UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+    public void testGetBankAccountById() {
+        BankAccountRepository repository = RepositoryContainer.get(BankAccount.class);
+        BankAccount bankAccount = BankAccountBuilder.aBankAccount().withAccountOwner("Hans").withBic("1234567")
+                .withCreditInstitution("Comdiret").withIban("DE00 1234 1234 1234 1234").build();
+        bankAccount = repository.save(bankAccount);
+
+        Optional<BankAccount> result = repository.findById(bankAccount.getId().intValue());
+
+        assertFalse(result.isEmpty());
+        assertEquals(result.get().getAccountOwner(), bankAccount.getAccountOwner());
+        assertEquals(result.get().getId(), bankAccount.getId());
+        assertEquals(result.get().getIban(), bankAccount.getIban());
+
+
+    }
+
+    @Test
+    public void testSaveBankAccount() {
+        BankAccountRepository repository = RepositoryContainer.get(BankAccount.class);
+        BankAccount bankAccount = BankAccountBuilder.aBankAccount().withAccountOwner("Hans").withBic("1234567")
+                .withCreditInstitution("Comdiret").withIban("DE00 1234 1234 1234 1234").build();
+        bankAccount = repository.save(bankAccount);
+
+        bankAccount.setCreditInstitution("Volksbank");
+        repository.save(bankAccount);
+
+        Optional<BankAccount> result = repository.findById(bankAccount.getId().intValue());
+
+        assertFalse(result.isEmpty());
+        assertEquals(result.get().getCreditInstitution(), "Volksbank");
+
+    }
+
+    @Test
+    public void testDeleteBankAccount() {
+        BankAccountRepository repository = RepositoryContainer.get(BankAccount.class);
+        BankAccount bankAccount = BankAccountBuilder.aBankAccount().withAccountOwner("Hans").withBic("1234567")
+                .withCreditInstitution("Comdiret").withIban("DE00 1234 1234 1234 1234").build();
+        bankAccount = repository.save(bankAccount);
+
+        Optional<BankAccount> result = repository.findById(bankAccount.getId().intValue());
+
+        assertFalse(result.isEmpty());
+
+        repository.delete(bankAccount);
+
+        Optional<BankAccount> result2 = repository.findById(bankAccount.getId().intValue());
+
+        assertTrue(result2.isEmpty());
+
+    }
+
+    @Test
+    public void testGetUserById() {
+        UserRepository repository = RepositoryContainer.get(User.class);
+        User user = UserBuilder.anUser().withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
-        userRepository.save(user);
+        user = repository.save(user);
 
-        Optional<User> result = userRepository.findById(1);
+        Optional<User> result = repository.findById(user.getId().intValue());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getUsername(), user.getUsername());
@@ -71,16 +127,16 @@ public class DatabaseTesting extends Assertions {
 
     @Test
     public void testSaveUser() {
-        UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+        UserRepository repository = RepositoryContainer.get(User.class);
+        User user = UserBuilder.anUser().withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
-        userRepository.save(user);
+        repository.save(user);
 
         user.setFirstName("Max");
-        userRepository.save(user);
+        user = repository.save(user);
 
-        Optional<User> result = userRepository.findById(1);
+        Optional<User> result = repository.findById(user.getId().intValue());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getFirstName(), "Max");
@@ -89,19 +145,19 @@ public class DatabaseTesting extends Assertions {
 
     @Test
     public void testDeleteUser() {
-        UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+        UserRepository repository = RepositoryContainer.get(User.class);
+        User user = UserBuilder.anUser().withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
-        userRepository.save(user);
+        user = repository.save(user);
 
-        Optional<User> result = userRepository.findById(1);
+        Optional<User> result = repository.findById(user.getId().intValue());
 
         assertFalse(result.isEmpty());
 
-        userRepository.delete(user);
+        repository.delete(user);
 
-        Optional<User> result2 = userRepository.findById(1);
+        Optional<User> result2 = repository.findById(user.getId().intValue());
 
         assertTrue(result2.isEmpty());
 
@@ -109,19 +165,15 @@ public class DatabaseTesting extends Assertions {
 
     @Test
     public void testFindByUsername (){
-        UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+        UserRepository repository = RepositoryContainer.get(User.class);
+        User user = UserBuilder.anUser().withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
-        userRepository.save(user);
+        repository.save(user);
 
-       User result = userRepository.findByUsername("hmue");
+        User result = repository.findByUsername("hmue");
 
         assertFalse(result.getUsername().isEmpty());
-
-
-
-
 
     }
 
