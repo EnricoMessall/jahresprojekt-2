@@ -3,6 +3,7 @@ package de.hhbk.jahresprojekt.model;
 import de.hhbk.jahresprojekt.views.annotations.TableField;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ public class PaymentReceived {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Long id;
     @TableField
-    public Date date;
+    public Timestamp date;
     @ManyToOne
     @TableField
     public RentalObject rentalObject;
@@ -31,7 +32,7 @@ public class PaymentReceived {
 
     public PaymentReceived(Long id, Date date, RentalObject rentalObject, int amount, Tenant tenant) {
         this.id = id;
-        this.date = date;
+        this.date = new Timestamp(date.getTime());
         this.rentalObject = rentalObject;
         this.amount = amount;
         this.tenant = tenant;
@@ -46,7 +47,7 @@ public class PaymentReceived {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Timestamp(date.getTime());
     }
 
     public RentalObject getRentalObject() {

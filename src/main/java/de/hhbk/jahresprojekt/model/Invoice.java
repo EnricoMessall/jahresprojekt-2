@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Invoice {
     @TableField
     private Person recipient;
     @TableField(label = "Datum")
-    private Date date;
+    private Timestamp date;
     @OneToMany(cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Item> itemList = new ArrayList<>();
@@ -36,7 +37,7 @@ public class Invoice {
     public Invoice(Long id, Person recipient, Date date, List<Item> itemList, boolean settled) {
         this.id = id;
         this.recipient = recipient;
-        this.date = date;
+        this.date = new Timestamp(date.getTime());
         this.itemList = itemList;
         this.settled = settled;
     }
@@ -66,7 +67,7 @@ public class Invoice {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Timestamp(date.getTime());
     }
 
     public List<Item> getItemList() {

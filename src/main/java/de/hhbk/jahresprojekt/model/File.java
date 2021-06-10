@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -21,7 +22,7 @@ public class File {
     @TableField
     private String path;
     @TableField
-    private Date date;
+    private Timestamp date;
 
     public File() {
     }
@@ -29,7 +30,7 @@ public class File {
     public File(Long id, String path, Date date) {
         this.id = id;
         this.path = path;
-        this.date = date;
+        this.date = new Timestamp(date.getTime());
     }
 
     public Long getId() {
@@ -49,7 +50,7 @@ public class File {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.date = new Timestamp(date.getTime());
     }
 
     @Override
