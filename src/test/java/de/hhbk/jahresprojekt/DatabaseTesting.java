@@ -45,7 +45,7 @@ public class DatabaseTesting extends Assertions {
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         HibernateManager.setSessionFactory(configuration.buildSessionFactory(serviceRegistry));
 
-
+        RepositoryContainer.registerRepository(BankAccount.class, BankAccountRepository.class);
         RepositoryContainer.registerRepository(User.class, UserRepository.class);
 
 
@@ -58,7 +58,7 @@ public class DatabaseTesting extends Assertions {
                 .withCreditInstitution("Comdiret").withIban("DE00 1234 1234 1234 1234").build();
         bankAccount = repository.save(bankAccount);
 
-        Optional<BankAccount> result = repository.findById(bankAccount.getId().intValue());
+        Optional<BankAccount> result = repository.findById(bankAccount.getId());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getAccountOwner(), bankAccount.getAccountOwner());
@@ -78,7 +78,7 @@ public class DatabaseTesting extends Assertions {
         bankAccount.setCreditInstitution("Volksbank");
         repository.save(bankAccount);
 
-        Optional<BankAccount> result = repository.findById(bankAccount.getId().intValue());
+        Optional<BankAccount> result = repository.findById(bankAccount.getId());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getCreditInstitution(), "Volksbank");
@@ -92,13 +92,13 @@ public class DatabaseTesting extends Assertions {
                 .withCreditInstitution("Comdiret").withIban("DE00 1234 1234 1234 1234").build();
         bankAccount = repository.save(bankAccount);
 
-        Optional<BankAccount> result = repository.findById(bankAccount.getId().intValue());
+        Optional<BankAccount> result = repository.findById(bankAccount.getId());
 
         assertFalse(result.isEmpty());
 
         repository.delete(bankAccount);
 
-        Optional<BankAccount> result2 = repository.findById(bankAccount.getId().intValue());
+        Optional<BankAccount> result2 = repository.findById(bankAccount.getId());
 
         assertTrue(result2.isEmpty());
 
@@ -112,7 +112,7 @@ public class DatabaseTesting extends Assertions {
                 .withUsername("hmue").build();
         user = repository.save(user);
 
-        Optional<User> result = repository.findById(user.getId().intValue());
+        Optional<User> result = repository.findById(user.getId());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getUsername(), user.getUsername());
@@ -133,7 +133,7 @@ public class DatabaseTesting extends Assertions {
         user.setFirstName("Max");
         user = repository.save(user);
 
-        Optional<User> result = repository.findById(user.getId().intValue());
+        Optional<User> result = repository.findById(user.getId());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getFirstName(), "Max");
@@ -148,13 +148,13 @@ public class DatabaseTesting extends Assertions {
                 .withUsername("hmue").build();
         user = repository.save(user);
 
-        Optional<User> result = repository.findById(user.getId().intValue());
+        Optional<User> result = repository.findById(user.getId());
 
         assertFalse(result.isEmpty());
 
         repository.delete(user);
 
-        Optional<User> result2 = repository.findById(user.getId().intValue());
+        Optional<User> result2 = repository.findById(user.getId());
 
         assertTrue(result2.isEmpty());
 
