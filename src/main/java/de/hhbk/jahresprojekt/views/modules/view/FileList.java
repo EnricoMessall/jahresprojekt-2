@@ -67,21 +67,12 @@ public class FileList extends ObjectList<File>{
             String path = file.getPath();
             new Thread(() -> {
 
-            try {
-                String pathCoded = URLEncoder.encode(path, "UTF-8").replace("+", "%20");
-
-
-                String outlookCmd = "mailto:beispiel@beispiel.com&Attach=" + path.replaceAll("\\\\", "/");
                 try {
-                    Desktop.getDesktop().mail(new URI(outlookCmd));
+                    FileHandler.getInstance().send(path);
                 } catch (IOException e) {
                     new Error(e.getMessage());
-                } catch (URISyntaxException e) {
-                    new Error(e.getMessage());
                 }
-            } catch (UnsupportedEncodingException e) {
-                new Error(e.getMessage());
-            }
+                
             }).start();
 
         });
