@@ -1,6 +1,5 @@
 package de.hhbk.jahresprojekt;
 
-import com.google.common.base.Optional;
 import de.hhbk.jahresprojekt.database.HibernateManager;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.AddressRepository;
