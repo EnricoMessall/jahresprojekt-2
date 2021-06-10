@@ -9,20 +9,18 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 
 /**
- * @author Frederick Hafemann
  * @author Enrico Messall
  */
-public class ObjectItem<T> extends Button {
+public class EnumItem<T extends Enum<T>> extends Button {
     private OnObjectChangedListener<T> onObjectChangedListener;
 
-    public ObjectItem(T object, Class<T> tClass) {
+    public EnumItem(T object, Class<T > tClass) {
         super(object==null ? "Nichts ausgewählt" : object.toString());
 
         setOnMouseClicked(mouseEvent -> {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 try {
                     Dialog<T> dialog = DialogContainer.get(tClass);
-                    dialog.copyFrom(object);
                     dialog.setOnObjectChangedListener(nValue -> {
                         setText(nValue==null? "Nichts ausgewählt" : nValue.toString());
                         onObjectChangedListener.changed(nValue);

@@ -41,7 +41,7 @@ public class FileHandler {
         Files.copy(original.toPath(), copy, StandardCopyOption.REPLACE_EXISTING);
 
         File file = FileBuilder.aFile().withDate(new Date()).withPath(copy.toString()).build();
-        RepositoryContainer.get(FileRepository.class).save(file);
+        RepositoryContainer.get(File.class).save(file);
         return file;
     }
 
@@ -58,5 +58,14 @@ public class FileHandler {
 
     public void delete(String path) throws IOException {
         Files.delete(Path.of(path));
+    }
+
+    public void send(String path){
+        try {
+            Process process = Runtime.getRuntime().exec(fileHandlerConfig.getOutlookPath() + " /c ipm.note /a " + path);
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Error(e.getMessage());
+        }
     }
 }

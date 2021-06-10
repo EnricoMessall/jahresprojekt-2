@@ -34,11 +34,11 @@ public class ReadMe {
          **/
         void readme() throws Exception {
             //User Repository anlegen
-            RepositoryContainer.registerRepository(UserRepository.class);
-            UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
+            RepositoryContainer.registerRepository(User.class, UserRepository.class);
+            UserRepository userRepository = RepositoryContainer.get(User.class);
 
             //User oder Userlist holen
-            Optional<User> user = userRepository.findById(0);
+            Optional<User> user = userRepository.findById(0L);
             List<User> userList = userRepository.findAll();
 
             //User updaten oder erstellen

@@ -2,6 +2,7 @@ package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.database.files.FileHandler;
 import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.views.components.Error;
 import javafx.scene.control.Button;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ public class FileList extends ObjectList<File>{
                 if(file != null) objectList.add(file);
                 setItems();
             } catch (IOException e) {
-                e.printStackTrace();
+                new Error(e.getMessage());
             }
             onChangeListener.changed(null);
         });
@@ -40,7 +41,7 @@ public class FileList extends ObjectList<File>{
             try {
                 Desktop.getDesktop().open(new java.io.File(items.getSelectionModel().getSelectedItem().getPath()));
             } catch (IOException e) {
-                e.printStackTrace();
+                new Error(e.getMessage());
             }
         }).start());
         actions.getChildren().add(show);
@@ -52,7 +53,7 @@ public class FileList extends ObjectList<File>{
                 try {
                     FileHandler.getInstance().delete(file.getPath());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    new Error(e.getMessage());
                 }
                 setItems();
             }
@@ -64,21 +65,16 @@ public class FileList extends ObjectList<File>{
             File file = items.getSelectionModel().getSelectedItem();
             if(file == null) return;
             String path = file.getPath();
-            try {
-                String pathCoded = URLEncoder.encode(path, "UTF-8").replace("+", "%20");
+            new Thread(() -> {
 
-
-                String outlookCmd = "mailto:beispiel@beispiel.com&Attach=" + path.replaceAll("\\\\", "/");
                 try {
-                    Desktop.getDesktop().mail(new URI(outlookCmd));
+                    FileHandler.getInstance().send(path);
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
+                    new Error(e.getMessage());
                 }
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+
+            }).start();
+
         });
         actions.getChildren().add(send);
     }

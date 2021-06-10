@@ -27,11 +27,12 @@ public class Repository<T>  implements CrudRepository<T> {
     }
 
     @Override
-    public Optional<T> findById(int id) throws HibernateException {
+    public Optional<T> findById(Long id) throws HibernateException {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Optional<T> optional = Optional.of(session.get(tClass, (long)id));
+        T object = session.get(tClass, (long)id);
+        Optional<T> optional = object == null ? Optional.empty() : Optional.of(object);
         session.getTransaction().commit();
         session.close();
         return optional;
@@ -58,7 +59,7 @@ public class Repository<T>  implements CrudRepository<T> {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        object = (T) session.merge(object);
+        session.saveOrUpdate(object);
         session.getTransaction().commit();
         session.close();
         return object;
@@ -69,6 +70,17 @@ public class Repository<T>  implements CrudRepository<T> {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        session.delete(object);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void deleteById(Long id) throws HibernateException {
+        SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        T object = session.get(tClass, (long)id);
         session.delete(object);
         session.getTransaction().commit();
         session.close();

@@ -32,13 +32,6 @@ public class FilterTable<T> extends TableView<T> {
         this.filterCondition = filterCondition;
     }
 
-    public void setCellFactory(String cell, Function<T, String> result){
-        Optional<TableColumn<T, ?>> column = getColumns().stream()
-                .filter(c -> c.getText().equals(cell))
-                .findFirst();
-        column.ifPresent(c -> c.setCellValueFactory(tf -> new ReadOnlyObjectWrapper(result.apply(tf.getValue()))));
-    }
-
     public BiPredicate<T, String> getFilterCondition() {
         return filterCondition;
     }
@@ -59,11 +52,6 @@ public class FilterTable<T> extends TableView<T> {
         return this;
     }
 
-    private int index(TableColumn<T, ?> column){
-        int index = labelOrder.indexOf(column.getText());
-        return index == -1 ? 999 : index;
-    }
-
     private void addColumnFromField(Field field){
         String value = field.getAnnotation(TableField.class).label();
         if(value.equals("")) value = field.getName();
@@ -71,5 +59,17 @@ public class FilterTable<T> extends TableView<T> {
         column.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
         column.setReorderable(false);
         getColumns().add(column);
+    }
+
+    private int index(TableColumn<T, ?> column){
+        int index = labelOrder.indexOf(column.getText());
+        return index == -1 ? 999 : index;
+    }
+
+    public void setCellFactory(String cell, Function<T, String> result){
+        Optional<TableColumn<T, ?>> column = getColumns().stream()
+                .filter(c -> c.getText().equals(cell))
+                .findFirst();
+        column.ifPresent(c -> c.setCellValueFactory(tf -> new ReadOnlyObjectWrapper(result.apply(tf.getValue()))));
     }
 }

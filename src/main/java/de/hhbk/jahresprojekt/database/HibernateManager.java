@@ -1,6 +1,7 @@
 package de.hhbk.jahresprojekt.database;
 
 import de.hhbk.jahresprojekt.model.*;
+import de.hhbk.jahresprojekt.views.components.Error;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -8,6 +9,10 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateManager {
     private static SessionFactory sessionFactory = null;
+
+    public static void setSessionFactory(SessionFactory sessionFactory){
+        HibernateManager.sessionFactory = sessionFactory;
+    }
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory == null?buildSessionFactory():sessionFactory;
@@ -45,8 +50,10 @@ public class HibernateManager {
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             return sessionFactory;
         }
-        catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex);
+        catch (Exception e) {
+            new Error(e.getMessage());
+
         }
+        return null;
     }
 }
