@@ -7,12 +7,9 @@ import de.hhbk.jahresprojekt.model.*;
 import de.hhbk.jahresprojekt.model.builder.UserBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.*;
 
 import org.hibernate.cfg.Configuration;
-import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
@@ -54,12 +51,14 @@ public class DatabaseTesting extends Assertions {
     @Test
     public void testGetById() {
         UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+        User user = UserBuilder.anUser().withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
         userRepository.save(user);
 
-        Optional<User> result = userRepository.findById(1);
+        userRepository.findAll().forEach(System.out::println);
+
+        Optional<User> result = userRepository.findById(user.getId());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getUsername(), user.getUsername());
@@ -72,7 +71,7 @@ public class DatabaseTesting extends Assertions {
     @Test
     public void testSaveUser() {
         UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+        User user = UserBuilder.anUser().withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
         userRepository.save(user);
@@ -80,7 +79,7 @@ public class DatabaseTesting extends Assertions {
         user.setFirstName("Max");
         userRepository.save(user);
 
-        Optional<User> result = userRepository.findById(1);
+        Optional<User> result = userRepository.findById(user.getId());
 
         assertFalse(result.isEmpty());
         assertEquals(result.get().getFirstName(), "Max");
@@ -90,18 +89,18 @@ public class DatabaseTesting extends Assertions {
     @Test
     public void testDeleteUser() {
         UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+        User user = UserBuilder.anUser().withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
         userRepository.save(user);
 
-        Optional<User> result = userRepository.findById(1);
+        Optional<User> result = userRepository.findById(user.getId());
 
         assertFalse(result.isEmpty());
 
         userRepository.delete(user);
 
-        Optional<User> result2 = userRepository.findById(1);
+        Optional<User> result2 = userRepository.findById(user.getId());
 
         assertTrue(result2.isEmpty());
 
@@ -110,7 +109,7 @@ public class DatabaseTesting extends Assertions {
     @Test
     public void testFindByUsername (){
         UserRepository userRepository = RepositoryContainer.get(User.class);
-        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+        User user = UserBuilder.anUser().withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
         userRepository.save(user);

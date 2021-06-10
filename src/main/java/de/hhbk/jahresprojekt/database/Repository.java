@@ -27,7 +27,7 @@ public class Repository<T>  implements CrudRepository<T> {
     }
 
     @Override
-    public Optional<T> findById(int id) throws HibernateException {
+    public Optional<T> findById(Long id) throws HibernateException {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -70,6 +70,17 @@ public class Repository<T>  implements CrudRepository<T> {
         SessionFactory sessionFactory = HibernateManager.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        session.delete(object);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void deleteById(Long id) throws HibernateException {
+        SessionFactory sessionFactory = HibernateManager.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        T object = session.get(tClass, (long)id);
         session.delete(object);
         session.getTransaction().commit();
         session.close();
