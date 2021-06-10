@@ -3,6 +3,7 @@ package de.hhbk.jahresprojekt.views.modules.view;
 import de.hhbk.jahresprojekt.database.Repository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;
+import de.hhbk.jahresprojekt.views.components.Error;
 import de.hhbk.jahresprojekt.views.components.FilterTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -100,7 +101,7 @@ public class BaseTableView<T> extends BorderPane {
             T object = repository.save(dataClass.getDeclaredConstructor().newInstance());
             getTable().getItems().add(object);
         } catch (Exception e) {
-            e.printStackTrace();
+            new Error(e.getMessage());
         }
     }
 
@@ -117,7 +118,8 @@ public class BaseTableView<T> extends BorderPane {
                 getTable().getSelectionModel().clearSelection();
                 WorkbenchHolder.getInstance().getWorkbench().showDialog(detailDialog.getDialog());
             } catch (Exception illegalAccessException) {
-                illegalAccessException.printStackTrace();
+                new Error(illegalAccessException.getMessage());
+
             }
         });
     }

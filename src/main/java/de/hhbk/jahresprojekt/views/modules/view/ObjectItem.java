@@ -3,6 +3,7 @@ package de.hhbk.jahresprojekt.views.modules.view;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.views.components.Dialog;
 import de.hhbk.jahresprojekt.views.components.DialogContainer;
+import de.hhbk.jahresprojekt.views.components.Error;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
@@ -28,7 +29,7 @@ public class ObjectItem<T> extends Button {
                     });
                     WorkbenchHolder.getInstance().getWorkbench().showDialog(dialog.getDialog());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    new Error(e.getMessage());
                 }
             }else{
                 onObjectChangedListener.changed(null);
