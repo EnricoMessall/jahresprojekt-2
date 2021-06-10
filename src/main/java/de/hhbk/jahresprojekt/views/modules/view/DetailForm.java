@@ -159,14 +159,12 @@ public class DetailForm<T> extends VBox {
             try {
                 object.getClass().getMethod("add" + pd.getName(), tClass).invoke(object, value);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
             }
         });
         objectList.setOnRemove(value -> {
             try {
                 object.getClass().getMethod("remove" + pd.getName(), tClass).invoke(object, value);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
             }
         });
         getChildren().add(objectList);
