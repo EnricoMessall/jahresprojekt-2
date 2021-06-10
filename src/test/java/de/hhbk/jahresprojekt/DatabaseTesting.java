@@ -2,6 +2,7 @@ package de.hhbk.jahresprojekt;
 
 import de.hhbk.jahresprojekt.database.HibernateManager;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.DocumentRepository;
 import de.hhbk.jahresprojekt.database.repositories.UserRepository;
 import de.hhbk.jahresprojekt.model.*;
 import de.hhbk.jahresprojekt.model.builder.UserBuilder;
@@ -47,6 +48,7 @@ public class DatabaseTesting extends Assertions {
 
 
         RepositoryContainer.registerRepository(UserRepository.class);
+        RepositoryContainer.registerRepository(DocumentRepository.class);
 
 
     }
@@ -70,7 +72,7 @@ public class DatabaseTesting extends Assertions {
     }
 
     @Test
-    public void testSave() {
+    public void testSaveUser() {
         UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
         User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
@@ -88,7 +90,7 @@ public class DatabaseTesting extends Assertions {
     }
 
     @Test
-    public void testDelete() {
+    public void testDeleteUser() {
         UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
         User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
@@ -104,6 +106,24 @@ public class DatabaseTesting extends Assertions {
         Optional<User> result2 = userRepository.findById(1);
 
         assertTrue(result2.isEmpty());
+
+    }
+
+    @Test
+    public void testFindByUsername (){
+        UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
+        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+                .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
+                .withUsername("hmue").build();
+        userRepository.save(user);
+
+       User result = userRepository.findByUsername("hmue");
+
+        assertFalse(result.getUsername().isEmpty());
+
+
+
+
 
     }
 
