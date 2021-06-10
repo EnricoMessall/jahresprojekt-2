@@ -26,15 +26,24 @@ public class RentalObject {
     private String objectDescription;
     @TableField(label = "Typ")
     private RentalType rentalType;
-    @TableField(label = "Kommerziell")
     private boolean commercial;
     @OneToOne
     @TableField(label = "Adresse")
     private Address address;
-    @TableField(label = "Raum")
+    @TableField(label = "Quadratmeter")
     private int livingSpace;
-    @TableField(label = "Quadratmeter Preis")
+    @Transient
+    @TableField(label = "Preis (Warm)")
+    private int priceWarm;
+    @Transient
+    @TableField(label = "Preis (Kalt)")
+    private int price;
+    @Transient
+    @TableField(label = "Quadratmeterpreis (Warm)")
+    private int squareMeterPriceWarm;
+    @TableField(label = "Quadratmeter Preis (Kalt)")
     private int squareMeterPrice;
+    @TableField(label = "Nebenkosten")
     private int additionalCosts;
     private String notes;
     @OneToMany(cascade = CascadeType.MERGE)
@@ -63,7 +72,8 @@ public class RentalObject {
         RepositoryContainer.get(DocumentRepository.class).save(document);
     }
 
-    public RentalObject(){}
+    public RentalObject(){
+    }
 
     public RentalObject(Long id, String objectNumber, String objectDescription, RentalType rentalType, boolean commercial, Address address, int livingSpace, int squareMeterPrice, int additionalCosts, String notes, List<RentalObject> subObjects, Tenant tenant, List<Tenant> contacts, List<Invoice> invoices, List<Document> documents) {
         this.id = id;
@@ -197,6 +207,24 @@ public class RentalObject {
 
     public void setDocuments(List<Document> documents) {
         this.documents = documents;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getPriceWarm() {
+        return priceWarm;
+    }
+
+    public int getSquareMeterPriceWarm() {
+        return squareMeterPriceWarm;
+    }
+
+    public void updateCosts(){
+        price = (livingSpace * squareMeterPrice);
+        priceWarm = price + additionalCosts;
+        squareMeterPriceWarm = priceWarm / (livingSpace == 0 ? 1 : livingSpace);
     }
 
     @Override

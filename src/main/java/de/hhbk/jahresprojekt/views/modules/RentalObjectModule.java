@@ -24,6 +24,8 @@ public class RentalObjectModule extends WorkbenchModule {
                 (data, query) -> data.getAddress().getStreet().contains(query),
                 "Nummer", "Adresse", "Typ");
         baseTableView.getTable().setCellFactory("Adresse", a -> a.getAddress() != null?a.getAddress().toString():"");
+        baseTableView.getTable().getItems().forEach(RentalObject::updateCosts);
+        baseTableView.getTable().refresh();
     }
 
     @Override
@@ -34,6 +36,8 @@ public class RentalObjectModule extends WorkbenchModule {
     public Node activate() {
         WorkbenchHolder.getInstance().setWorkbench(getWorkbench());
         baseTableView.refreshData();
+        baseTableView.getTable().getItems().forEach(RentalObject::updateCosts);
+        baseTableView.getTable().refresh();
         return baseTableView;
     }
 }
