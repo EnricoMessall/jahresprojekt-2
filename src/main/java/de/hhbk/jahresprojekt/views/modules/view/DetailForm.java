@@ -43,7 +43,12 @@ public class DetailForm<T> extends VBox {
         descriptors.sort((a, b) -> sort(a.getPropertyType(), b.getPropertyType()));
         for (PropertyDescriptor pd : descriptors) {
             if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
-                Field field = object.getClass().getDeclaredField(pd.getName());
+                Field field;
+                try{
+                    field = object.getClass().getDeclaredField(pd.getName());
+                }catch (NoSuchFieldException nsfe){
+                    field = object.getClass().getSuperclass().getDeclaredField(pd.getName());
+                }
                 String value = field.isAnnotationPresent(TableField.class) ?
                         field.getAnnotation(TableField.class).label() :
                         pd.getDisplayName();
@@ -129,6 +134,7 @@ public class DetailForm<T> extends VBox {
 
     private int getValue(Class<?> tClass){
         if(tClass == List.class) return 99;
+        if(tClass == Date.class) return 4;
         if(tClass == Boolean.class || tClass == boolean.class) return 3;
         if(tClass == String.class) return 2;
         if(tClass == Integer.class || tClass == int.class) return 1;

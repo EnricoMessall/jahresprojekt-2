@@ -88,11 +88,11 @@ public class Tenant extends Person{
         this.getTenancyEnd = getTenancyEnd;
     }
 
-    public Address getOldAdress() {
+    public Address getOldAddress() {
         return oldAddress;
     }
 
-    public void setOldAdress(Address oldAddress) {
+    public void setOldAddress(Address oldAddress) {
         this.oldAddress = oldAddress;
     }
 
