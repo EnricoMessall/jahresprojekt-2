@@ -20,7 +20,13 @@ public class PaymentReceivedModule extends WorkbenchModule {
     public PaymentReceivedModule() {
         super("Zahlungseingänge", MaterialDesignIcon.PANDA);
         baseTableView = new BaseTableView<>(PaymentReceived.class,
-                (data, query) -> data.getTenant().getLastName().contains(query));
+                (data, query) -> {
+                    if(data.getTenant() != null){
+                        return data.getTenant().getLastName().contains(query) ||
+                                data.getTenant().getFirstName().contains(query);
+                    }
+                    return false;
+                });
     }
 
     @Override
