@@ -72,7 +72,7 @@ public class FileList extends ObjectList<File>{
                 } catch (IOException e) {
                     new Error(e.getMessage());
                 }
-                
+
             }).start();
 
         });
