@@ -1,5 +1,6 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
+import de.hhbk.jahresprojekt.LoginManager;
 import de.hhbk.jahresprojekt.views.ViewManager;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -58,12 +59,11 @@ public class LoginView extends BorderPane {
 
 
     private void login() {
-        // TODO if abfrage wieder einkommentieren; nur zu Testzwecken entfernt
-        //if(LoginManager.getInstance().login(username.getText(), password.getText())) {
+        if(LoginManager.getInstance().login(username.getText(), password.getText())) {
             ViewManager.getInstance().activateScene(ViewManager.getInstance().getSceneMainview());
-        //} else {
-        //    errorMessage.setVisible(true);
-        //}
+        } else {
+           errorMessage.setVisible(true);
+        }
     }
 }
 
