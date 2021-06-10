@@ -80,8 +80,8 @@ public class Invoice {
     @Override
     public String toString() {
         return "Rechnung für "
-                + recipient.getFirstName() + " " + recipient.getLastName()
-                + " vom " + date + " ("
+                + ((recipient == null)?" / ":(recipient.getFirstName() + " " + recipient.getLastName()))
+                + " vom " + (date == null ? " / " : date.toString()) + " ("
                 + (settled ? "Abgeschlossen" : "Offen" + ")");
     }
 }

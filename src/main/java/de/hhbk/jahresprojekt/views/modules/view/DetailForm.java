@@ -3,6 +3,7 @@ package de.hhbk.jahresprojekt.views.modules.view;
 import de.hhbk.jahresprojekt.model.File;
 import de.hhbk.jahresprojekt.model.Tenant;
 import de.hhbk.jahresprojekt.views.annotations.TableField;
+import de.hhbk.jahresprojekt.views.components.Error;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
@@ -70,7 +71,8 @@ public class DetailForm<T> extends VBox {
                             pd.getWriteMethod().invoke(object, checkBox.isSelected());
                             save();
                         } catch (IllegalAccessException | InvocationTargetException e) {
-                            e.printStackTrace();
+                            new Error(e.getMessage());
+
                         }
                     });
 
@@ -89,7 +91,8 @@ public class DetailForm<T> extends VBox {
                             pd.getWriteMethod().invoke(object, java.sql.Date.valueOf(datePicker.getValue()));
                             save();
                         } catch (IllegalAccessException | InvocationTargetException e) {
-                            e.printStackTrace();
+                            new Error(e.getMessage());
+
                         }
                     });
 
@@ -103,7 +106,7 @@ public class DetailForm<T> extends VBox {
                             pd.getWriteMethod().invoke(object, nValue);
                             save();
                         } catch (IllegalAccessException | InvocationTargetException e) {
-                            e.printStackTrace();
+                            new Error(e.getMessage());
                         }
                     });
                     getChildren().add(objectItem);

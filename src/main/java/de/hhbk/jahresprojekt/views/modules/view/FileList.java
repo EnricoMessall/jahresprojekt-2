@@ -2,6 +2,7 @@ package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.database.files.FileHandler;
 import de.hhbk.jahresprojekt.model.File;
+import de.hhbk.jahresprojekt.views.components.Error;
 import javafx.scene.control.Button;
 
 import java.awt.*;
@@ -29,7 +30,7 @@ public class FileList extends ObjectList<File>{
                 if(file != null) objectList.add(file);
                 setItems();
             } catch (IOException e) {
-                e.printStackTrace();
+                new Error(e.getMessage());
             }
             onChangeListener.changed(null);
         });
@@ -40,7 +41,7 @@ public class FileList extends ObjectList<File>{
             try {
                 Desktop.getDesktop().open(new java.io.File(items.getSelectionModel().getSelectedItem().getPath()));
             } catch (IOException e) {
-                e.printStackTrace();
+                new Error(e.getMessage());
             }
         }).start());
         actions.getChildren().add(show);
@@ -52,7 +53,7 @@ public class FileList extends ObjectList<File>{
                 try {
                     FileHandler.getInstance().delete(file.getPath());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    new Error(e.getMessage());
                 }
                 setItems();
             }
@@ -72,12 +73,12 @@ public class FileList extends ObjectList<File>{
                 try {
                     Desktop.getDesktop().mail(new URI(outlookCmd));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    new Error(e.getMessage());
                 } catch (URISyntaxException e) {
-                    e.printStackTrace();
+                    new Error(e.getMessage());
                 }
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                new Error(e.getMessage());
             }
         });
         actions.getChildren().add(send);

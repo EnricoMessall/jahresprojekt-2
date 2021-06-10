@@ -8,6 +8,7 @@ import de.hhbk.jahresprojekt.model.*;
 import de.hhbk.jahresprojekt.model.builder.RoleBuilder;
 import de.hhbk.jahresprojekt.views.ViewManager;
 import de.hhbk.jahresprojekt.views.components.*;
+import de.hhbk.jahresprojekt.views.components.Error;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -17,12 +18,16 @@ import javafx.stage.Stage;
 public class Bootstrap extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        registerRepositories();
-        registerDialogs();
+    public void start(Stage primaryStage) {
+        try {
+            registerRepositories();
+            registerDialogs();
 
-        ViewManager.getInstance().setPrimaryStage(primaryStage);
-        ViewManager.getInstance().activateScene(ViewManager.getInstance().getSceneLoginview());
+            ViewManager.getInstance().setPrimaryStage(primaryStage);
+            ViewManager.getInstance().activateScene(ViewManager.getInstance().getSceneLoginview());
+        } catch (Throwable e){
+            new Error(e.getMessage());
+        }
     }
 
     private void registerDialogs() throws Exception{
