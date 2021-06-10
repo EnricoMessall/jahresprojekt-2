@@ -41,22 +41,22 @@ public class Document {
 
     public void addrelatedRentalObjects(RentalObject rentalObject){
         rentalObject.getDocuments().add(this);
-        RepositoryContainer.get(RentalObjectRepository.class).save(rentalObject);
+        RepositoryContainer.get(RentalObject.class).save(rentalObject);
     }
 
     public void removerelatedRentalObjects(RentalObject rentalObject){
         rentalObject.getDocuments().remove(this);
-        RepositoryContainer.get(RentalObjectRepository.class).save(rentalObject);
+        RepositoryContainer.get(RentalObject.class).save(rentalObject);
     }
 
     public void addrelatedTenants(Tenant tenant){
         tenant.getDocuments().add(this);
-        RepositoryContainer.get(TenantRepository.class).save(tenant);
+        RepositoryContainer.get(Tenant.class).save(tenant);
     }
 
     public void removerelatedTenants(Tenant tenant){
         tenant.getDocuments().remove(this);
-        RepositoryContainer.get(TenantRepository.class).save(tenant);
+        RepositoryContainer.get(Tenant.class).save(tenant);
     }
 
     public Document() {

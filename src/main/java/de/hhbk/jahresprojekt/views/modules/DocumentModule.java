@@ -22,7 +22,6 @@ public class DocumentModule extends WorkbenchModule {
         super("Dokumente", MaterialDesignIcon.FILE_DOCUMENT);
 
         baseTableView = new BaseTableView<>(Document.class,
-                RepositoryContainer.get(DocumentRepository.class),
                 (data, query) -> data.getFileName().contains(query));
     }
 

@@ -4,13 +4,11 @@ import com.dlsc.workbenchfx.Workbench;
 import com.dlsc.workbenchfx.model.WorkbenchModule;
 import de.hhbk.jahresprojekt.database.*;
 import de.hhbk.jahresprojekt.database.repositories.*;
-import de.hhbk.jahresprojekt.model.Address;
-import de.hhbk.jahresprojekt.model.BankAccount;
-import de.hhbk.jahresprojekt.model.Item;
-import de.hhbk.jahresprojekt.model.RoleType;
+import de.hhbk.jahresprojekt.model.*;
 import de.hhbk.jahresprojekt.model.builder.RoleBuilder;
 import de.hhbk.jahresprojekt.views.ViewManager;
 import de.hhbk.jahresprojekt.views.components.*;
+import de.hhbk.jahresprojekt.views.components.Error;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,12 +18,16 @@ import javafx.stage.Stage;
 public class Bootstrap extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        registerRepositories();
-        registerDialogs();
+    public void start(Stage primaryStage) {
+        try {
+            registerRepositories();
+            registerDialogs();
 
-        ViewManager.getInstance().setPrimaryStage(primaryStage);
-        ViewManager.getInstance().activateScene(ViewManager.getInstance().getSceneLoginview());
+            ViewManager.getInstance().setPrimaryStage(primaryStage);
+            ViewManager.getInstance().activateScene(ViewManager.getInstance().getSceneLoginview());
+        } catch (Throwable e){
+            new Error(e.getMessage());
+        }
     }
 
     private void registerDialogs() throws Exception{
@@ -35,22 +37,17 @@ public class Bootstrap extends Application {
     }
 
     private void registerRepositories() throws Exception {
-        RepositoryContainer.registerRepository(UserRepository.class);
-        RepositoryContainer.registerRepository(TenantRepository.class);
-        RepositoryContainer.registerRepository(RentalObjectRepository.class);
-        RepositoryContainer.registerRepository(InvoiceRepository.class);
-        RepositoryContainer.registerRepository(AddressRepository.class);
-        RepositoryContainer.registerRepository(DocumentRepository.class);
-        RepositoryContainer.registerRepository(PaymentReceivedRepository.class);
-        RepositoryContainer.registerRepository(FileRepository.class);
-        RepositoryContainer.registerRepository(RoleRepository.class);
-        RepositoryContainer.registerRepository(ItemRepository.class);
-        RepositoryContainer.registerRepository(BankAccountRepository.class);
-
-        RoleRepository roleRepository = RepositoryContainer.get(RoleRepository.class);
-        roleRepository.findAll().forEach(roleRepository::delete);
-        roleRepository.save(RoleBuilder.aRole().withRoleType(RoleType.ADMIN).build());
-        roleRepository.save(RoleBuilder.aRole().withRoleType(RoleType.DEFAULT).build());
+        RepositoryContainer.registerRepository(User.class, UserRepository.class);
+        RepositoryContainer.registerRepository(Tenant.class, TenantRepository.class);
+        RepositoryContainer.registerRepository(RentalObject.class, RentalObjectRepository.class);
+        RepositoryContainer.registerRepository(Invoice.class, InvoiceRepository.class);
+        RepositoryContainer.registerRepository(Address.class, AddressRepository.class);
+        RepositoryContainer.registerRepository(Document.class, DocumentRepository.class);
+        RepositoryContainer.registerRepository(PaymentReceived.class, PaymentReceivedRepository.class);
+        RepositoryContainer.registerRepository(File.class, FileRepository.class);
+        RepositoryContainer.registerRepository(Role.class, RoleRepository.class);
+        RepositoryContainer.registerRepository(Item.class, ItemRepository.class);
+        RepositoryContainer.registerRepository(BankAccount.class, BankAccountRepository.class);
     }
 
 

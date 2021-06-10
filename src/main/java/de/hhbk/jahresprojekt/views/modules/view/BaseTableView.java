@@ -1,8 +1,11 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.database.Repository;
+import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;
+import de.hhbk.jahresprojekt.views.components.Error;
 import de.hhbk.jahresprojekt.views.components.FilterTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,8 +36,7 @@ public class BaseTableView<T> extends BorderPane {
     private final Class<T> dataClass;
     private final Repository<T> repository;
 
-    public BaseTableView(Class<T> dataClass, Repository<T> repository,
-                         BiPredicate<T, String> filterCondition, String... labelOrder){
+    public BaseTableView(Class<T> dataClass, BiPredicate<T, String> filterCondition, String... labelOrder){
         this.pane = new HBox();
         this.search = new TextField();
         this.clearButton = new Button("Clear");
@@ -43,7 +45,7 @@ public class BaseTableView<T> extends BorderPane {
                 .setColumnOrder(labelOrder)
                 .populateColumns();
         this.dataClass = dataClass;
-        this.repository = repository;
+        this.repository = RepositoryContainer.get(dataClass);
         search.setPrefWidth(500);
 
         clearButton.setOnAction(click -> search.setText(""));
@@ -69,7 +71,6 @@ public class BaseTableView<T> extends BorderPane {
         setTop(pane);
         setCenter(table);
         refreshData();
-        table.refresh();
         addMouseClick();
     }
 
@@ -99,8 +100,9 @@ public class BaseTableView<T> extends BorderPane {
         try {
             T object = repository.save(dataClass.getDeclaredConstructor().newInstance());
             getTable().getItems().add(object);
+            openDialog(object);
         } catch (Exception e) {
-            e.printStackTrace();
+            new Error(e.getMessage());
         }
     }
 
@@ -109,17 +111,22 @@ public class BaseTableView<T> extends BorderPane {
             try {
                 T model = getTable().getSelectionModel().getSelectedItem();
                 if(model == null) return;
-                DetailDialog<T> detailDialog = new DetailDialog<>(model);
-                detailDialog.setOnObjectChangedListener(nValue -> {
-                    repository.save(nValue);
-                    table.refresh();
-                });
-                getTable().getSelectionModel().clearSelection();
-                WorkbenchHolder.getInstance().getWorkbench().showDialog(detailDialog.getDialog());
+                openDialog(model);
             } catch (Exception illegalAccessException) {
-                illegalAccessException.printStackTrace();
+                new Error(illegalAccessException.getMessage());
+
             }
         });
+    }
+
+    private void openDialog(T object) throws Exception {
+        DetailDialog<T> detailDialog = new DetailDialog<>(object);
+        detailDialog.setOnObjectChangedListener(nValue -> {
+            repository.save(nValue);
+            table.refresh();
+        });
+        getTable().getSelectionModel().clearSelection();
+        WorkbenchHolder.getInstance().getWorkbench().showDialog(detailDialog.getDialog());
     }
 
     public FilterTable<T> getTable() {

@@ -20,7 +20,6 @@ public class PaymentReceivedModule extends WorkbenchModule {
     public PaymentReceivedModule() {
         super("Zahlungseingänge", MaterialDesignIcon.PANDA);
         baseTableView = new BaseTableView<>(PaymentReceived.class,
-                RepositoryContainer.get(PaymentReceivedRepository.class),
                 (data, query) -> data.getTenant().getLastName().contains(query));
     }
 

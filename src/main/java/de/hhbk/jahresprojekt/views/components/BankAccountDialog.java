@@ -51,7 +51,7 @@ public class BankAccountDialog extends Dialog<BankAccount>{
     @Override
     BankAccount getChangedObject() {
         BankAccount bankAccount = BankAccountBuilder.aBankAccount().withIban(iban.getText()).withBic(bic.getText()).withAccountOwner(accountOwner.getText()).withCreditInstitution(creditInstiture.getText()).build();
-        RepositoryContainer.get(BankAccountRepository.class).save(bankAccount);
+        RepositoryContainer.get(BankAccount.class).save(bankAccount);
         return bankAccount;
     }
 }

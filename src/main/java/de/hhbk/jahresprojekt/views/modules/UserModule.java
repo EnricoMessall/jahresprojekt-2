@@ -20,7 +20,6 @@ public class UserModule extends WorkbenchModule {
     public UserModule() {
         super("Userverwaltung", MaterialDesignIcon.HUMAN);
         baseTableView = new BaseTableView<>(User.class,
-                RepositoryContainer.get(UserRepository.class),
                 (data, query) -> data.getUsername().contains(query));
     }
 
