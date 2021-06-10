@@ -1,6 +1,8 @@
 package de.hhbk.jahresprojekt.views.modules.view;
 
 import de.hhbk.jahresprojekt.database.Repository;
+import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.PaymentReceivedRepository;
 import de.hhbk.jahresprojekt.help.WorkbenchHolder;
 import de.hhbk.jahresprojekt.views.components.DetailDialog;
 import de.hhbk.jahresprojekt.views.components.FilterTable;
@@ -33,8 +35,7 @@ public class BaseTableView<T> extends BorderPane {
     private final Class<T> dataClass;
     private final Repository<T> repository;
 
-    public BaseTableView(Class<T> dataClass, Repository<T> repository,
-                         BiPredicate<T, String> filterCondition, String... labelOrder){
+    public BaseTableView(Class<T> dataClass, BiPredicate<T, String> filterCondition, String... labelOrder){
         this.pane = new HBox();
         this.search = new TextField();
         this.clearButton = new Button("Clear");
@@ -43,7 +44,7 @@ public class BaseTableView<T> extends BorderPane {
                 .setColumnOrder(labelOrder)
                 .populateColumns();
         this.dataClass = dataClass;
-        this.repository = repository;
+        this.repository = RepositoryContainer.get(dataClass);
         search.setPrefWidth(500);
 
         clearButton.setOnAction(click -> search.setText(""));

@@ -41,7 +41,7 @@ public class FileHandler {
         Files.copy(original.toPath(), copy, StandardCopyOption.REPLACE_EXISTING);
 
         File file = FileBuilder.aFile().withDate(new Date()).withPath(copy.toString()).build();
-        RepositoryContainer.get(FileRepository.class).save(file);
+        RepositoryContainer.get(File.class).save(file);
         return file;
     }
 

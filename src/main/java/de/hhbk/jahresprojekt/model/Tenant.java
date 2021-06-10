@@ -42,20 +42,20 @@ public class Tenant extends Person{
 
     public void addrentalObjects(RentalObject rentalObject){
         rentalObject.setTenant(this);
-        RepositoryContainer.get(RentalObjectRepository.class).save(rentalObject);
+        RepositoryContainer.get(RentalObject.class).save(rentalObject);
     }
     public void adddocuments(Document document){
         document.getRelatedTenants().add(this);
-        RepositoryContainer.get(DocumentRepository.class).save(document);
+        RepositoryContainer.get(Document.class).save(document);
     }
 
     public void removerentalObjects(RentalObject rentalObject){
         rentalObject.setTenant(null);
-        RepositoryContainer.get(RentalObjectRepository.class).save(rentalObject);
+        RepositoryContainer.get(RentalObject.class).save(rentalObject);
     }
     public void removedocuments(Document document){
         document.getRelatedTenants().remove(this);
-        RepositoryContainer.get(DocumentRepository.class).save(document);
+        RepositoryContainer.get(Document.class).save(document);
     }
 
     public Tenant() {

@@ -20,7 +20,6 @@ public class InvoiceModule extends WorkbenchModule {
     public InvoiceModule() {
         super("Rechnungen", MaterialDesignIcon.BOOK);
         baseTableView = new BaseTableView<>(Invoice.class,
-                RepositoryContainer.get(InvoiceRepository.class),
                 (data, query) -> data.isSettled());
     }
 

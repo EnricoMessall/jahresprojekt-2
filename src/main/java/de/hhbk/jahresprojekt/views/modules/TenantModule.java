@@ -20,7 +20,6 @@ public class TenantModule extends WorkbenchModule {
     public TenantModule() {
         super("Mieterverwaltung", MaterialDesignIcon.HUMAN);
         baseTableView = new BaseTableView<>(Tenant.class,
-                RepositoryContainer.get(TenantRepository.class),
                 (data, query) -> data.getLastName().contains(query),
                 "Vorname", "Nachname", "Mobilnummer", "Festnetznummer");
     }

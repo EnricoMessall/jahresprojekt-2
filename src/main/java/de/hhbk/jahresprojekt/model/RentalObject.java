@@ -64,12 +64,12 @@ public class RentalObject {
 
     public void adddocuments(Document document){
         document.getRelatedRentalObjects().add(this);
-        RepositoryContainer.get(DocumentRepository.class).save(document);
+        RepositoryContainer.get(Document.class).save(document);
     }
 
     public void removedocuments(Document document){
         document.getRelatedRentalObjects().remove(this);
-        RepositoryContainer.get(DocumentRepository.class).save(document);
+        RepositoryContainer.get(Document.class).save(document);
     }
 
     public RentalObject(){
@@ -143,6 +143,7 @@ public class RentalObject {
 
     public void setLivingSpace(int livingSpace) {
         this.livingSpace = livingSpace;
+        updateCosts();
     }
 
     public int getSquareMeterPrice() {
@@ -151,6 +152,7 @@ public class RentalObject {
 
     public void setSquareMeterPrice(int squareMeterPrice) {
         this.squareMeterPrice = squareMeterPrice;
+        updateCosts();
     }
 
     public int getAdditionalCosts() {
@@ -159,6 +161,7 @@ public class RentalObject {
 
     public void setAdditionalCosts(int additionalCosts) {
         this.additionalCosts = additionalCosts;
+        updateCosts();
     }
 
     public String getNotes() {

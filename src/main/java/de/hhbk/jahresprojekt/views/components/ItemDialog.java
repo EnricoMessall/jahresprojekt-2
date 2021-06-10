@@ -45,7 +45,7 @@ public class ItemDialog extends Dialog<Item>{
     Item getChangedObject() {
         int value = StringUtils.isNotBlank(amount.getText()) ? Integer.parseInt(amount.getText()) : 0;
         Item item = ItemBuilder.anItem().withComment(comment.getText()).withValue(value).build();
-        RepositoryContainer.get(ItemRepository.class).save(item);
+        RepositoryContainer.get(Item.class).save(item);
         return item;
     }
 }

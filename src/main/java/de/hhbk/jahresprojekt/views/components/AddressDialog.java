@@ -52,7 +52,7 @@ public class AddressDialog extends Dialog<Address>{
     @Override
     Address getChangedObject() {
         Address address = AdressBuilder.anAdress().withStreet(street.getText()).withZipCode(zipcode.getText()).withCity(city.getText()).withCountry(country.getText()).build();
-        RepositoryContainer.get(AddressRepository.class).save(address);
+        RepositoryContainer.get(Address.class).save(address);
         return address;
     }
 }
