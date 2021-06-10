@@ -7,6 +7,7 @@ import de.hhbk.jahresprojekt.model.builder.ItemBuilder;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,12 +27,17 @@ public class ItemDialog extends Dialog<Item>{
         vBox = new VBox();
         comment = new TextField();
         amount = new TextField();
+        amount.setTextFormatter(enableNumberOnly());
 
         vBox.getChildren().add(new Label("Comment"));
         vBox.getChildren().add(comment);
         vBox.getChildren().add(new Label("Amount"));
         vBox.getChildren().add(amount);
         return vBox;
+    }
+
+    protected TextFormatter<String> enableNumberOnly(){
+        return new TextFormatter<>(change -> change.getText().matches("[0-9]*") ? change : null);
     }
 
     @Override

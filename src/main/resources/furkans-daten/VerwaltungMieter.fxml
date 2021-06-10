@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerUserManagement">
+   <children>
+      <TextField fx:id="Salutation" layoutX="393.0" layoutY="68.0" />
+      <TextField fx:id="Firstname" layoutX="393.0" layoutY="101.0" />
+      <TextField fx:id="Lastname" layoutX="393.0" layoutY="136.0" />
+      <TextField fx:id="Oldstreet" layoutX="393.0" layoutY="175.0" />
+      <TextField fx:id="oldpostcode" layoutX="393.0" layoutY="206.0" />
+      <TextField fx:id="oldcity" layoutX="393.0" layoutY="237.0" />
+      <TextField fx:id="telephonenumber" layoutX="393.0" layoutY="273.0" />
+      <TextField fx:id="mobilenumber" layoutX="393.0" layoutY="305.0" />
+      <TextField fx:id="email" layoutX="393.0" layoutY="338.0" />
+      <Label layoutX="102.0" layoutY="72.0" text="Salutation" />
+      <Label layoutX="101.0" layoutY="105.0" text="First name" />
+      <Label layoutX="103.0" layoutY="179.0" text="Old street" />
+      <Label layoutX="105.0" layoutY="210.0" text="Old postcode" />
+      <Label layoutX="106.0" layoutY="241.0" text="Old city" />
+      <Label layoutX="102.0" layoutY="140.0" text="Last name" />
+      <Label layoutX="106.0" layoutY="277.0" text="Telephonenumber" />
+      <Label layoutX="108.0" layoutY="309.0" text="Mobilenumber" />
+      <Label layoutX="112.0" layoutY="342.0" text="Email" />
+      <Label layoutX="277.0" layoutY="380.0" text="IBAN" />
+      <Label layoutX="129.0" layoutY="421.0" />
+      <Button fx:id="dashboard" layoutX="231.0" layoutY="461.0" mnemonicParsing="false" onAction="#loadDashboard" text="Dashboard" />
+      <Button fx:id="save" layoutX="317.0" layoutY="461.0" mnemonicParsing="false" onAction="#save" text="Save" />
+      <Label layoutX="107.0" layoutY="379.0" text="Account details" />
+      <TextField fx:id="iban" layoutX="309.0" layoutY="375.0" prefHeight="26.0" prefWidth="55.0" />
+      <TextField fx:id="bic" layoutX="392.0" layoutY="374.0" prefHeight="26.0" prefWidth="55.0" />
+      <TextField fx:id="bank" layoutX="486.0" layoutY="375.0" prefHeight="26.0" prefWidth="55.0" />
+      <Label layoutX="368.0" layoutY="379.0" text="BIC" />
+      <Label layoutX="454.0" layoutY="379.0" text="Bank" />
+   </children>
+</AnchorPane>

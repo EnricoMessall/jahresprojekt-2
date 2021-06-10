@@ -7,6 +7,7 @@ import de.hhbk.jahresprojekt.model.builder.AdressBuilder;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,6 +27,7 @@ public class AddressDialog extends Dialog<Address>{
 
         street = new TextField();
         zipcode = new TextField();
+        zipcode.setTextFormatter(enableNumberOnly());
         city = new TextField();
         country = new TextField();
 
@@ -38,6 +40,10 @@ public class AddressDialog extends Dialog<Address>{
         vBox.getChildren().add(new Label("Land"));
         vBox.getChildren().add(country);
         return vBox;
+    }
+
+    protected TextFormatter<String> enableNumberOnly(){
+        return new TextFormatter<>(change -> change.getText().matches("[0-9]*") ? change : null);
     }
 
     @Override

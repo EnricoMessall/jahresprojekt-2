@@ -6,10 +6,7 @@ import de.hhbk.jahresprojekt.views.annotations.TableField;
 import de.hhbk.jahresprojekt.views.components.Error;
 import de.hhbk.jahresprojekt.views.modules.autofetch.Listeners.OnObjectChangedListener;
 import javafx.geometry.Insets;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.beans.Introspector;
@@ -59,7 +56,7 @@ public class DetailForm<T> extends VBox {
                 getChildren().add(name);
 
                 if(pd.getPropertyType() == int.class || pd.getPropertyType() == Integer.class)
-                    addTextField(pd, Integer::parseInt);
+                    addTextField(pd, Integer::parseInt, true);
                 else if(pd.getPropertyType().getSuperclass() == Enum.class){
                     EnumItem objectItem = new EnumItem((Enum) pd.getReadMethod().invoke(object), pd.getPropertyType());
                     objectItem.setOnObjectChangedListener(nValue -> {
@@ -73,7 +70,7 @@ public class DetailForm<T> extends VBox {
                     getChildren().add(objectItem);
                 }
                 else if(pd.getPropertyType() == long.class || pd.getPropertyType() == Long.class)
-                    addTextField(pd, Long::parseLong);
+                    addTextField(pd, Long::parseLong, true);
                 else if(pd.getPropertyType() == boolean.class || pd.getPropertyType() == Boolean.class){
                     CheckBox checkBox = new CheckBox();
                     checkBox.setSelected((boolean) pd.getReadMethod().invoke(object));
@@ -89,7 +86,7 @@ public class DetailForm<T> extends VBox {
                     });
 
                     getChildren().add(checkBox);
-                }else if(pd.getPropertyType() == String.class) addTextField(pd, s -> s);
+                }else if(pd.getPropertyType() == String.class) addTextField(pd, s -> s, false);
                 else if(pd.getPropertyType() == Date.class){
                     DatePicker datePicker = new DatePicker();
                     if(pd.getReadMethod().invoke(object) != null){
@@ -129,9 +126,10 @@ public class DetailForm<T> extends VBox {
 
     }
 
-    private <C> void addTextField(PropertyDescriptor pd, Function<String, C> function)
+    private <C> void addTextField(PropertyDescriptor pd, Function<String, C> function, boolean numberOnly)
             throws InvocationTargetException, IllegalAccessException {
         TextField textField = new TextField();
+        if(numberOnly) textField.setTextFormatter(enableNumberOnly());
         textField.setText(pd.getReadMethod().invoke(object)== null ? "": pd.getReadMethod().invoke(object).toString());
         if(pd.getWriteMethod() == null) textField.setDisable(true);
         textField.setOnKeyTyped(keyEvent -> {
@@ -141,6 +139,10 @@ public class DetailForm<T> extends VBox {
             } catch (Exception ignore) {}
         });
         getChildren().add(textField);
+    }
+
+    protected TextFormatter<String> enableNumberOnly(){
+        return new TextFormatter<>(change -> change.getText().matches("[0-9]*") ? change : null);
     }
 
     private int sort(Class<?> a, Class<?> b){

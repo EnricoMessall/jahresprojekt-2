@@ -4,6 +4,7 @@ import de.hhbk.jahresprojekt.database.HibernateManager;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.*;
 import de.hhbk.jahresprojekt.model.*;
+import de.hhbk.jahresprojekt.model.builder.RoleBuilder;
 import de.hhbk.jahresprojekt.views.ViewManager;
 import de.hhbk.jahresprojekt.views.components.Error;
 import de.hhbk.jahresprojekt.views.components.*;
