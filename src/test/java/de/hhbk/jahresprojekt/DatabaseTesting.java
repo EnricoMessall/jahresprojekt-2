@@ -70,7 +70,7 @@ public class DatabaseTesting extends Assertions {
     }
 
     @Test
-    public void testSave() {
+    public void testSaveUser() {
         UserRepository userRepository = RepositoryContainer.get(User.class);
         User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
@@ -88,7 +88,7 @@ public class DatabaseTesting extends Assertions {
     }
 
     @Test
-    public void testDelete() {
+    public void testDeleteUser() {
         UserRepository userRepository = RepositoryContainer.get(User.class);
         User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
@@ -104,6 +104,24 @@ public class DatabaseTesting extends Assertions {
         Optional<User> result2 = userRepository.findById(1);
 
         assertTrue(result2.isEmpty());
+
+    }
+
+    @Test
+    public void testFindByUsername (){
+        UserRepository userRepository = RepositoryContainer.get(User.class);
+        User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
+                .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
+                .withUsername("hmue").build();
+        userRepository.save(user);
+
+       User result = userRepository.findByUsername("hmue");
+
+        assertFalse(result.getUsername().isEmpty());
+
+
+
+
 
     }
 
