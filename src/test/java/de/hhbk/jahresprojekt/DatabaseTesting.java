@@ -9,9 +9,7 @@ import de.hhbk.jahresprojekt.model.builder.BankAccountBuilder;
 import de.hhbk.jahresprojekt.model.builder.UserBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.*;
 
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.Test;
@@ -48,7 +46,6 @@ public class DatabaseTesting extends Assertions {
         HibernateManager.setSessionFactory(configuration.buildSessionFactory(serviceRegistry));
 
 
-        RepositoryContainer.registerRepository(BankAccount.class, BankAccountRepository.class);
         RepositoryContainer.registerRepository(User.class, UserRepository.class);
 
 
