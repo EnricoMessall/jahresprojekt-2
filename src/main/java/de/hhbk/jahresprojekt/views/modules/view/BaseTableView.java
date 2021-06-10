@@ -31,6 +31,7 @@ public class BaseTableView<T> extends BorderPane {
     private final TextField search;
     private final Button clearButton;
     private final Button addButton;
+    private final Button deleteButton;
     private final FilterTable<T> table;
     private List<T> data = new ArrayList<>();
     private final Class<T> dataClass;
@@ -41,6 +42,7 @@ public class BaseTableView<T> extends BorderPane {
         this.search = new TextField();
         this.clearButton = new Button("Clear");
         this.addButton = new Button("New");
+        this.deleteButton = new Button("Delete");
         this.table = new FilterTable<>(dataClass, filterCondition)
                 .setColumnOrder(labelOrder)
                 .populateColumns();
@@ -52,9 +54,11 @@ public class BaseTableView<T> extends BorderPane {
         search.setOnAction(this::filterTable);
 
         addButton.setOnAction(click -> createNew());
+        deleteButton.setOnAction(click -> deleteSelectedObject());
 
         pane.getChildren().add(search);
         pane.getChildren().add(clearButton);
+        pane.getChildren().add(deleteButton);
         pane.getChildren().add(addButton);
 
         pane.setPadding(new Insets(5, 2, 5, 2));
@@ -65,6 +69,7 @@ public class BaseTableView<T> extends BorderPane {
         search.setPadding(new Insets(10));
         clearButton.setPadding(new Insets(10));
         addButton.setPadding(new Insets(10));
+        deleteButton.setPadding(new Insets(10));
 
 
 
@@ -81,6 +86,18 @@ public class BaseTableView<T> extends BorderPane {
     public void setData(List<T> data){
         this.data = data;
         filterTable(null);
+    }
+
+    private void deleteSelectedObject(){
+
+        try {
+            T model = getTable().getSelectionModel().getSelectedItem();
+            repository.delete(model);
+            getTable().getItems().remove(model);
+        } catch (Exception illegalAccessException) {
+            new Error(illegalAccessException.getMessage());
+
+        }
     }
 
     private void filterTable(ActionEvent event){
@@ -111,7 +128,7 @@ public class BaseTableView<T> extends BorderPane {
             try {
                 T model = getTable().getSelectionModel().getSelectedItem();
                 if(model == null) return;
-                openDialog(model);
+                //openDialog(model);
             } catch (Exception illegalAccessException) {
                 new Error(illegalAccessException.getMessage());
 
