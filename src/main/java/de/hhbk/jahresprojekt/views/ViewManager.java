@@ -42,7 +42,7 @@ public class ViewManager {
     }
 
     public void setPrimaryStage(Stage primaryStage) {
-        // TODO Unseriöser Code: verbessert die Performance beim Anmelden da der Erste Aufruf eines Module Konstruktors lange dauert evtl erster zugriff auf DB?
+        // Verbessert die Performance beim Login da der Erste Kontruktoraufruf eines Modules relativ lange dauert
         RentalObjectModule rentalObjectModule = new RentalObjectModule();
 
         primaryStage.setTitle("Immobilien Verwaltung");
@@ -63,8 +63,7 @@ public class ViewManager {
     }
 
     public Scene getSceneMainview() {
-        // TODO Logik einkommentieren dass tatsächlich geprüft wird ob der aktuelle Benutzer Admin ist
-        boolean isAdmin = true; //LoginManager.getInstance().currentUserIsAdmin();
+        boolean isAdmin = LoginManager.getInstance().currentUserIsAdmin();
 
         RentalObjectModule rentalObjectModule = new RentalObjectModule();
         TenantModule tenantModule = new TenantModule();
