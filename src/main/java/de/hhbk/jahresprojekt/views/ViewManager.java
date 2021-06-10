@@ -42,9 +42,6 @@ public class ViewManager {
     }
 
     public void setPrimaryStage(Stage primaryStage) {
-        // Verbessert die Performance beim Login da der Erste Kontruktoraufruf eines Modules relativ lange dauert
-        RentalObjectModule rentalObjectModule = new RentalObjectModule();
-
         primaryStage.setTitle("Immobilien Verwaltung");
         primaryStage.setWidth(1200);
         primaryStage.setHeight(650);

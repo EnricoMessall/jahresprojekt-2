@@ -20,7 +20,11 @@ public class RentalObjectModule extends WorkbenchModule {
     public RentalObjectModule() {
         super("Objektverwaltung", MaterialDesignIcon.HOME);
         baseTableView = new BaseTableView<>(RentalObject.class,
-                (data, query) -> data.getAddress().getStreet().contains(query),
+                (data, query) -> {
+                    if(data.getAddress() != null)
+                        return data.getAddress().getStreet().contains(query);
+                    return false;
+                },
                 "Nummer", "Adresse", "Typ");
         baseTableView.getTable().setCellFactory("Adresse", a -> a.getAddress() != null?a.getAddress().toString():"");
         baseTableView.getTable().getItems().forEach(RentalObject::updateCosts);

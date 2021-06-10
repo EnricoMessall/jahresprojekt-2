@@ -1,14 +1,12 @@
 package de.hhbk.jahresprojekt;
 
-import com.dlsc.workbenchfx.Workbench;
-import com.dlsc.workbenchfx.model.WorkbenchModule;
-import de.hhbk.jahresprojekt.database.*;
+import de.hhbk.jahresprojekt.database.HibernateManager;
+import de.hhbk.jahresprojekt.database.RepositoryContainer;
 import de.hhbk.jahresprojekt.database.repositories.*;
 import de.hhbk.jahresprojekt.model.*;
-import de.hhbk.jahresprojekt.model.builder.RoleBuilder;
 import de.hhbk.jahresprojekt.views.ViewManager;
-import de.hhbk.jahresprojekt.views.components.*;
 import de.hhbk.jahresprojekt.views.components.Error;
+import de.hhbk.jahresprojekt.views.components.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,6 +17,7 @@ public class Bootstrap extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        HibernateManager.getSessionFactory();
         try {
             registerRepositories();
             registerDialogs();

@@ -50,7 +50,10 @@ public class BaseTableView<T> extends BorderPane {
         this.repository = RepositoryContainer.get(dataClass);
         search.setPrefWidth(500);
 
-        clearButton.setOnAction(click -> search.setText(""));
+        clearButton.setOnAction(click -> {
+            search.setText("");
+            filterTable(null);
+        });
         search.setOnAction(this::filterTable);
 
         addButton.setOnAction(click -> createNew());
