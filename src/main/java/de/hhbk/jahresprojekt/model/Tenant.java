@@ -9,6 +9,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,9 +21,9 @@ import java.util.List;
 @Entity
 public class Tenant extends Person{
     @TableField
-    private Date tenancyStart;
+    private Timestamp tenancyStart;
     @TableField
-    private Date getTenancyEnd;
+    private Timestamp getTenancyEnd;
     @ManyToOne
     @LazyCollection(LazyCollectionOption.FALSE)
     private Address oldAddress;
@@ -63,8 +64,8 @@ public class Tenant extends Person{
 
     public Tenant(Long id, String title, String firstName, String lastName, String phoneNumberMobile, String phoneNumberLandline, String email, Address address, Date tenancyStart, Date getTenancyEnd, Address oldAddress, BankAccount bankAccount, List<RentalObject> rentalObjects, List<Document> documents, boolean contactOnly) {
         super(id, title, firstName, lastName, phoneNumberMobile, phoneNumberLandline, email, address);
-        this.tenancyStart = tenancyStart;
-        this.getTenancyEnd = getTenancyEnd;
+        this.tenancyStart = new Timestamp(tenancyStart.getTime());
+        this.getTenancyEnd = new Timestamp(getTenancyEnd.getTime());
         this.oldAddress = oldAddress;
         this.bankAccount = bankAccount;
         this.rentalObjects = rentalObjects;
@@ -77,7 +78,7 @@ public class Tenant extends Person{
     }
 
     public void setTenancyStart(Date tenancyStart) {
-        this.tenancyStart = tenancyStart;
+        this.tenancyStart = new Timestamp(tenancyStart.getTime());
     }
 
     public Date getGetTenancyEnd() {
@@ -85,7 +86,7 @@ public class Tenant extends Person{
     }
 
     public void setGetTenancyEnd(Date getTenancyEnd) {
-        this.getTenancyEnd = getTenancyEnd;
+        this.getTenancyEnd = new Timestamp(getTenancyEnd.getTime());
     }
 
     public Address getOldAddress() {
