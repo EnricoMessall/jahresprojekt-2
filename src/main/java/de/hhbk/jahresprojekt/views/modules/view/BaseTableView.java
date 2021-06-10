@@ -69,7 +69,6 @@ public class BaseTableView<T> extends BorderPane {
         setTop(pane);
         setCenter(table);
         refreshData();
-        table.refresh();
         addMouseClick();
     }
 
