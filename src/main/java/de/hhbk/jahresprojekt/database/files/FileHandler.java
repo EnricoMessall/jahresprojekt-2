@@ -59,4 +59,12 @@ public class FileHandler {
     public void delete(String path) throws IOException {
         Files.delete(Path.of(path));
     }
+
+    public void send(String path){
+        try {
+            Process process = Runtime.getRuntime().exec(fileHandlerConfig.getOutlookPath() + " /c ipm.note /a " + path);
+        } catch (Exception e) {
+            new Error(e.getMessage());
+        }
+    }
 }

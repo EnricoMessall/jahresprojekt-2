@@ -65,21 +65,16 @@ public class FileList extends ObjectList<File>{
             File file = items.getSelectionModel().getSelectedItem();
             if(file == null) return;
             String path = file.getPath();
-            try {
-                String pathCoded = URLEncoder.encode(path, "UTF-8").replace("+", "%20");
+            new Thread(() -> {
 
-
-                String outlookCmd = "mailto:beispiel@beispiel.com&Attach=" + path.replaceAll("\\\\", "/");
                 try {
-                    Desktop.getDesktop().mail(new URI(outlookCmd));
+                    FileHandler.getInstance().send(path);
                 } catch (IOException e) {
                     new Error(e.getMessage());
-                } catch (URISyntaxException e) {
-                    new Error(e.getMessage());
                 }
-            } catch (UnsupportedEncodingException e) {
-                new Error(e.getMessage());
-            }
+
+            }).start();
+
         });
         actions.getChildren().add(send);
     }

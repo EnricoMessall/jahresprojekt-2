@@ -26,6 +26,7 @@ public class Bootstrap extends Application {
             ViewManager.getInstance().setPrimaryStage(primaryStage);
             ViewManager.getInstance().activateScene(ViewManager.getInstance().getSceneLoginview());
         } catch (Throwable e){
+            e.printStackTrace();
             new Error(e.getMessage());
         }
     }
@@ -33,6 +34,8 @@ public class Bootstrap extends Application {
     private void registerDialogs() throws Exception{
         DialogContainer.registerDialog(Item.class, ItemDialog.class);
         DialogContainer.registerDialog(Address.class, AddressDialog.class);
+        DialogContainer.registerDialog(RentalType.class, RentalTypeDialog.class);
+        DialogContainer.registerDialog(RoleType.class, RoleTypeDialog.class);
         DialogContainer.registerDialog(BankAccount.class, BankAccountDialog.class);
     }
 
