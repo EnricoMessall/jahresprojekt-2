@@ -65,6 +65,8 @@ public class FileList extends ObjectList<File>{
             File file = items.getSelectionModel().getSelectedItem();
             if(file == null) return;
             String path = file.getPath();
+            new Thread(() -> {
+
             try {
                 String pathCoded = URLEncoder.encode(path, "UTF-8").replace("+", "%20");
 
@@ -80,6 +82,8 @@ public class FileList extends ObjectList<File>{
             } catch (UnsupportedEncodingException e) {
                 new Error(e.getMessage());
             }
+            }).start();
+
         });
         actions.getChildren().add(send);
     }
