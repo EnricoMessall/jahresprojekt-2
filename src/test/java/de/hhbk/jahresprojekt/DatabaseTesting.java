@@ -46,14 +46,14 @@ public class DatabaseTesting extends Assertions {
         HibernateManager.setSessionFactory(configuration.buildSessionFactory(serviceRegistry));
 
 
-        RepositoryContainer.registerRepository(UserRepository.class);
+        RepositoryContainer.registerRepository(User.class, UserRepository.class);
 
 
     }
 
     @Test
     public void testGetById() {
-        UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
+        UserRepository userRepository = RepositoryContainer.get(User.class);
         User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
@@ -71,7 +71,7 @@ public class DatabaseTesting extends Assertions {
 
     @Test
     public void testSave() {
-        UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
+        UserRepository userRepository = RepositoryContainer.get(User.class);
         User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
@@ -89,7 +89,7 @@ public class DatabaseTesting extends Assertions {
 
     @Test
     public void testDelete() {
-        UserRepository userRepository = RepositoryContainer.get(UserRepository.class);
+        UserRepository userRepository = RepositoryContainer.get(User.class);
         User user = UserBuilder.anUser().withId(1L).withAdress(null).withEmail("mueller@gmail.com")
                 .withFirstName("Hans").withLastName("Müller").withPassword("pw").withPhoneNumberLandline("+49")
                 .withUsername("hmue").build();
