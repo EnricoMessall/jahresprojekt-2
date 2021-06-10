@@ -1,10 +1,13 @@
 package de.hhbk.jahresprojekt;
 
+import com.google.common.base.Optional;
 import de.hhbk.jahresprojekt.database.HibernateManager;
 import de.hhbk.jahresprojekt.database.RepositoryContainer;
+import de.hhbk.jahresprojekt.database.repositories.AddressRepository;
 import de.hhbk.jahresprojekt.database.repositories.BankAccountRepository;
 import de.hhbk.jahresprojekt.database.repositories.UserRepository;
 import de.hhbk.jahresprojekt.model.*;
+import de.hhbk.jahresprojekt.model.builder.AdressBuilder;
 import de.hhbk.jahresprojekt.model.builder.BankAccountBuilder;
 import de.hhbk.jahresprojekt.model.builder.UserBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -47,6 +50,7 @@ public class DatabaseTesting extends Assertions {
 
         RepositoryContainer.registerRepository(BankAccount.class, BankAccountRepository.class);
         RepositoryContainer.registerRepository(User.class, UserRepository.class);
+        RepositoryContainer.registerRepository(Address.class, AddressRepository.class );
 
 
     }
@@ -155,6 +159,56 @@ public class DatabaseTesting extends Assertions {
         repository.delete(user);
 
         Optional<User> result2 = repository.findById(user.getId());
+
+        assertTrue(result2.isEmpty());
+
+    }
+
+    @Test
+    public void testGetAddressById (){
+        AddressRepository repository = RepositoryContainer.get(Address.class);
+        Address address = AdressBuilder.anAdress().withStreet("Hans-Mueller-Strasse 4").withZipCode("42555")
+                .withCity("Velbert").withCountry("Germany").build();
+        repository.save(address);
+
+        Optional<Address> result = repository.findById(address.getId());
+
+        assertFalse(result.isEmpty());
+        assertEquals(result.get().getId(), address.getId());
+
+    }
+
+    @Test
+    public void testSaveAddress() {
+        AddressRepository repository = RepositoryContainer.get(Address.class);
+        Address address = AdressBuilder.anAdress().withStreet("Hans-Mueller-Strasse 4").withZipCode("42555")
+                .withCity("Velbert").withCountry("Germany").build();
+        repository.save(address);
+
+        address.setZipCode("42553");
+        address = repository.save(address);
+
+        Optional<Address> result = repository.findById(address.getId());
+
+        assertFalse(result.isEmpty());
+        assertEquals(result.get().getZipCode(), "42553");
+
+    }
+
+    @Test
+    public void testDeleteAddress() {
+        AddressRepository repository = RepositoryContainer.get(Address.class);
+        Address address = AdressBuilder.anAdress().withStreet("Hans-Mueller-Strasse 4").withZipCode("42555")
+                .withCity("Velbert").withCountry("Germany").build();
+        address = repository.save(address);
+
+        Optional<Address> result = repository.findById(address.getId());
+
+        assertFalse(result.isEmpty());
+
+        repository.delete(address);
+
+        Optional<Address> result2 = repository.findById(address.getId());
 
         assertTrue(result2.isEmpty());
 
