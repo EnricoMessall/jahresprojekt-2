@@ -26,7 +26,6 @@ public class Bootstrap extends Application {
             ViewManager.getInstance().setPrimaryStage(primaryStage);
             ViewManager.getInstance().activateScene(ViewManager.getInstance().getSceneLoginview());
         } catch (Throwable e){
-            e.printStackTrace();
             new Error(e.getMessage());
         }
     }

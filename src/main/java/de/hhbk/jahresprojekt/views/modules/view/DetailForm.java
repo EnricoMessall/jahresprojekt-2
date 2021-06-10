@@ -112,7 +112,6 @@ public class DetailForm<T> extends VBox {
                 }else if (pd.getPropertyType() == List.class) {
                     addListField(pd);
                 }else{
-                    System.out.println("Object");
                     ObjectItem objectItem = new ObjectItem(pd.getReadMethod().invoke(object), pd.getPropertyType());
                     objectItem.setOnObjectChangedListener(nValue -> {
                         try {

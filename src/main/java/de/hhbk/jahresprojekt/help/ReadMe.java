@@ -38,7 +38,7 @@ public class ReadMe {
             UserRepository userRepository = RepositoryContainer.get(User.class);
 
             //User oder Userlist holen
-            Optional<User> user = userRepository.findById(0);
+            Optional<User> user = userRepository.findById(0L);
             List<User> userList = userRepository.findAll();
 
             //User updaten oder erstellen
