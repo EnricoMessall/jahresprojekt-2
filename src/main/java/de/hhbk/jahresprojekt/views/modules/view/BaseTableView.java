@@ -71,8 +71,6 @@ public class BaseTableView<T> extends BorderPane {
         addButton.setPadding(new Insets(10));
         deleteButton.setPadding(new Insets(10));
 
-
-
         setTop(pane);
         setCenter(table);
         refreshData();
@@ -126,9 +124,10 @@ public class BaseTableView<T> extends BorderPane {
     private void addMouseClick(){
         getTable().setOnMouseClicked(e -> {
             try {
+                if(e.getClickCount() != 2) return;
                 T model = getTable().getSelectionModel().getSelectedItem();
                 if(model == null) return;
-                //openDialog(model);
+                openDialog(model);
             } catch (Exception illegalAccessException) {
                 new Error(illegalAccessException.getMessage());
 

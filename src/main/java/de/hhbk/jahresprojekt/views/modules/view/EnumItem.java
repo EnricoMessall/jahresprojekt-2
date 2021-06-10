@@ -21,7 +21,6 @@ public class EnumItem<T extends Enum<T>> extends Button {
             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 try {
                     Dialog<T> dialog = DialogContainer.get(tClass);
-                    System.out.println(tClass);
                     dialog.setOnObjectChangedListener(nValue -> {
                         setText(nValue==null? "Nichts ausgewählt" : nValue.toString());
                         onObjectChangedListener.changed(nValue);

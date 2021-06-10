@@ -64,6 +64,7 @@ public class FileHandler {
         try {
             Process process = Runtime.getRuntime().exec(fileHandlerConfig.getOutlookPath() + " /c ipm.note /a " + path);
         } catch (Exception e) {
+            e.printStackTrace();
             new Error(e.getMessage());
         }
     }
