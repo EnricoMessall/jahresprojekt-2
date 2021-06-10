@@ -60,6 +60,18 @@ public class DetailForm<T> extends VBox {
 
                 if(pd.getPropertyType() == int.class || pd.getPropertyType() == Integer.class)
                     addTextField(pd, Integer::parseInt);
+                else if(pd.getPropertyType().getSuperclass() == Enum.class){
+                    EnumItem objectItem = new EnumItem((Enum) pd.getReadMethod().invoke(object), pd.getPropertyType());
+                    objectItem.setOnObjectChangedListener(nValue -> {
+                        try {
+                            pd.getWriteMethod().invoke(object, nValue);
+                            save();
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            new Error(e.getMessage());
+                        }
+                    });
+                    getChildren().add(objectItem);
+                }
                 else if(pd.getPropertyType() == long.class || pd.getPropertyType() == Long.class)
                     addTextField(pd, Long::parseLong);
                 else if(pd.getPropertyType() == boolean.class || pd.getPropertyType() == Boolean.class){
@@ -100,6 +112,7 @@ public class DetailForm<T> extends VBox {
                 }else if (pd.getPropertyType() == List.class) {
                     addListField(pd);
                 }else{
+                    System.out.println("Object");
                     ObjectItem objectItem = new ObjectItem(pd.getReadMethod().invoke(object), pd.getPropertyType());
                     objectItem.setOnObjectChangedListener(nValue -> {
                         try {
